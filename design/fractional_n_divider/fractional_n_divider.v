@@ -38,7 +38,7 @@ module fractional_n_divider
 
         // a manual interface for data
         input [DATA_WIDTH-1:0]      data_in,
-        input [1:0]                 dither_select
+        input [1:0]                 dither_select,
 
         // test outputs
         output                      dither_output
@@ -52,6 +52,9 @@ module fractional_n_divider
     reg [WIDTH_INTEGER-1:0]         count;
     reg                             output_state;
     wire                            dither;
+    wire                            dither_en_lfsr;
+    wire                            dither_in_lfsr;
+    wire                            dither_en_trng;
 
 
     // select the source of the divider value
@@ -59,8 +62,8 @@ module fractional_n_divider
         // $display("Wishbone Interface Not Implemented Yet");
     end
     else begin
-        integer_value = data_in[DATA_WIDTH-1:WIDTH_MODULUS];
-        fractional_value = data_in[WIDTH_MODULUS-1:0] + dither;
+        assign integer_value = data_in[DATA_WIDTH-1:WIDTH_MODULUS];
+        assign fractional_value = data_in[WIDTH_MODULUS-1:0] + dither;
     end
 
     // instantiate the MASH modulator
@@ -114,38 +117,45 @@ module fractional_n_divider
     );
 
     // select the dither source
-    always @ (dither_select, dither_out_trng, dither_out_lfsr) begin
+    always @ (dither, dither_select, dither_out_trng, dither_out_lfsr) begin
         case(dither_select)
-            2'b00  : 
-                dither = 0;
-                dither_en_lfsr = 0;
-                dither_in_lfsr = 0;
-                dither_en_trng = 0;
+            2'b00  :begin
+                dither <= 0;
+                dither_en_lfsr <= 0;
+                dither_in_lfsr <= 0;
+                dither_en_trng <= 0;
+            end
 
-            2'b01  :
-                dither = dither_out_trng;
-                dither_en_lfsr = 0;
-                dither_in_lfsr = 0;
-                dither_en_trng = 1;
+            2'b01  : begin
+                dither <= dither_out_trng;
+                dither_en_lfsr <= 0;
+                dither_in_lfsr <= 0;
+                dither_en_trng <= 1;
+            end
 
-            2'b10  :
-                dither = dither_out_lfsr;
-                dither_en_lfsr = 1;
-                dither_in_lfsr = 0;
-                dither_en_trng = 0;
+            2'b10  : begin
+                dither <= dither_out_lfsr;
+                dither_en_lfsr <= 1;
+                dither_in_lfsr <= 0;
+                dither_en_trng <= 0;
+            end
 
-            2'b11  :
-                dither = dither_out_lfsr;
-                dither_en_lfsr = 1;
-                dither_in_lfsr = 1;
-                dither_en_trng = 0;
+            2'b11  : begin
+                dither <= dither_out_lfsr;
+                dither_en_lfsr <= 1;
+                dither_in_lfsr <= 1;
+                dither_en_trng <= 0;
+            end
 
-            default :
-                dither = 0;
-                dither_en_lfsr = 0;
-                dither_in_lfsr = 0;
-                dither_en_trng = 0;
-    endcase
+            default : begin
+                dither <= 0;
+                dither_en_lfsr <= 0;
+                dither_in_lfsr <= 0;
+                dither_en_trng <= 0;
+            end
+        endcase
+    end
+
     assign dither_output = dither;
 
-endmodule : fractional_n_divider
+endmodule

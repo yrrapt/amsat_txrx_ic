@@ -107,4 +107,4 @@ module mash_mod
     // pass the output
     assign data_out = sum_output[0];
 
-endmodule : mash_mod
+endmodule
