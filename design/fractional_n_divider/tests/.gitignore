@@ -1,0 +1,8 @@
+__pycache__/
+sim_build/
+coverage/
+coverage*.dat
+coverage*.xml
+*.vcd
+results.xml
+*.pyc
