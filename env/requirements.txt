@@ -5,9 +5,11 @@ cocotb==1.4.0
 cocotb-coverage==1.1.0
 control==0.8.3
 cycler==0.10.0
+h5py==2.10.0
 idna==2.10
 kiwisolver==1.2.0
 matplotlib==3.3.0
+numexpr==2.7.1
 numpy==1.19.1
 Pillow==7.2.0
 pkg-resources==0.0.0
@@ -17,8 +19,12 @@ pyparsing==2.4.7
 PySpice==1.4.3
 python-constraint==1.4.0
 python-dateutil==2.8.1
+python-gdsii==0.2.1
 PyYAML==5.3.1
 requests==2.24.0
 scipy==1.5.2
 six==1.15.0
+spyci==1.0.2
+tables==3.6.1
+tabulate==0.8.7
 urllib3==1.25.10
