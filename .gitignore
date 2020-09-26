@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+venv/
+
+# C extensions
+*.so
+
+# SpiceInterface temporary files
+spiceinterface_temp.*
