@@ -1,9 +1,9 @@
 * Generic MOS characterisation netlist
 
-.param TEMP=27
+.param temp=27
 .temp 27
 
-.lib "/home/tom/repositories/skywater/sky130_fd_pr/models/sky130.lib.spice" tt
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
 
 .param id=1u
 .param vds=1.8
