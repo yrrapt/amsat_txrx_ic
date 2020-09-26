@@ -1,0 +1,26 @@
+v {xschem version=2.9.7 file_version=1.1}
+G {type=resistor
+format="X@name @#2 @#1 @#0 @model m=@m"
+template="name=R1 model=sky130_fd_pr__res_xhigh_po_5p73 m=1"
+}
+V {}
+S {}
+E {}
+L 4 0 20 0 30 {}
+L 4 0 20 7.5 17.5 {}
+L 4 -7.5 12.5 7.5 17.5 {}
+L 4 -7.5 12.5 7.5 7.5 {}
+L 4 -7.5 2.5 7.5 7.5 {}
+L 4 -7.5 2.5 7.5 -2.5 {}
+L 4 -7.5 -7.5 7.5 -2.5 {}
+L 4 -7.5 -7.5 7.5 -12.5 {}
+L 4 -7.5 -17.5 7.5 -12.5 {}
+L 4 -7.5 -17.5 0 -20 {}
+L 4 0 -30 0 -20 {}
+L 4 -30 -0 -10 0 {}
+B 5 -32.5 -2.5 -27.5 2.5 {name=sub dir=inout pinnumber=2}
+B 5 -2.5 27.5 2.5 32.5 {name=M dir=inout pinnumber=1}
+B 5 -2.5 -32.5 2.5 -27.5 {name=P dir=inout pinnumber=0}
+T {@name} 15 -23.75 0 0 0.2 0.2 {}
+T {@value} 15 -8.75 0 0 0.2 0.2 {}
+T {@model} 15 11.25 0 0 0.2 0.2 {}
