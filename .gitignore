@@ -11,3 +11,10 @@ venv/
 
 # SpiceInterface temporary files
 spiceinterface_temp.*
+
+# ngspice simulation files
+b3v32check.log
+bsim4v5.out
+
+# results files
+*.hdf5
