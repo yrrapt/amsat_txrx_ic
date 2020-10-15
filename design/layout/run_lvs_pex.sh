@@ -16,8 +16,6 @@ cd "$1"
 # create a magic tcl command file
 echo "gds read ../../amsat_txrx_ic.gds
 load $1
-flatten drc_cell
-load drc_cell
 extract all
 ext2spice lvs
 ext2spice subcircuits off
