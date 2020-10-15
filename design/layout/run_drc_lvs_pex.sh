@@ -24,6 +24,7 @@ ext2spice subcircuits off
 ext2spice -o drc_cell_lvs.spice
 select top cell
 port makeall
+ext2spice lvs
 ext2spice cthresh 0.01
 ext2spice rthresh 0.01
 ext2spice subcircuit on
