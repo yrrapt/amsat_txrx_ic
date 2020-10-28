@@ -19,7 +19,8 @@ for device in devices:
     spice_interface_obj.measure_mos_op( device, 
                                         devices[device]['w'], 
                                         devices[device]['l'], 
-                                        vds=devices[device]['id'],
+                                        ids=devices[device]['ids'],
                                         vds=devices[device]['vds'],
                                         vbs=devices[device]['vbs'],
-                                        vdd=devices[device]['vdd'])
+                                        vdd=devices[device]['vdd'],
+                                        type=devices[device]['type'])
