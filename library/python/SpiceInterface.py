@@ -1,11 +1,16 @@
 import numpy as np
-import os
+import os, sys
+import contextlib
+import io
 import re
 import h5py
 import subprocess
 from spyci import spyci
+from PySpice.Spice.NgSpice.Shared import NgSpiceShared
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker
+from matplotlib.ticker import FuncFormatter
 
 
 class SpiceInterface():
@@ -27,12 +32,214 @@ class SpiceInterface():
         # store the setup information internally
         self.config = {}
         self.simulation = {}
-        self.config['simulator'] = simulator
+        self.config['simulator'] = {'executable'    :   simulator,
+                                    'shared'        :   False}
         self.config['verbose'] = verbose
+
+        # create an ngspice shared object
+        self.ngspice = NgSpiceShared.new_instance()
 
         # if provided read in the base netlist
         if netlist_path:
             self.read_netlist_file(netlist_path)
+
+        self.plot_init=False
+
+        # define some limits
+        self.limits = { 'phase_margin'  :   45,
+                        'gain_margin'   :   10}
+
+        # # define the monte-carlo parameters
+        # self.monte_carlo_sigma = 1000
+        # self.monte_carlo_parameters =  [["sky130_fd_pr__cap_vpp_01p8x01p8_m1m2_noshield__slope", "gauss", 0.0183],
+        #                                 ["sky130_fd_pr__cap_vpp_03p9x03p9_m1m2_shieldl1_floatm3__slope", "gauss", 0.0183],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_l1m1m2_noshield__slope", "gauss", 0.00731],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_l1m1m2_noshield_o1__slope", "gauss", 0.00914],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_l1m1m2_shieldpo_floatm3__slope", "gauss", 0.00731],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_m1m2_noshield_o1nhv__slope", "gauss", 0.00914],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_m1m2_noshield_o1phv__slope", "gauss", 0.00914],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_m1m2_shieldl1__slope", "gauss", 0.00731],
+        #                                 ["sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1__slope", "gauss", 0.00731],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_l1m1m2_noshield__slope", "gauss", 0.00399],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_l1m1m2_noshield_o1__slope", "gauss", 0.0044],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_l1m1m2_shieldpo_floatm3__slope", "gauss", 0.00399],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_m1m2_shieldl1__slope", "gauss", 0.00399],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1__slope", "gauss", 0.00399],
+        #                                 ["sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2_noshield__slope", "gauss", 0.00284],
+        #                                 ["sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2_shieldpom3__slope", "gauss", 0.00284],
+        #                                 ["sky130_fd_pr__cap_vpp_11p5x11p7_m1m2_shieldl1__slope", "gauss", 0.00284],
+        #                                 ["sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1__slope", "gauss", 0.00284],
+        #                                 ["sky130_fd_pr__esd_nfet_05v0_nvt__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__esd_nfet_05v0_nvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__esd_nfet_05v0_nvt__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__esd_nfet_05v0_nvt__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8_lvt__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8_lvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8_lvt__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_01v8_lvt__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_03v3_nvt__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_03v3_nvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_03v3_nvt__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_03v3_nvt__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_05v0_nvt__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_05v0_nvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_05v0_nvt__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_05v0_nvt__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d10v5__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d10v5__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d10v5__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d10v5__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__wint_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__lint_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__npn_05v5_W1p00L1p00__is_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__npn_05v5_W1p00L1p00__bf_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__npn_05v5_W1p00L2p00__is_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__npn_05v5_W1p00L2p00__bf_slope_spectre", "gauss", 1.0],
+        #                                 ["npnpolyhv_is_slope_spectre", "gauss", 1.0],
+        #                                 ["npnpolyhv_bf_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8_hvt__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8_hvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8_hvt__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8_hvt__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_g5v0d10v5__toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_g5v0d10v5__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_g5v0d10v5__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_g5v0d10v5__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pnp_05v5_W0p68L0p68__bf_slope", "gauss", 0.05537],
+        #                                 ["sky130_fd_pr__pnp_05v5_W0p68L0p68__is_slope", "gauss", 0.01662],
+        #                                 ["sky130_fd_pr__pnp_05v5_W3p40L3p40__bf_slope", "gauss", 0.05537],
+        #                                 ["sky130_fd_pr__pnp_05v5_W3p40L3p40__is_slope", "gauss", 0.01662],
+        #                                 ["sky130_fd_pr__pnp_05v5_W3p40L3p40__xti_slope", "gauss", 0.06],
+        #                                 ["sky130_fd_pr__res_xhigh_po__var_mult", "gauss", 0.025],
+        #                                 ["sky130_fd_pr__res_high_po__var"      , "gauss", 0.025],
+        #                                 ["sky130_fd_pr__rf_nfet_01v8__b_toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_01v8__b_vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_01v8__b_voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_01v8_lvt__b_toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_01v8_lvt__b_vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_g5v0d10v5__b_toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_g5v0d10v5__b_voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_nfet_g5v0d10v5__b_nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_pfet_01v8__b_toxe_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_pfet_01v8__b_vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_pfet_01v8__b_voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__rf_pfet_01v8__b_nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_latch__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_latch__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_latch__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_latch__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass_flash__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass_flash__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass_lvt__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass_lvt__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_pfet_pass__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_pfet_pass__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_pfet_pass__voff_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_pfet_pass__nfactor_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__cap_vpp_08p6x07p8_l1m1m2_noshield_o1__generic_slope", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__model__cap_vpp_only_p__slope", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4__slope", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2_noshield__slope", "gauss", 1.0],
+        #                                 ["cnwvc", "gauss", 1.0],
+        #                                 ["diff_cd", "gauss", 1.5],
+        #                                 ["hvn_bodyeffect", "gauss", 2.8],
+        #                                 ["hvn_diode", "gauss", 1.0],
+        #                                 ["hvn_mobility", "gauss", 0.8],
+        #                                 ["hvn_saturation", "gauss", 0.6],
+        #                                 ["hvn_subvt", "gauss", 1.0],
+        #                                 ["hvn_threshold", "gauss", 1.5],
+        #                                 ["hvp_bodyeffect", "gauss", 2.8],
+        #                                 ["hvp_diode", "gauss", 1.0],
+        #                                 ["hvp_mobility", "gauss", 1.8],
+        #                                 ["hvp_saturation", "gauss", 1.8],
+        #                                 ["hvp_subvt", "gauss", 1.0],
+        #                                 ["hvp_threshold", "gauss", 1.5],
+        #                                 ["hvtox", "gauss", 1.0],
+        #                                 ["ic_cap", "gauss", 1.0],
+        #                                 ["ic_res", "gauss", 1.0],
+        #                                 ["ic_res_ndiff", "gauss", 1.0],
+        #                                 ["ic_res_pdiff", "gauss", 1.0],
+        #                                 ["ic_res_poly", "gauss", 1.0],
+        #                                 ["ic_res_pwell", "gauss", 1.0],
+        #                                 ["lvhp_bodyeffect", "gauss", 1.8],
+        #                                 ["lvhp_mobility", "gauss", 2.0],
+        #                                 ["lvhp_saturation", "gauss", 1.1],
+        #                                 ["lvhp_threshold", "gauss", 0.8],
+        #                                 ["lvln_bodyeffect", "gauss", 2.0],
+        #                                 ["lvln_mobility", "gauss", 0.6],
+        #                                 ["lvln_saturation", "gauss", 0.6],
+        #                                 ["lvln_threshold", "gauss", 0.6],
+        #                                 ["lvlp_bodyeffect", "gauss", 0.5],
+        #                                 ["lvlp_mobility", "gauss", 0.3],
+        #                                 ["lvlp_saturation", "gauss", 0.3],
+        #                                 ["lvlp_threshold", "gauss", 1.3],
+        #                                 ["lvn_bodyeffect", "gauss", 2.0],
+        #                                 ["lvn_diode", "gauss", 1.0],
+        #                                 ["lvn_mobility", "gauss", 0.6],
+        #                                 ["lvn_saturation", "gauss", 0.6],
+        #                                 ["lvn_subvt", "gauss", 1.0],
+        #                                 ["lvn_threshold", "gauss", 0.8],
+        #                                 ["lvp_bodyeffect", "gauss", 1.0],
+        #                                 ["lvp_diode", "gauss", 1.0],
+        #                                 ["lvp_mobility", "gauss", 2.0],
+        #                                 ["lvp_saturation", "gauss", 1.1],
+        #                                 ["lvp_subvt", "gauss", 1.0],
+        #                                 ["lvp_threshold", "gauss", 1.0],
+        #                                 ["lvtox", "gauss", 1.1],
+        #                                 ["mim", "gauss", 1.0],
+        #                                 ["hvntvn_threshold", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_20v0_nvt", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_20v0_nvt_iso", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_20v0", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_20v0_iso", "gauss", 1.0],
+        #                                 ["n20zvtvh1defet", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_20v0_zvt", "gauss", 1.0],
+        #                                 ["ndiff_cd", "gauss", 1.5],
+        #                                 ["sky130_fd_pr__pfet_20v0", "gauss", 1.0],
+        #                                 ["pdiff_cd", "gauss", 1.5],
+        #                                 ["sky130_fd_pr__nfet_01v8_lvt", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__special_nfet_pass_lvt", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__npn_05v5_all", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__nfet_g5v0d16v0", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_01v8_mvt", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pnp_05v5_W0p68L0p68", "gauss", 1.0],
+        #                                 ["poly_cd", "gauss", 1.5],
+        #                                 ["sky130_fd_pr__pfet_01v8", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__pfet_g5v0d16v0", "gauss", 1.0],
+        #                                 ["well_diode", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__res_xhigh_po__var_mult", "gauss", 0.025],
+        #                                 ["sky130_fd_pr__res_high_po__var"      , "gauss", 0.025],
+        #                                 ["sky130_fd_pr__res_generic_po__slope", "gauss", 0.12],
+        #                                 ["sky130_fd_pr__res_generic_po__tc1_slope", "gauss", 0.125],
+        #                                 ["sky130_fd_pr__res_generic_po__tc2_slope", "gauss", 0.125],
+        #                                 ["sky130_fd_pr__res_high_po__slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__res_high_po__con_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_pr__res_xhigh_po__var_mult", "gauss", 0.025],
+        #                                 ["sky130_fd_pr__res_high_po__var"      , "gauss", 0.025],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_star__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_star__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_original__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_original__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_star__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_star__vth0_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_original__tox_slope_spectre", "gauss", 1.0],
+        #                                 ["sky130_fd_bs_flash__special_sonosfet_original__vth0_slope_spectre", "gauss", 1.0]]
 
 
 
@@ -43,6 +250,18 @@ class SpiceInterface():
 
         with open(netlist_path) as f:
             self.simulation['netlist'] = f.read()
+
+
+    def set_sim_command(self, command):
+        '''
+            Add a simulation command to the netlist
+        '''
+
+        # wrap the command in new lines
+        command = "\n" + command + "\n"
+
+        # remove the .end keyword and append
+        self.simulation['netlist'] = re.sub(r'\.end\n', command + "\n.end", self.simulation['netlist'])
 
 
 
@@ -59,13 +278,29 @@ class SpiceInterface():
         # keep a list of the of parameter values to print to terminal
         log_information = "New netlist parameter values: "
 
+        # different methods of changing parameters
+        if self.config['simulator']['shared']:
+
+            # loop through each parameter updating the value
+            for parameter in parameters:
+
+                if parameter[1] < 1e-6:
+                    self.ngspice.exec_command("alterparam %s=%0.20f" % (parameter[0], parameter[1]))
+                    log_information += '%s=%0.20f  ' % (parameter[0], parameter[1])
+                else:
+                    self.ngspice.exec_command("alterparam %s=%f" % (parameter[0], parameter[1]))
+                    log_information += '%s=%f  ' % (parameter[0], parameter[1])
+
         # loop through each parameter updating the value
         for parameter in parameters:
-            sub_string = ".param %s=%f" % (parameter[0], parameter[1])
-            self.simulation['netlist'] = re.sub(r'\.param %s=.*' % parameter[0], sub_string, self.simulation['netlist'])
 
-            # append to the log string
-            log_information += '%s=%f  ' % (parameter[0], parameter[1])
+            if parameter[1] < 1e-6:
+                sub_string = ".param %s=%0.20f" % (parameter[0], parameter[1])
+                log_information += '%s=%0.20f  ' % (parameter[0], parameter[1])
+            else:
+                sub_string = ".param %s=%f" % (parameter[0], parameter[1])
+                log_information += '%s=%f  ' % (parameter[0], parameter[1])
+            self.simulation['netlist'] = re.sub(r'\.param %s=.*' % parameter[0], sub_string, self.simulation['netlist'])
 
         # update user
         if self.config['verbose']:
@@ -77,6 +312,9 @@ class SpiceInterface():
         '''
             Set the simulation temperature
         '''
+
+        if self.config['simulator']['shared']:
+            print("NOT IMPLEMENTED EFFICIENTLY!!!! - set_temp()")
 
         # change the temperature in the netlist
         sub_string = ".param temp=%f" % temp
@@ -107,34 +345,326 @@ class SpiceInterface():
 
 
 
-    def run_simulation(self):
+    def insert_op_save(self, devices, expressions):
+        '''
+            Insert save commands for devices
+        '''
+
+        # wrap the command in new lines
+        command = "\n\n.save all "
+
+        # loop through devices and parameters
+        for device in devices:
+            for expression in expressions:
+
+                # delete subcircuits
+                # \n\.subckt[\s\S]*?\.ends
+
+                # need to find the the device type
+                # search_str = device+'.*(sky130\S*)'
+                # X3 .*?(\S) *(?:\n|\S=)
+                # XM1 .*?(\S) \S=
+
+                # temporary hack
+                search_str = device.split('.')[1]+'.*(sky130\S*)'
+                
+                # print(self.simulation['netlist'])
+                # print(search_str)
+
+                # find the device type
+                regex = re.search(search_str, self.simulation['netlist'])
+                device_type = regex.group(1)
+
+                # vsat_marg is not in devices so need to form that ourselves
+                if expression == "vsat_marg":
+                    command += '@M.' + device + '.m' + device_type + '[vds] '
+                    command += '@M.' + device + '.m' + device_type + '[vdsat] '
+                else:
+                    command += '@M.' + device + '.m' + device_type + '[' + expression + '] '
+
+        # remove the .end keyword and append
+        self.simulation['netlist'] = re.sub(r'\.end\n', command + "\n.end", self.simulation['netlist'])
+
+
+
+    def plot_op_save(self, devices, expressions, sweepvar, linewidth=1.0, alpha=1.0, 
+                        title=None, axis_titles=None, interactive=False, 
+                        append=False, display=True):
+        '''
+            Insert save commands for devices
+        '''
+
+        if not display:
+            import matplotlib
+            matplotlib.use('Agg')
+
+        # create the plots
+        with plt.style.context('seaborn-notebook'):
+
+            # grab the swept variable
+            sweep = self.get_signal(sweepvar)
+            
+            # setup subplots
+            if not self.plot_init:
+                self.fig, self.axes = plt.subplots(ncols=1, nrows=len(expressions), squeeze=True)
+
+                # set title
+                if title:
+                    self.fig.suptitle(title)    
+
+                # set the axis titles
+                if axis_titles:
+                    self.axes.xlabel(axis_titles[0])
+                    self.axes.ylabel(axis_titles[1])
+
+                if interactive and display:
+                    plt.ion()
+                    plt.show()
+
+                formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+
+            # calculate and plot the data
+            for row_i, expression in enumerate(expressions):
+                for device in devices:
+
+                    # temporary hack
+                    search_str = device.split('.')[1]+'.*(sky130\S*)'
+                    
+                    # print(self.simulation['netlist'])
+                    # print(search_str)
+
+                    # find the device type
+                    regex = re.search(search_str, self.simulation['netlist'])
+                    device_type = regex.group(1)
+
+                    # vsat_marg is not in devices so need to form that ourselves
+                    if expression == "vsat_marg":
+                        measurement1 = 'v(@M.' + device + '.m' + device_type + '[vds])'
+                        measurement2 = 'v(@M.' + device + '.m' + device_type + '[vdsat])'
+
+                        # get the results
+                        data_measurement1 = self.get_signal(measurement1)
+                        data_measurement2 = self.get_signal(measurement2)
+                        data = [data_measurement1[i] - data_measurement2[i] for i in range(len(data_measurement1))]
+                    else:
+                        measurement = '@M.' + device + '.m' + device_type + '[' + expression + ']'
+                        
+                        # get the results
+                        data = self.get_signal(measurement)
+
+                    # check for negative values
+                    for val in data:
+                        if val < 0:
+                            print('Device %s has negative Vdsatmargin!' % device)
+                            break
+
+                    if len(expressions) > 1:
+                        # self.axes[row_i].plot(sweep, data, linewidth=linewidth, alpha=alpha, color='b')
+                        self.axes[row_i].plot(sweep, data, linewidth=linewidth, alpha=alpha)
+                    else:
+                        # self.axes.plot(sweep, data, linewidth=linewidth, alpha=alpha, color='b')
+                        self.axes.plot(sweep, data, linewidth=linewidth, alpha=alpha)
+                        self.axes.legend(devices)
+                        self.axes.grid()
+
+            # update the graph
+            if display:
+                if append:
+                    plt.draw()
+                    plt.pause(0.001)
+                else:
+                    plt.draw()
+                    plt.pause(0.001)
+                    plt.show()
+
+        self.plot_init=True
+
+
+
+    def restart_simulation(self, silence=False):
+        '''
+            Remove the current circuit and restart from scratch
+        '''
+
+        # remove the current circuit
+        self.ngspice.exec_command("remcirc")
+
+        # write the temporary netlist
+        with open('spiceinterface_temp.spice', 'w') as f:
+            f.write(self.simulation['netlist'])
+
+        # reload the circuit
+        if silence:
+            with suppress_stdout_stderr():
+                self.ngspice.source('spiceinterface_temp.spice')
+        else:
+            self.ngspice.source('spiceinterface_temp.spice')
+
+
+
+    def run_simulation(self, new_instance=True, outputs=None, silence=False):
         '''
             Run simulation
         '''
 
         # select the simulation interface to use
-        if self.config['simulator'] == 'ngspice':
+        if self.config['simulator']['executable'] == 'ngspice':
 
             # write the temporary netlist
             with open('spiceinterface_temp.spice', 'w') as f:
                 f.write(self.simulation['netlist'])
 
             # run ngspice
-            bash_command = "ngspice -b -r spiceinterface_temp.raw -o spiceinterface_temp.out spiceinterface_temp.spice"
-            process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-            output, error = process.communicate()
+            if self.config['simulator']['shared']:
 
-            # check if error occured
-            with open('spiceinterface_temp.spice') as f:
-                sim_log = f.read()
-                if 'fatal' in sim_log:
-                    print(sim_log)
+                # destroy previous run data
+                self.ngspice.destroy()
+                self.ngspice.exec_command("reset")
+
+                # load the netlist into the 
+                if new_instance:
+                    self.ngspice.source('spiceinterface_temp.spice')
+
+                # run the simulation
+                if silence:
+                    with suppress_stdout_stderr():
+                        self.ngspice.run()
+                else:
+                    self.ngspice.run()
+
+                # save the outputs
+                self.ngspice.exec_command("set filetype=ascii")
+                self.ngspice.exec_command("write spiceinterface_temp.raw")
+
+
+            else:
+
+                # set the output format to ascii required by spyci
+                os.environ["SPICE_ASCIIRAWFILE"] = "1"
+
+                # run the simulation through command line
+                bash_command = "ngspice -b -r spiceinterface_temp.raw -o spiceinterface_temp.out spiceinterface_temp.spice"
+                process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+                output, error = process.communicate()
+
+                # check if error occured
+                with open('spiceinterface_temp.out') as f:
+                    sim_log = f.read()
+                    if 'fatal' in sim_log or 'aborted' in sim_log:
+                        print('\033[91m')
+                        print('-'*150)
+                        print('ERROR IN SIMULATION:')
+                        print(sim_log)
+                        print('-'*150)
+                        print('\033[0m')
 
             # read in the results of the simulation
-            self.simulation_data = spyci.load_raw("spiceinterface_temp.raw")
+            if outputs:
+                self.simulation_data = {}
+                for output in outputs:
+                    self.simulation_data[output] = spyci.load_raw("spiceinterface_temp_"+output+".raw")
+            else:
+                self.simulation_data = spyci.load_raw("spiceinterface_temp.raw")
 
         else:
-            assert False, 'The simulator (%s) is not currently supported' % self.config['simulator'] 
+            assert False, 'The simulator (%s) is not currently supported' % self.config['simulator']
+
+
+    def monte_carlo(self, number_runs, analysis, signals, measurements=None):
+        """
+            Perform Monte-Carlo simulation
+
+            Both signals and measurements should be list of dictionaries with:
+                name
+                plot
+        """
+
+        # use the shared simulator interface
+        self.config['simulator']['shared'] = True
+
+        # add the monte-carlo parameters to the netlist
+        # self.monte_carlo_parameters_append()
+        # self.run_simulation(new_instance=True)
+
+        # find the number of signals to plot
+        # number_plots = 0
+        # for signal in signals:
+        #     print(signal)
+        #     if signal[1]:
+        #         number_plots += 1
+        # for measurement in measurements:
+        #     if measurement["plot"]:
+        #         number_plots += 1
+
+        # 
+        # if number_plots > 0:
+
+        # loop through the simulation
+        data = []
+        for i in range(number_runs):
+
+            print('Beginning run %d of %d' % (i+1, number_runs))
+
+            # run the simulation
+            self.run_simulation(new_instance=(i==0))
+
+            # # get the signals
+            # temp_dict = {}
+            # temp_dict['signals'] = self.get_signals(self, signals)
+
+            # update plots
+            if analysis == "op":
+
+                # plot the results
+                if i < number_runs-1:
+                    self.plot_histogram('v(res)', interactive=True, append=True)
+                else:
+                    self.plot_histogram('v(res)', interactive=True)
+
+            elif analysis == "dc_sweep":
+
+                # plot the result
+                if i < number_runs-1:
+                    self.plot_dc_sweep(signals[0], linewidth=1, alpha=0.5, interactive=True, append=True)
+                else:
+                    self.plot_dc_sweep(signals[0], linewidth=1, alpha=0.5, interactive=True)
+
+            elif analysis == "bode":
+
+                # plot the result
+                if i < number_runs-1:
+                    self.plot_bode('v(ac)', linewidth=1, alpha=0.5, interactive=True, append=True)
+                else:
+                    self.plot_bode('v(ac)', linewidth=1, alpha=0.5, interactive=True)
+            
+
+
+    def monte_carlo_parameters_append(self):
+        '''
+            Append Monte-Carlo parameters
+        '''
+
+        # remove the end command at the end of the netlist
+        self.simulation['netlist'] = re.sub(r'\.end\n', '', self.simulation['netlist'])
+
+        # add the parameters
+        self.simulation['netlist'] += '\n\n* MONTE CARLO PARAMETERS'
+        for parameter in self.monte_carlo_parameters:
+            assert parameter[1] == "gauss"
+            self.simulation['netlist'] += "\n.param %s_spectre='agauss(0, %f, %d)/%s'" % (parameter[0], parameter[2], self.monte_carlo_sigma, parameter[0])    
+        self.simulation['netlist'] += '\n\n\n'
+
+        # append the end command we previously removed
+        self.simulation['netlist'] += '\n.end\n'
+
+
+
+    def read_results(self, netlist="spiceinterface_temp.raw"):
+        '''
+            Read the simulation resutls from file
+        '''
+
+        self.simulation_data = spyci.load_raw(netlist)
 
 
 
@@ -144,36 +674,62 @@ class SpiceInterface():
         '''
 
         # calculate the step size
-        step_size = (end - start)/(number_steps-1)  
+        step_size = (end - start)/(number_steps-1)
 
+
+        if self.config['simulator']['shared']:
+            print("NOT IMPLEMENTED EFFICIENTLY!!!! - set_dc_sweep()")
+    
         # update the netlist
         sub_string = ".dc %s %0.12f %0.12f %0.12f" % (parameter, start, end, step_size)
         self.simulation['netlist'] = re.sub(r'\.dc .*', sub_string, self.simulation['netlist'])
 
 
 
-    def get_signal(self, signal_name, factor=1.0):
+    def get_signal(self, signal_name, factor=1.0, dataset=None, complex_out=False):
         '''
             Return a signal from the simulation results
         '''
 
-        # find where the node is in the data
-        for data_i, data_var in enumerate(self.simulation_data['vars']):
+        # grab the simulation dataset requested
+        if dataset:
+            simulation_data = self.simulation_data[dataset]
+        else:
+            simulation_data = self.simulation_data
 
-            if data_var['name'] == signal_name:
+        # find where the node is in the data
+        for data_i, data_var in enumerate(simulation_data['vars']):
+
+            if data_var['name'] == signal_name.lower():
                 index = data_i
 
         # extract each data point and convert to real list
-        data_real = []
-        for n in range(len(self.simulation_data['values'])):
+        data = []
+        for n in range(len(simulation_data['values'])):
 
-            data_real.append(factor*np.real(self.simulation_data['values'][n][index]))
+            if complex_out:
+                data.append(factor*simulation_data['values'][n][index])
+            else:
+                data.append(factor*np.real(simulation_data['values'][n][index]))
 
-        return data_real
+        return data
+
+
+    def get_signals(self, signal_names, factor=1.0):
+        '''
+            Return one or more signals from the simulation results
+        '''
+
+        # loop through each signal
+        data_dict = {}
+        for signal in signal_names:
+            data_dict[signal] = self.get_signal(signal, factor)
+
+        return data_dict
 
 
 
-    def measure_frequency(self, node, netlist=None, measure_after_factor=None, threshold=0.9, hysteresis=0.05):
+    def measure_frequency(self, node, netlist=None, measure_after_factor=None, threshold=0.9, hysteresis=0.05, method='fft'):
         '''
             Measure the frequency from time domain signal
         '''
@@ -186,6 +742,7 @@ class SpiceInterface():
         # trim the data
         if measure_after_factor:
             data_real = data_real[int(len(data_real)*measure_after_factor):]
+            analysis_time = analysis_time[int(len(data_real)*measure_after_factor):]
 
         # define the high and low thresholds for calculating edges
         threshold_low = threshold - hysteresis
@@ -216,13 +773,364 @@ class SpiceInterface():
 
 
 
-    def measure_mos_op(self, device, w, l_list, polarity='nmos', vds=[0,1.8,11], vbs=[0,1.8,11], temp=27, corner='tt'):
+    def measure_phase_gain_margin(self, node, alert=True, invert=False):
+        '''
+            Measure the frequency from time domain signal
+        '''
+
+        # grab the signal
+        fb = self.get_signal(node, complex_out=True)
+        frequency = self.get_signal('frequency')
+
+        # convert the complex rectangular signal representation to magnitude and phase
+        gain = [20*np.log10(_) for _ in np.abs(fb)]
+        phase = [_*180/np.pi for _ in np.unwrap(np.angle(fb))]
+
+        # invert the phase response
+        if invert:
+            phase = [_+360 for _ in phase]
+
+        # find phase margin
+        try:
+            unity_bandwidth = frequency[np.where(np.diff(np.sign(gain)))[0][0]+1]
+        except:
+            unity_bandwidth = None
+
+        try:
+            phase_margin = phase[np.where(np.diff(np.sign(gain)))[0][0]+1]
+        except:
+            phase_margin = None
+
+        # find the gain margin
+        try:
+            inverted_frequency = frequency[np.where(np.diff(np.sign([_+180 for _ in phase])))[0][0]+1]
+        except:
+            inverted_frequency = None
+        
+        try:
+            gain_margin = -gain[np.where(np.diff(np.sign([_+180 for _ in phase])))[0][0]+1]
+        except:
+            gain_margin = None
+
+        # warn user that margins are low
+        if alert:
+            if phase_margin:
+                if phase_margin < self.limits['phase_margin']:
+                    print("WARNING: Phase margin is %0.3f degrees" % phase_margin)
+            else:
+                print("WARNING: Phase margin not found")
+
+            if gain_margin:
+                if gain_margin < self.limits['gain_margin']:
+                    print("WARNING: Gain margin is %0.3f dB" % gain_margin)
+            else:
+                print("WARNING: Gain margin not found")
+
+        return phase_margin, gain_margin, unity_bandwidth, inverted_frequency
+
+
+
+    def measure_noise(self):
+        '''
+            Measure the corner frequnecy, slope factor of flicker noise and the thermal noise from simulation data 
+        '''
+
+        # get the signals to measure
+        frequency = self.get_signal('frequency', dataset='noise1')
+        onoise = self.get_signal('onoise_spectrum', dataset='noise1')
+        length = len(frequency)
+
+        # create theoretical flicker noise
+        flicker_factor = 1.5
+        flicker = [float(onoise[0])]
+        for i in range(1, length):
+            flicker.append( onoise[0]/(np.sqrt(frequency[i]**flicker_factor) ) )
+
+        # create theoretical thermal noise
+        thermal = [float(onoise[-1])]*length
+        derivative = [1.0]
+        for n in range(1,length):
+            derivative.append(onoise[n-1]-onoise[n])
+
+            if derivative[-1] > derivative[-2]:
+                thermal = [float(onoise[n])]*length
+                break
+
+        # find current corner frequency
+        for i in range(length):
+            if flicker[i]-thermal[i] < 0:
+                corner_index = i
+                break
+
+        # adjust flicker factor
+        while flicker[int(corner_index*0.5)]-onoise[int(corner_index*0.5)] < 0:
+
+            # decrement the flicker factor and retest
+            flicker_factor -= 0.001
+            flicker = [float(onoise[0])]
+            for i in range(1, length):
+                flicker.append( onoise[0]/(np.sqrt(frequency[i]**flicker_factor) ) )
+
+        # find the final corner frequency
+        for i in range(length):
+            if flicker[i]-thermal[i] < 0:
+                corner_index = i
+                corner_frequency = frequency[corner_index]
+                break
+
+        return thermal[0], corner_frequency, flicker_factor
+
+
+
+    def plot_dc_sweep(self, sweepvar, node, number_plots=1, linewidth=1.0, alpha=1.0, 
+                        title=None, axis_titles=None, interactive=False, 
+                        append=False, display=True):
+        '''
+            Plot a bode plot of the signal
+        '''
+
+        if not display:
+            import matplotlib
+            matplotlib.use('Agg')
+
+        # get the results
+        data = self.get_signal(node)
+        sweep = self.get_signal(sweepvar)
+
+        # create the plots
+        with plt.style.context('seaborn-notebook'):
+            
+            # setup subplots
+            if not self.plot_init:
+                self.fig, self.axes = plt.subplots(ncols=1, nrows=number_plots, num='Histogram', squeeze=True)
+
+                # set title
+                if title:
+                    self.fig.suptitle(title)    
+
+                # set the axis titles
+                if axis_titles:
+                    self.axes.xlabel(axis_titles[0])
+                    self.axes.ylabel(axis_titles[1])
+
+                if interactive and display:
+                    plt.ion()
+                    plt.show()
+
+                formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+
+            # calculate and plot the histogram
+            self.axes.plot(sweep, data, linewidth=linewidth, alpha=alpha, color='b')
+
+            # update the graph
+            if display:
+                if append:
+                    plt.draw()
+                    plt.pause(0.001)
+                else:
+                    plt.draw()
+                    plt.pause(0.001)
+                    plt.show()
+
+        self.plot_init=True
+
+
+
+    def plot_histogram(self, node, number_plots=1, number_bins=64, interactive=False, 
+                        title=None, axis_titles=None, display=True, append=False):
+        '''
+            Plot a bode plot of the signal
+        '''
+
+        # get the results
+        data = self.get_signal(node)[0]
+
+        # store the data
+        if not self.plot_init:
+            self.data_arr = [data]
+        else:
+            self.data_arr += [data]
+
+        # create the plots
+        with plt.style.context('seaborn-notebook'):
+            
+            # setup subplots
+            if not self.plot_init:
+                self.fig, self.axes = plt.subplots(ncols=1, nrows=number_plots, num='Histogram', squeeze=True)
+
+                if interactive and display:
+                    plt.ion()
+                    plt.show()
+
+                formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+
+            # calculate and plot the histogram
+            self.axes.cla()
+            # n, bins, patches = self.axes.hist(self.data_arr, number_bins, density=1, color = "skyblue", ec="skyblue")
+            n, bins, patches = self.axes.hist(self.data_arr, number_bins, density=1)
+
+            # calculate the statistics
+            mu = np.mean(self.data_arr)
+            sigma = np.std(self.data_arr)
+
+            # add a 'best fit' line
+            y = ((1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+            self.axes.plot(bins, y, '--')
+            self.axes.set_xlabel('Value')
+            self.axes.set_ylabel('Probability density')
+            self.axes.set_title(r'Histogram. $\mu=%0.3f$, $\sigma=%0.3f$' % (mu, sigma))
+
+            # update the graph
+            if display:
+                if append:
+                    plt.draw()
+                    plt.pause(0.001)
+                else:
+                    plt.draw()
+                    plt.pause(0.001)
+                    plt.show()
+
+        self.plot_init=True
+
+
+
+    def plot_bode(self, node, linewidth=1.0, alpha=1.0, interactive=False, append=False, 
+                    title=None, display=True, save=False, invert=False):
+        '''
+            Plot a bode plot of the signal
+        '''
+
+        if not display:
+            import matplotlib
+            matplotlib.use('Agg')
+
+        # get the results
+        signal = self.get_signal(node, complex_out=True)
+        frequency = self.get_signal('frequency')
+
+        # convert the complex rectangular signal representation to magnitude and phase
+        gain = [20*np.log10(_) for _ in np.abs(signal)]
+        phase = [_*180/np.pi for _ in np.unwrap(np.angle(signal))]
+
+        # get the stability margins
+        phase_margin, gain_margin, unity_bandwidth, inverted_frequency = self.measure_phase_gain_margin(node, invert=invert)
+
+        if not self.plot_init:
+            self.phase_margin_arr = [phase_margin]
+            self.gain_margin_arr = [gain_margin]
+            self.unity_bandwidth_arr = [unity_bandwidth]
+            self.inverted_frequency_arr = [inverted_frequency]
+        else:
+            self.phase_margin_arr += [phase_margin]
+            self.gain_margin_arr += [gain_margin]
+            self.unity_bandwidth_arr += [unity_bandwidth]
+            self.inverted_frequency_arr += [inverted_frequency]
+
+        # create the plots
+        with plt.style.context('seaborn-notebook'):
+            
+            # setup subplots
+            if not self.plot_init:
+                self.fig, self.axes = plt.subplots(sharex='all', ncols=1, nrows=2, 
+                                            num='Bode Plot', squeeze=True)
+
+                # set title
+                if title:
+                    self.fig.suptitle(title)
+
+                # if displaying the plot live update 
+                if interactive and display:
+                    plt.ion()
+                    plt.show()
+
+                # define the scale format
+                formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+        
+            # plot the gain
+            self.axes[0].plot([_/1e6 for _ in frequency], gain, linewidth=linewidth, alpha=alpha, color='b')
+
+            if not self.plot_init:
+                self.axes[0].set_xscale('log')
+                self.axes[0].set_ylabel('Magnitude (dB)')
+
+                # setup the grids and markers how we want them
+                locmaj = matplotlib.ticker.LogLocator(base=10,numticks=12) 
+                self.axes[0].xaxis.set_major_locator(locmaj)
+                locmin = matplotlib.ticker.LogLocator(base=10.0,subs=(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),numticks=12)
+                self.axes[0].xaxis.set_minor_locator(locmin)
+                self.axes[0].xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+                self.axes[0].xaxis.set_major_formatter(formatter)
+                self.axes[0].grid(True, which="major", ls="-")
+                self.axes[0].grid(True, which="minor", ls="--", alpha=0.5)
+                
+                # mark the gain margin point
+                if inverted_frequency:
+                    self.axes[0].axvline(x=inverted_frequency/1e6, linewidth=1, color='k', ls="--", alpha=0.75)
+
+                # append the gain margin text
+                if gain_margin:
+                    self.text_gain_margin = self.axes[1].text(0.95, 0.95, "Gain Margin: %0.3f dB" % (gain_margin), horizontalalignment='right', verticalalignment='top', transform=self.axes[1].transAxes)
+
+            else:
+                self.text_phase_margin.set_text("Phase Margin: %0.3f (%0.3f/%0.3f) degrees" % (np.mean(self.phase_margin_arr), min(self.phase_margin_arr), max(self.phase_margin_arr)))
+
+
+            # plot the phase
+            self.axes[1].plot([_/1e6 for _ in frequency], phase, linewidth=linewidth, alpha=alpha, color='b')
+
+
+            if not self.plot_init:
+                self.axes[1].set_xscale('log')
+                self.axes[1].set_xlabel('Frequency (MHz)')
+                self.axes[1].set_ylabel('Phase (degrees)')
+
+                # setup the grids and markers how we want them
+                self.axes[1].xaxis.set_major_locator(locmaj)
+                self.axes[1].xaxis.set_minor_locator(locmin)
+                self.axes[1].xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+                self.axes[1].xaxis.set_major_formatter(formatter)
+                self.axes[1].grid(True, which="major", ls="-")
+                self.axes[1].grid(True, which="minor", ls="--", alpha=0.5)
+
+                # mark the gain margin point
+                if unity_bandwidth:
+                    self.axes[1].axvline(x=unity_bandwidth/1e6, linewidth=1, color='k', ls="--", alpha=0.75)
+
+                # append the phase margin text
+                if phase_margin:
+                    self.text_phase_margin = self.axes[1].text(0.95, 0.95, "Phase Margin: %0.3f degrees" % (phase_margin), horizontalalignment='right', verticalalignment='top', transform=self.axes[0].transAxes)
+
+            else:
+                self.text_gain_margin.set_text("Gain Margin: %0.3f (%0.3f/%0.3f) dB" % (np.mean(self.gain_margin_arr), min(self.gain_margin_arr), max(self.gain_margin_arr)))
+
+            # append to existing plot?
+            if display:
+                if append:
+                    plt.draw()
+                    plt.pause(0.001)
+                else:
+                    plt.draw()
+                    plt.pause(0.001)
+                    plt.show()
+
+            # save the plot to file
+            if save:
+                self.fig.savefig(save)
+
+        self.plot_init=True
+
+
+
+    def measure_mos_op(self, device, w, l_list, ids=[1e-9,1e-3,10], vds=[0,1.8,11], vbs=[0,1.8,11], type='nmos', vdd=None, temp=27, corner='tt'):
         '''
             Measure the operating point of an MOS
         '''
 
         # load the characterisation bench
-        self.read_netlist_file('mos_characterise.spice')
+        if type == 'nmos':
+            self.read_netlist_file('nmos_characterise.spice')
+        else:
+            self.read_netlist_file('pmos_characterise.spice')
 
         # set the MOS name
         self.simulation['netlist'] = re.sub(r'(.*)mos(.*)', r'\1'+device+r'\2', self.simulation['netlist'])
@@ -230,6 +1138,10 @@ class SpiceInterface():
         # set the temperature and corner
         self.set_temp(temp)
         self.set_corner(corner)
+
+        # set the maximum supply voltage
+        if vdd:
+            self.set_parameters([['vdd', vdd]])
 
         # define the list of op parameters
         op_params = ["id", "vth", "vgs", "vds", "vbs", "gm", "gds", "gmbs", "vdsat", "cgg", "cgs", "cgd", "cgb", "cbs", "cdd"]
@@ -241,57 +1153,69 @@ class SpiceInterface():
         # create the sweep values
         vds_list = np.linspace(vds[0], vds[1], vds[2])
         vbs_list = np.linspace(vbs[0], vbs[1], vbs[2])
-
+        
+        # create drain current sweep
+        ids_list = np.logspace(np.log10(abs(ids[0])), np.log10(abs(vbs[1])), int(np.log10(ids[1]/ids[0])*ids[2]))
+        
         # run an initial simulation to find out how many drain current sweep values are present
-        self.run_simulation()
-        num_id = len(self.simulation_data['values'])
-
+        self.run_simulation(outputs=['op1', 'noise1'])
+        num_ids = len(ids_list)
 
         # prepopulate the reuslts dictionary
         op_values = {}
         for param in op_params:
-            op_values[param] = np.zeros((len(l_list), len(vds_list), len(vbs_list), num_id))
+            op_values[param] = np.zeros((len(l_list), len(vds_list), len(vbs_list), num_ids))
+        op_values['noise_corner'] = np.zeros((len(l_list), len(vds_list), len(vbs_list), num_ids))
+        op_values['noise_slope'] = np.zeros((len(l_list), len(vds_list), len(vbs_list), num_ids))
+        op_values['noise_thermal'] = np.zeros((len(l_list), len(vds_list), len(vbs_list), num_ids))
 
         # loop through each parameter value
         for vbs_i, vbs in enumerate(vbs_list):
             for vds_i, vds in enumerate(vds_list):
                 for l_i, l in enumerate(l_list):
+                    for ids_i, ids in enumerate(ids_list):
 
-                    # update user
-                    if self.config['verbose']:
-                        print('-'*150)
-                        print('Beginning new OP setting')
+                        # update user
+                        if self.config['verbose']:
+                            print('-'*150)
+                            print('Beginning new OP setting')
 
-                    # modify the netlist
-                    parameters = [['vbs', vbs], ['vds', vds], ['l', l]]
-                    netlist = self.set_parameters(parameters)
+                        # modify the netlist
+                        parameters = [['vbs', vbs], ['vds', vds], ['l', l], ['ids', ids]]
+                        self.set_parameters(parameters)
 
-                    # run the simulation
-                    try:
-                        self.run_simulation()
+                        # run the simulation
+                        try:
+                            self.run_simulation(outputs=['op1', 'noise1'])
 
-                        # collect the op parameter values
-                        for data_i, data_var in enumerate(self.simulation_data['vars']):
+                            # collect the op parameter values
+                            for data_i, data_var in enumerate(self.simulation_data['op1']['vars']):
 
-                            # try and extract the op parameter - this will fail if the variable is something else
-                            try:
-                                op_param = data_var['name'].split('[')[1].split(']')[0]
+                                # try and extract the op parameter - this will fail if the variable is something else
+                                try:
+                                    op_param = data_var['name'].split('[')[1].split(']')[0]
 
-                                # extract each data point and convert to real list
-                                data_real = []
-                                for n in range(len(self.simulation_data['values'])):
-                                    data_real.append(np.real(self.simulation_data['values'][n][data_i]))
+                                    # extract each data point and convert to real list
+                                    data_real = []
+                                    for n in range(len(self.simulation_data['op1']['values'])):
+                                        data_real.append(np.real(self.simulation_data['op1']['values'][n][data_i]))
 
-                                # save the sweep data to the dictionary
-                                op_values[op_param][l_i][vds_i][vbs_i] = data_real
+                                    # save the sweep data to the dictionary
+                                    op_values[op_param][l_i][vds_i][vbs_i][ids_i] = data_real[0]
 
-                            except IndexError:
-                                pass
-                    
-                    # simulation failed - most likely to MOS being in a weird region
-                    # just ignore this and move on. the point will be filled with zeros
-                    except:
-                        pass
+                                except IndexError:
+                                    pass
+
+                            # calculate the noise parameters
+                            thermal, corner_frequency, flicker_factor = self.measure_noise()
+                            op_values['noise_corner'][l_i][vds_i][vbs_i][ids_i] = corner_frequency
+                            op_values['noise_slope'][l_i][vds_i][vbs_i][ids_i] = flicker_factor
+                            op_values['noise_thermal'][l_i][vds_i][vbs_i][ids_i] = thermal
+                        
+                        # simulation failed - most likely to MOS being in a weird region
+                        # just ignore this and move on. the point will be filled with zeros
+                        except:
+                            pass
 
 
         # save the data to file
@@ -301,9 +1225,45 @@ class SpiceInterface():
 
         # save the indexing information
         indexing_group = hdf_file.create_group('indexing')
-        indexing = [['vbs', vbs_list], ['vds', vds_list], ['l', l_list]]
+        indexing = [['order', ['vbs', 'vds', 'l']], ['vbs', vbs_list], ['vds', vds_list], ['l', l_list]]
         for index in indexing:
-            indexing_group.create_dataset(index[0], data=index[1])
+
+            if isinstance(index[1][0], str):
+                ascii_list = [_.encode("ascii", "ignore") for _ in index[1]]
+                indexing_group.create_dataset(index[0], (len(ascii_list),1),'S10', ascii_list)
+            else:   
+                indexing_group.create_dataset(index[0], data=index[1])
+
+
+
+    def query_mos_op(self, filepath, parameter, conditions):
+        '''
+            Query the MOS operating point data
+        '''
+
+        # load the characterisation bench
+        with h5py.File(filepath, 'r') as file:
+
+            # grab the data keys
+            group_list = list(file.keys())
+            
+            # get the indexing data
+            indexing = {}
+            for key in list(file['indexing']):
+                indexing[key] = list(file['indexing'][key])
+
+            # short function to find indexes
+            def find_index(find_parameter):
+                for i in range(len(indexing['order'])):
+                    if find_parameter == indexing['order'][i][0].decode('ascii'):
+                        return i
+
+            # find the indexing for the data
+            index_values = [0]*len(conditions)
+            for condition in conditions:
+                index = find_index(condition)
+                index_values[index] = indexing[condition].index(conditions[condition])                
+            return file[parameter][index_values[2]][index_values[1]][index_values[0]]
 
 
 
@@ -369,3 +1329,36 @@ class SpiceInterface():
                     results[signal] = self.get_signal(signal)
 
         return results
+
+
+
+
+# Define a context manager to suppress stdout and stderr.
+class suppress_stdout_stderr(object):
+    '''
+    A context manager for doing a "deep suppression" of stdout and stderr in 
+    Python, i.e. will suppress all print, even if the print originates in a 
+    compiled C/Fortran sub-function.
+       This will not suppress raised exceptions, since exceptions are printed
+    to stderr just before a script exits, and after the context manager has
+    exited (at least, I think that is why it lets exceptions through).      
+
+    '''
+    def __init__(self):
+        # Open a pair of null files
+        self.null_fds =  [os.open(os.devnull,os.O_RDWR) for x in range(2)]
+        # Save the actual stdout (1) and stderr (2) file descriptors.
+        self.save_fds = [os.dup(1), os.dup(2)]
+
+    def __enter__(self):
+        # Assign the null pointers to stdout and stderr.
+        os.dup2(self.null_fds[0],1)
+        os.dup2(self.null_fds[1],2)
+
+    def __exit__(self, *_):
+        # Re-assign the real stdout/stderr back to (1) and (2)
+        os.dup2(self.save_fds[0],1)
+        os.dup2(self.save_fds[1],2)
+        # Close all file descriptors
+        for fd in self.null_fds + self.save_fds:
+            os.close(fd)
