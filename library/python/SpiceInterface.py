@@ -24,10 +24,15 @@ class SpiceInterface():
         circuit simulation, design and verification. 
     '''
 
-    def __init__(self, simulator='ngspice', verbose=True, netlist_path=None):
+    def __init__(self, simulator='ngspice', verbose=True, netlist_path=None, sky130lib=None):
         '''
             Instantiate the object
         '''
+
+        if sky130lib is None:
+            self.sky130lib = os.environ.get('SKY130LIB', 'sky130_fd_pr')
+        else:
+            self.sky130lib = sky130lib
 
         # store the setup information internally
         self.config = {}
@@ -142,8 +147,8 @@ class SpiceInterface():
         '''
 
         # change the temperature in the netlist
-        sub_string = ".lib sky130_fd_pr/models/sky130.lib.spice %s" % corner
-        self.simulation['netlist'] = re.sub(r'\.lib sky130_fd_pr/models/sky130.lib.spice .*', sub_string, self.simulation['netlist'])
+        sub_string = ".lib %s/models/sky130.lib.spice %s" % (self.sky130lib, corner)
+        self.simulation['netlist'] = re.sub(r'\.lib %s/models/sky130.lib.spice .*' % self.sky130lib, sub_string, self.simulation['netlist'])
 
         # update user
         if self.config['verbose']:
