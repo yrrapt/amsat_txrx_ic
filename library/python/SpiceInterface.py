@@ -147,8 +147,8 @@ class SpiceInterface():
         '''
 
         # change the temperature in the netlist
-        sub_string = ".lib %s/models/sky130.lib.spice %s" % (self.sky130lib, corner)
-        self.simulation['netlist'] = re.sub(r'\.lib %s/models/sky130.lib.spice .*' % self.sky130lib, sub_string, self.simulation['netlist'])
+        sub_string = r"\1sky130.lib.spice %s" % corner
+        self.simulation['netlist'] = re.sub(r'(\.lib .*)sky130.lib.spice .*', sub_string, self.simulation['netlist'])
 
         # update user
         if self.config['verbose']:
