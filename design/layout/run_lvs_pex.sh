@@ -44,15 +44,14 @@ while [ ! -s drc_cell_lvs.spice ]
 done
 echo " "
 
-# check if lvs reference file is present in folder
-if [ -f "$1.spice" ]; then
-    echo "Starting LVS"
-    #yes quit | netgen -noc lvs "$1".spice drc_cell_lvs.spice /usr/local/share/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out
-    netgen -batch lvs "$1".spice drc_cell_lvs.spice /usr/local/share/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
-else
-    echo "No reference spice netlist ($1.spice) not doing LVS"
-fi
+# move to the root directory and use xschem to generate a new netlist in LVS mode
+run_dir=$PWD
+cd ../../../..
+xschem -n -q -o "$run_dir" --tcl "set top_subckt 1" "design/$1/$1.sch"
+cd $run_dir
 
+# now compare the xschem schematic netlist and the magic extracted netlist
+netgen -batch lvs ""$1".spice "$1"" "drc_cell_lvs.spice "$1"" ../../../../../skywater/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
 
 # organise the parasitic extraction netlist
 sed -i -e 's/.subckt drc_cell/.subckt "$1"/g' drc_cell_pex.spice
