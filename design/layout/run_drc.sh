@@ -18,3 +18,6 @@ echo "gds read ../../amsat_txrx_ic.gds
 load $1
 flatten drc_cell
 load drc_cell" > magic_commands.tcl
+
+# run magic
+magic magic_commands.tcl &
