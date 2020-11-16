@@ -50,6 +50,9 @@ cd ../../../..
 xschem -n -q -o "$run_dir" --tcl "set top_subckt 1" "design/$1/$1.sch"
 cd $run_dir
 
+# include the digital cell definitions
+sed -i '$s,.end,.include '"$PDK_ROOT"'\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
+
 # now compare the xschem schematic netlist and the magic extracted netlist
 netgen -batch lvs ""$1".spice "$1"" "drc_cell_lvs.spice "$1"" ../../../../../skywater/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
 
