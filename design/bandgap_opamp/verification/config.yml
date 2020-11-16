@@ -1,0 +1,10 @@
+
+
+pvt:
+  corners         : ['tt', 'sf', 'ff', 'ss', 'fs', 'll', 'hh', 'hl', 'lh']
+  temperatures    : [-40, 27, 125]
+  vdd             : [1.62, 1.8, 1.98]
+
+ac_response:
+  netlist         : 'bandgap_opamp_verification.sch'
+  sim_command     : '.ac dec 10 1 1000Meg'
