@@ -10,6 +10,7 @@ from PySpice.Spice.NgSpice.Shared import NgSpiceShared
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker
+import matplotlib
 from matplotlib.ticker import FuncFormatter
 
 
@@ -38,7 +39,8 @@ class SpiceInterface():
         self.config = {}
         self.simulation = {}
         self.config['simulator'] = {'executable'    :   simulator,
-                                    'shared'        :   False}
+                                    'shared'        :   False,
+                                    'silent'        :   False}
         self.config['verbose'] = verbose
 
         # create an ngspice shared object
@@ -62,6 +64,10 @@ class SpiceInterface():
 
         with open(netlist_path) as f:
             self.simulation['netlist'] = f.read()
+
+            # the line continuation is not needed as messes up parsing, remove it
+            self.simulation['netlist'] = re.sub(r'\n\+', '', self.simulation['netlist'])
+
 
 
     def set_sim_command(self, command):
@@ -120,19 +126,23 @@ class SpiceInterface():
 
 
 
-    def set_temp(self, temp):
+    def set_temperature(self, temp):
         '''
             Set the simulation temperature
         '''
 
         if self.config['simulator']['shared']:
-            print("NOT IMPLEMENTED EFFICIENTLY!!!! - set_temp()")
+            print(temp)
+            print("alterparam temp=%f" % temp)
+            self.ngspice.exec_command("alterparam temp=%f" % temp)
 
-        # change the temperature in the netlist
-        sub_string = ".param temp=%f" % temp
-        self.simulation['netlist'] = re.sub(r'\.param temp=.*', sub_string, self.simulation['netlist'])
-        sub_string = ".temp %f" % temp
-        self.simulation['netlist'] = re.sub(r'\.temp .*', sub_string, self.simulation['netlist'])
+        else:
+
+            # change the temperature in the netlist
+            sub_string = ".param temp=%f" % temp
+            self.simulation['netlist'] = re.sub(r'\.param temp=.*', sub_string, self.simulation['netlist'])
+            sub_string = ".temp %f" % temp
+            self.simulation['netlist'] = re.sub(r'\.temp .*', sub_string, self.simulation['netlist'])
 
         # update user
         if self.config['verbose']:
@@ -157,6 +167,123 @@ class SpiceInterface():
 
 
 
+    def find_device_type(self, device):
+        '''
+            Traverse the netlist heirarchy to find the device type for a given reference designator
+        '''
+
+         # delete all subcircuits
+            # \n\.subckt[\s\S]*?\.ends
+        temp_netlist = re.sub(r'\n\.subckt[\s\S]*?\.ends', '', self.simulation['netlist'])
+
+        # split the heirarchy
+        heirarchy = device.split('.')
+
+        # device is in subcircuit
+        if len(heirarchy) > 1:
+
+            # descend the heirarchy
+            for component in heirarchy[:-1]:
+
+                # find the subcircuit name for the instance
+                search_str = component + ' .*(?<!=) (\w+)(?!=)'
+                regex = re.search(search_str, temp_netlist)
+                subcircuit_name = regex.group(1)
+
+                # delete everything apart from the current subcircuit+
+                search_str = r'\n\.subckt '+subcircuit_name+r' [\s\S]+?\.ends'
+                regex = re.search(search_str, self.simulation['netlist'])
+                temp_netlist = regex.group(0)
+
+
+        # find the device type
+        search_str = heirarchy[-1] + r'.*(sky130\S*)'
+        regex = re.search(search_str, temp_netlist)
+        device_type = regex.group(1)
+
+        return device_type
+
+
+    def find_mosfets_in_subcircuit(self, devices, search_subcircuit=None, refdes_list=None):
+        '''
+            Traverse the netlist heirarchy to find all MOSFETs
+        '''
+
+        try:
+
+            # look in a subcircuit
+            if search_subcircuit:
+
+                # delete everything apart from the current subcircuit+
+                search_str = r'\n\.subckt ' + search_subcircuit + r' [\s\S]+?\.ends'
+                regex = re.search(search_str, self.simulation['netlist'])
+                temp_netlist = regex.group(0)
+
+            # look at the top level
+            else:
+
+                # delete all subcircuits
+                temp_netlist = re.sub(r'\n\.subckt[\s\S]*?\.ends', '', self.simulation['netlist'])
+                refdes_list = []
+
+
+            # find all subcircuits at this level
+            search_str = r'\n([x|X].*)'
+            subcircuits = re.findall(search_str, temp_netlist)
+
+            # find subcircuits and pull out sky130 devices on this level
+            for subcircuit in subcircuits[::-1]:
+                if 'sky130_fd_pr_' in subcircuit:
+
+                    subcircuit_prefix = ''
+                    for level in refdes_list:
+                        subcircuit_prefix += level + '.'
+
+                    subcircuit_name = subcircuit_prefix + subcircuit.split(' ')[0]
+
+                    devices.append(subcircuit_name)
+                    subcircuits.remove(subcircuit)
+
+            # find the name of further subcircuits
+            subcircuits_names = []
+            for subcircuit in subcircuits:
+
+                temp = subcircuit.split(' ')
+
+                for item in temp[::-1]:
+                    if not '=' in item:
+                        subcircuits_names.append([item, temp[0]])
+                        break
+
+            # recursively look into each circuit
+            for subcircuit_name in subcircuits_names:
+
+                if not 'sky130_fd_sc' in subcircuit_name[0]:
+
+                    # append the reference designator list and search the next level down
+                    current_refdes_list = refdes_list + [subcircuit_name[1]]
+                    self.find_mosfets_in_subcircuit(devices, search_subcircuit=subcircuit_name[0], refdes_list=current_refdes_list)
+
+        except:
+
+            print("find_mosfets_in_subcircuit() - Failed to find MOSFETs in this level of heirarchy, you may want to look into it")
+            print("  Provided with deviced: ", devices)
+
+
+
+    def find_all_mosfets(self):
+        '''
+            Traverse the netlist heirarchy to find all MOSFETs
+        '''
+
+        devices = []
+
+        self.find_mosfets_in_subcircuit(devices)
+
+        return devices
+
+
+
     def insert_op_save(self, devices, expressions):
         '''
             Insert save commands for devices
@@ -169,23 +296,8 @@ class SpiceInterface():
         for device in devices:
             for expression in expressions:
 
-                # delete subcircuits
-                # \n\.subckt[\s\S]*?\.ends
-
-                # need to find the the device type
-                # search_str = device+'.*(sky130\S*)'
-                # X3 .*?(\S) *(?:\n|\S=)
-                # XM1 .*?(\S) \S=
-
-                # temporary hack
-                search_str = device.split('.')[1]+'.*(sky130\S*)'
-                
-                # print(self.simulation['netlist'])
-                # print(search_str)
-
-                # find the device type
-                regex = re.search(search_str, self.simulation['netlist'])
-                device_type = regex.group(1)
+                # get the device type 
+                device_type = self.find_device_type(device)
 
                 # vsat_marg is not in devices so need to form that ourselves
                 if expression == "vsat_marg":
@@ -195,8 +307,7 @@ class SpiceInterface():
                     command += '@M.' + device + '.m' + device_type + '[' + expression + '] '
 
         # remove the .end keyword and append
-        self.simulation['netlist'] = re.sub(r'\.end\n', command + "\n.end", self.simulation['netlist'])
-
+        self.simulation['netlist'] = re.sub(r'\.end$', command + "\n.end", self.simulation['netlist'])
 
 
     def plot_op_save(self, devices, expressions, sweepvar, linewidth=1.0, alpha=1.0, 
@@ -236,28 +347,22 @@ class SpiceInterface():
                 formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
 
             # calculate and plot the data
+            plot_signals = []
             for row_i, expression in enumerate(expressions):
                 for device in devices:
 
-                    # temporary hack
-                    search_str = device.split('.')[1]+'.*(sky130\S*)'
-                    
-                    # print(self.simulation['netlist'])
-                    # print(search_str)
-
-                    # find the device type
-                    regex = re.search(search_str, self.simulation['netlist'])
-                    device_type = regex.group(1)
+                    # get the device type 
+                    device_type = self.find_device_type(device)
 
                     # vsat_marg is not in devices so need to form that ourselves
                     if expression == "vsat_marg":
-                        measurement1 = 'v(@M.' + device + '.m' + device_type + '[vds])'
-                        measurement2 = 'v(@M.' + device + '.m' + device_type + '[vdsat])'
+                        measurement_vds = 'v(@M.' + device + '.m' + device_type + '[vds])'
+                        measurement_vdsat = 'v(@M.' + device + '.m' + device_type + '[vdsat])'
 
                         # get the results
-                        data_measurement1 = self.get_signal(measurement1)
-                        data_measurement2 = self.get_signal(measurement2)
-                        data = [data_measurement1[i] - data_measurement2[i] for i in range(len(data_measurement1))]
+                        data_measurement_vds = self.get_signal(measurement_vds)
+                        data_measurement_vdsat = self.get_signal(measurement_vdsat)
+                        data = [data_measurement_vds[i] - data_measurement_vdsat[i] for i in range(len(data_measurement_vds))]
                     else:
                         measurement = '@M.' + device + '.m' + device_type + '[' + expression + ']'
                         
@@ -268,16 +373,19 @@ class SpiceInterface():
                     for val in data:
                         if val < 0:
                             print('Device %s has negative Vdsatmargin!' % device)
+                            plot_signals.append(device)
                             break
 
-                    if len(expressions) > 1:
-                        # self.axes[row_i].plot(sweep, data, linewidth=linewidth, alpha=alpha, color='b')
-                        self.axes[row_i].plot(sweep, data, linewidth=linewidth, alpha=alpha)
-                    else:
-                        # self.axes.plot(sweep, data, linewidth=linewidth, alpha=alpha, color='b')
-                        self.axes.plot(sweep, data, linewidth=linewidth, alpha=alpha)
-                        self.axes.legend(devices)
-                        self.axes.grid(True)
+            # plot the results
+            if len(plot_signals) > 0:
+                if len(expressions) > 1:
+                    for signal in plot_signals:
+                        self.axes[row_i].plot(sweep, signal, linewidth=linewidth, alpha=alpha)
+                else:
+                    for signal in plot_signals:
+                        self.axes.plot(sweep, signal, linewidth=linewidth, alpha=alpha)
+                self.axes.legend(devices)
+                self.axes.grid(True)
 
             # update the graph
             if display:
@@ -292,8 +400,114 @@ class SpiceInterface():
         self.plot_init=True
 
 
+    def check_op_region(self, sweepvar=None, exempt_list=None, skip_insertion=False, devices=None):
+        """
+            Check that all the devices are in saturation
+        """
 
-    def restart_simulation(self, silence=False):
+        if not skip_insertion:
+
+            # find all the devices
+            if not devices:
+                devices = self.find_all_mosfets()
+
+            # insert the command to save the devices
+            self.insert_op_save(devices, ['vsat_marg'])
+
+        # run the simulation
+        self.run_simulation()
+
+        # split the devices into linear and switched devices
+        devices_saturation = []
+        devices_switched = []
+        devices_triode = []
+        devices_decap = []
+        devices_dummy = []
+        for device in devices:
+            if 'sw' in device:
+                devices_switched.append(device)
+            elif 'triode' in device:
+                devices_triode.append(device)
+            elif 'decap' in device:
+                devices_decap.append(device)
+            elif 'dum' in device:
+                devices_dummy.append(device)
+            else:
+                devices_saturation.append(device)
+
+        # grab the swept variable
+        if sweepvar:
+            sweep = self.get_signal(sweepvar)
+
+        # initialise a test pass
+        test_pass = True
+
+        # check that all linear devices are in saturation
+        plot_device_names = []
+        for device in devices_saturation:
+
+            # get the device type 
+            device_type = self.find_device_type(device)
+
+            # vsat_marg is not in devices so need to form that ourselves
+            measurement_vds = 'v(@M.' + device + '.m' + device_type + '[vds])'
+            measurement_vdsat = 'v(@M.' + device + '.m' + device_type + '[vdsat])'
+
+            # get the results
+            data_measurement_vds = self.get_signal(measurement_vds)
+            data_measurement_vdsat = self.get_signal(measurement_vdsat)
+            data = [data_measurement_vds[i] - data_measurement_vdsat[i] for i in range(len(data_measurement_vds))]
+            
+            # check for negative values
+            for i, val in enumerate(data):
+                if val < 0:
+
+                    # some devices can be ignored if specified by the user
+                    if exempt_list:
+                        if not device in exempt_list:
+
+                            # signal there is an error
+                            test_pass = False
+
+                            print('Device %s has negative Vdsatmargin!  Vds=%f, Vdsat=%f at sweep=%f' % (device, data_measurement_vds[i], data_measurement_vdsat[i], sweep[i]))
+                            
+                            if sweepvar:
+                                plt.plot(sweep, data)
+                                plot_device_names.append(device)
+                            break
+
+                    else:
+
+                        # signal there is an error
+                        test_pass = False
+
+                        print('Device %s has negative Vdsatmargin!  Vds=%f, Vdsat=%f at sweep=%f' % (device, data_measurement_vds[i], data_measurement_vdsat[i], sweep[i]))
+                            
+                        if sweepvar:
+                            plt.plot(sweep, data)
+                            plot_device_names.append(device)
+                        break
+
+
+
+
+        # render the plot
+        if len(plot_device_names) > 0:
+            plt.legend(plot_device_names)
+            plt.grid(True)
+            plt.show()
+
+        #  alert the user - primarily if it's a pass so there is some notification the test has been performed
+        if test_pass:
+            print('The test has completed with no operating point issues found')
+        else:
+            print('The test has found operating point issues - please investigate further')
+
+
+
+
+
+    def restart_simulation(self):
         '''
             Remove the current circuit and restart from scratch
         '''
@@ -306,7 +520,7 @@ class SpiceInterface():
             f.write(self.simulation['netlist'])
 
         # reload the circuit
-        if silence:
+        if self.config['simulator']['silent']:
             with suppress_stdout_stderr():
                 self.ngspice.source('spiceinterface_temp.spice')
         else:
@@ -314,7 +528,7 @@ class SpiceInterface():
 
 
 
-    def run_simulation(self, new_instance=True, outputs=None, silence=False):
+    def run_simulation(self, new_instance=True, outputs=None):
         '''
             Run simulation
         '''
@@ -338,7 +552,7 @@ class SpiceInterface():
                     self.ngspice.source('spiceinterface_temp.spice')
 
                 # run the simulation
-                if silence:
+                if self.config['simulator']['silent']:
                     with suppress_stdout_stderr():
                         self.ngspice.run()
                 else:
@@ -585,9 +799,35 @@ class SpiceInterface():
 
 
 
+    def measure_gain_bandwidth(self, node):
+        '''
+            Measure the gain and unity gain frequency
+        '''
+
+        # grab the signal
+        fb = self.get_signal(node, complex_out=True)
+        frequency = self.get_signal('frequency')
+
+        # convert the complex rectangular signal representation to magnitude and phase
+        gain = [20*np.log10(_) for _ in np.abs(fb)]
+        phase = [_*180/np.pi for _ in np.unwrap(np.angle(fb))]
+
+        # find the dc gain
+        dc_gain = gain[0]
+
+        # find the unity bandwidth
+        try:
+            unity_bandwidth = frequency[np.where(np.diff(np.sign(gain)))[0][0]+1]
+        except:
+            unity_bandwidth = None
+
+        return dc_gain, unity_bandwidth
+
+
+
     def measure_phase_gain_margin(self, node, alert=True, invert=False):
         '''
-            Measure the frequency from time domain signal
+            Measure the phase and gain stability margins
         '''
 
         # grab the signal
@@ -813,7 +1053,6 @@ class SpiceInterface():
         '''
 
         if not display:
-            import matplotlib
             matplotlib.use('Agg')
 
         # get the results
@@ -933,6 +1172,98 @@ class SpiceInterface():
 
 
 
+    def plot_ac(self, node, linewidth=1.0, alpha=1.0, interactive=False, append=False, 
+                    title=None, display=True, save=False, invert=False):
+        '''
+            Plot a bode plot of the signal
+        '''
+
+        if not display:
+            matplotlib.use('Agg')
+
+        # get the results
+        signal = self.get_signal(node, complex_out=True)
+        frequency = self.get_signal('frequency')
+
+        # convert the complex rectangular signal representation to magnitude and phase
+        gain = [20*np.log10(_) for _ in np.abs(signal)]
+
+        # get the ac ressponse measurements
+        dc_gain, unity_bandwidth = self.measure_gain_bandwidth(node)
+
+        if not self.plot_init:
+            self.dc_gain_arr = [dc_gain]
+            self.unity_bandwidth_arr = [unity_bandwidth]
+        else:
+            self.dc_gain_arr += [dc_gain]
+            self.unity_bandwidth_arr += [unity_bandwidth]
+
+        # create the plots
+        with plt.style.context('seaborn-notebook'):
+            
+            # setup subplots
+            if not self.plot_init:
+                self.fig, self.axes = plt.subplots(sharex='all', ncols=1, nrows=1, 
+                                            num='Bode Plot', squeeze=True)
+
+                # set title
+                if title:
+                    self.fig.suptitle(title)
+
+                # if displaying the plot live update 
+                if interactive and display:
+                    plt.ion()
+                    plt.show()
+
+                # define the scale format
+                formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+        
+            # plot the gain
+            self.axes.plot([_/1e6 for _ in frequency], gain, linewidth=linewidth, alpha=alpha, color='b')
+
+            if not self.plot_init:
+                self.axes.set_xscale('log')
+                self.axes.set_ylabel('Magnitude (dB)')
+
+                # setup the grids and markers how we want them
+                locmaj = matplotlib.ticker.LogLocator(base=10,numticks=12) 
+                self.axes.xaxis.set_major_locator(locmaj)
+                locmin = matplotlib.ticker.LogLocator(base=10.0,subs=(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),numticks=12)
+                self.axes.xaxis.set_minor_locator(locmin)
+                self.axes.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+                self.axes.xaxis.set_major_formatter(formatter)
+                self.axes.grid(True, which="major", ls="-")
+                self.axes.grid(True, which="minor", ls="--", alpha=0.5)
+                
+
+                # append the gain margin text
+                if dc_gain:
+                    self.text_dc_gain = self.axes.text(0.95, 0.95, "DC Gain: %0.3f dB" % (dc_gain), horizontalalignment='right', verticalalignment='top', transform=self.axes.transAxes)
+                if unity_bandwidth:
+                    self.text_unity_bandwidth = self.axes.text(0.95, 0.90, "Unity Bandwidth: %0.3f MHz" % (unity_bandwidth/1e6), horizontalalignment='right', verticalalignment='top', transform=self.axes.transAxes)
+
+            else:
+                self.text_dc_gain.set_text("DC Gain: %0.3f (%0.3f/%0.3f) dB" % (np.mean(self.dc_gain_arr), min(self.dc_gain_arr), max(self.dc_gain_arr)))
+                self.text_unity_bandwidth.set_text("Unity Bandwidth: %0.3f (%0.3f/%0.3f) MHz" % (np.mean(self.unity_bandwidth_arr)/1e6, min(self.unity_bandwidth_arr)/1e6, max(self.unity_bandwidth_arr)/1e6))
+
+            # append to existing plot?
+            if display:
+                if append:
+                    plt.draw()
+                    plt.pause(0.001)
+                else:
+                    plt.draw()
+                    plt.pause(0.001)
+                    plt.show()
+
+            # save the plot to file
+            if save:
+                self.fig.savefig(save)
+
+        self.plot_init=True
+
+
+
     def measure_mos_op(self, device, w, l_list, ids=[1e-9,1e-3,10], vds=[0,1.8,11], vbs=[0,1.8,11], type='nmos', vdd=None, temp=27, corner='tt'):
         '''
             Measure the operating point of an MOS
@@ -948,7 +1279,7 @@ class SpiceInterface():
         self.simulation['netlist'] = re.sub(r'(.*)mos(.*)', r'\1'+device+r'\2', self.simulation['netlist'])
 
         # set the temperature and corner
-        self.set_temp(temp)
+        self.set_temperature(temp)
         self.set_corner(corner)
 
         # set the maximum supply voltage
@@ -1104,7 +1435,7 @@ class SpiceInterface():
 
                 # update the netlist
                 if parameter == 'temp':
-                    self.set_temp(parameter_value)
+                    self.set_temperature(parameter_value)
                 else:
                     self.set_parameters([[parameter, float(parameter_value)]])
 

@@ -1,4 +1,5 @@
 import os
+from subprocess import call
 
 class TestUtilities():
     '''
@@ -18,20 +19,20 @@ class TestUtilities():
             Generate a netlist from schematic
         """
 
-        print(folder)
-
         # start with only the xschem command
-        command = "xschem -n -q "
+        command = ["xschem"]
+        command += ["-n"]
+        command += ["-q"] 
 
         # specify the output netlist
         if folder:
-            command += "-o " + folder + " "
+            # command += ["-o " + os.getcwd() + "/" + folder]
+            command += ["-o"]
+            command += [os.getcwd() + "/" + folder]
 
         # add the schematic
-        command += schematic
-
-        print(command)
+        command += [os.getcwd() + "/" + schematic]
 
         # perform netlisting
-        os.system(command)
+        status = call(command, cwd=os.environ['PROJECT_ROOT'])
 
