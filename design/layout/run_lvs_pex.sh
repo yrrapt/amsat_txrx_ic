@@ -14,7 +14,8 @@ fi
 cd "$1"
 
 # create a magic tcl command file
-echo "gds read ../../amsat_txrx_ic.gds
+echo "gds flatten true
+gds read ../../amsat_txrx_ic.gds
 load $1
 extract all
 ext2spice lvs
@@ -51,11 +52,12 @@ xschem -n -q -o "$run_dir" --tcl "set top_subckt 1" "design/$1/$1.sch"
 cd $run_dir
 
 # include the digital cell definitions
-sed -i '$s,.end,.include '"$PDK_ROOT"'\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/repositories\/skywater\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
 
 # now compare the xschem schematic netlist and the magic extracted netlist
-netgen -batch lvs ""$1".spice "$1"" "drc_cell_lvs.spice "$1"" ../../../../../skywater/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
+netgen -batch lvs "drc_cell_lvs.spice "$1"" ""$1".spice "$1"" ~/skywater/pdk/skywater130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
 
 # organise the parasitic extraction netlist
 sed -i -e 's/.subckt drc_cell/.subckt "$1"/g' drc_cell_pex.spice
 mv drc_cell_pex.spice "$1"_pex.spice
+
