@@ -18,7 +18,7 @@ netlist_path = os.environ.get('HOME') + '/.xschem/simulations/vco_2-4GHz_tb.spic
 spice_interface_obj = SpiceInterface.SpiceInterface(netlist_path=netlist_path)
 
 # only save the Ip node to avoid using lots of memory
-spice_interface_obj.simulation['netlist'] = re.sub(r'\*\*\*\* end user architecture code', r'.save v(ip)\n**** end user architecture code', spice_interface_obj.simulation['netlist'])
+# spice_interface_obj.simulation['netlist'] = re.sub(r'\*\*\*\* end user architecture code', r'.save v(ip)\n**** end user architecture code', spice_interface_obj.simulation['netlist'])
 
 
 
@@ -74,7 +74,6 @@ for vdd_i, current_vdd in enumerate(vdd):
 
                     # enter a None data for failed simulation step
                     values[vdd_i][corner_i][temp_i][vctl_i] = None
-
 
 # save the data to file
 hdf_file.create_dataset('data', data=values)

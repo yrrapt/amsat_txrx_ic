@@ -6,8 +6,10 @@ PWD=$(shell pwd)
 export PYTHONPATH := $(PWD)/../../models:$(PYTHONPATH)
 
 ifeq ($(TOPLEVEL_LANG),verilog)
-    VERILOG_SOURCES = $(PWD)/../../fractional_n_divider.v
-    VERILOG_SOURCES += $(PWD)/../../mash_mod.v
+    VERILOG_SOURCES = $(PWD)/../../src/fractional_n_divider.v
+    VERILOG_SOURCES += $(PWD)/../../src/mash_mod.v
+    VERILOG_SOURCES += $(PWD)/../../src/lfsr_fib.v
+    VERILOG_SOURCES += $(PWD)/../../src/trng.v
 else
     $(error "A valid value (verilog) was not provided for TOPLEVEL_LANG=$(TOPLEVEL_LANG)")
 endif
@@ -18,5 +20,8 @@ SIM := verilator
 TOPLEVEL := fractional_n_divider
 MODULE   := test_fractional_n_divider
 
-
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+# ( \
+# . $(PWD)/../../../../env/venv/bin/activate \
+# ) 

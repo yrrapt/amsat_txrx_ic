@@ -1,0 +1,9 @@
+# python files
+__pycache__/
+*.pyc
+
+# openlane run directory
+runs/
+
+# miscellaneous old files
+archive/

@@ -1,0 +1,47 @@
+* Generic MOS characterisation netlist
+
+.param temp=27
+.temp 27
+
+* .lib "sky130_fd_pr/models/sky130.lib.spice" tt
+.include "sky130_fd_pr/models/corners/tt.spice"
+
+* circuit parameters
+.param ids=1u
+.param vds=1.8
+.param vdd=1.8
+.param vbs=0
+.param l=0.15
+.param vctl=-10
+
+* the device under test
+XM vd vg 0 vb mos w=1 l=l m=1
+
+* sources
+Bgs 0 vg V=min(i(Vds)*1e9,vdd)
+* BId 0 vd_ I=10**v(vctl)
+Id vd_ 0 ids
+Vds 0 vd_ DC={vds} AC=0
+Vbs 0 vb {vbs}
+Vctl vctl 0 {vctl}
+Vdmeas vd_ vd
+Hccvs out 0 Vdmeas 1
+
+* specify op paramters to save
+.save all SAVE_TO_BE_POPULATED
+
+* specify the simulations
+.op
+.noise v(out) Vds dec 10 1 1000Meg
+
+* run the simulation and save the outputs
+.control
+  run
+  setplot op1
+  write spiceinterface_temp_op1.raw
+  setplot noise1
+  write spiceinterface_temp_noise1.raw
+  quit
+.endc
+
+.end

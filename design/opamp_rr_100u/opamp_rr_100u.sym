@@ -1,0 +1,34 @@
+v {xschem version=2.9.7 file_version=1.1}
+G {type=subcircuit
+format="@name @pinlist @symname w_diffp=@w_diffp l_diffp=@l_diffp m_diffp=@m_diffp w_diffn=@w_diffn l_diffn=@l_diffn m_diffn=@m_diffn w_casn=@w_casn l_casn=@l_casn w_currn=@w_currn l_currn=@l_currn w_curpn=@w_currp l_currp=@l_currp w_casp=@w_casp l_casp=@l_casp m_currdiff=@m_currdiff m_currsec=@m_currsec c_compp=@c_compp c_compn=@c_compn w_outn=@w_outn l_outn=@l_outn m_outn=@m_outn w_outp=@w_outp l_outp=@l_outp m_outp=@m_outp w_biasp=@w_biasp l_biasp=@l_biasp m_biasp=@m_biasp w_biasn=@w_biasn l_biasn=@l_biasn m_biasn=@m_biasn r_biasn=@r_biasn r_biasp=@r_biasp"
+template="name=x1 w_diffp=30u l_diffp=0.5u m_diffp=2 w_diffn=10u l_diffn=0.5u m_diffn=2 w_casn=1u l_casn=0.5u w_currn=1u l_currn=4u w_currp=3u l_currp=4u w_casp=3u l_casp=0.5u m_currdiff=4 m_currsec=6 c_compp=0.001p c_compn=0.001p w_outn=10u l_outn=0.5u m_outn=10 w_outp=30u l_outp=0.5u m_outp=10 w_biasp=3u l_biasp=1u m_biasp=1 w_biasn=1u l_biasn=1u m_biasn=1 r_biasn=30k r_biasp=30k"
+generic_type="w_diffp=w_real l_diffp=w_real m_diffp=w_real w_diffn=w_real l_diffn=w_real m_diffn=w_real w_casn=w_real l_casn=w_real w_currn=w_real l_currn=w_real w_currp=w_real l_currp=w_real w_casp=w_real l_casp=w_real m_currdiff=w_real m_currsec=w_real c_compp=w_real c_compn=w_real w_outn=w_real l_outn=w_real m_outn=w_real w_outp=w_real l_outp=w_real m_outp=w_real w_biasp=w_real l_biasp=w_real m_biasp=w_real w_biasn=w_real l_biasn=w_real m_biasn=w_real r_biasn=w_real r_biasp=w_real"}
+V {}
+S {}
+E {}
+L 4 30 0 50 0 {}
+L 4 -50 -60 -50 -40 {}
+L 4 -110 -20 -90 -20 {}
+L 4 -110 20 -90 20 {}
+L 4 -90 -60 -90 60 {}
+L 4 -90 60 30 0 {}
+L 4 -90 -60 30 -0 {}
+L 4 -80 20 -60 20 {}
+L 4 -80 -20 -60 -20 {}
+L 4 -70 -30 -70 -10 {}
+L 7 -20 -60 -20 -25 {}
+L 7 -40 35 -40 60 {}
+B 5 -22.5 -62.5 -17.5 -57.5 {name=VDD dir=inout }
+B 5 47.5 -2.5 52.5 2.5 {name=OUT dir=out }
+B 5 -52.5 -62.5 -47.5 -57.5 {name=BIAS dir=in }
+B 5 -112.5 -22.5 -107.5 -17.5 {name=IN_P dir=in }
+B 5 -112.5 17.5 -107.5 22.5 {name=IN_N dir=in }
+B 5 -42.5 57.5 -37.5 62.5 {name=GND dir=inout }
+T {@symname} 3.5 24 0 0 0.3 0.3 {}
+T {@name} 5 48 0 0 0.2 0.2 {}
+T {VDD} -18 -41 2 1 0.2 0.2 {}
+T {OUT} 15 -4 0 1 0.2 0.2 {}
+T {BIAS} -25 -41 2 0 0.2 0.2 {}
+T {IN_P} -115 -34 0 0 0.2 0.2 {}
+T {IN_N} -115 6 0 0 0.2 0.2 {}
+T {GND} -38 43 0 0 0.2 0.2 {}

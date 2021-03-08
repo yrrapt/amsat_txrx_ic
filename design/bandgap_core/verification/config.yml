@@ -1,0 +1,42 @@
+
+
+pvt:
+  corners         : ['tt', 'sf', 'ff', 'ss', 'fs', 'll', 'hh', 'hl', 'lh']
+  # corners         : ['fs', 'll', 'hh', 'hl', 'lh']
+  temperatures    : [-40, 27, 125]
+  vdd             : [1.62, 1.8, 1.98]
+
+stability_ctat:
+  netlist         : 'bandgap_core_stability_ctat.sch'
+
+stability_ptat:
+  netlist         : 'bandgap_core_stability_ptat.sch'
+
+temperature_sweep:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.dc temp -40 125 1'
+
+startup:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.tran 0 1m 1u'
+  vdd_command     : 'pulse(0 1.8 10u 100u 100u 1 2 0)'
+
+psrr:
+  netlist         : 'bandgap_core_verification.sch'
+
+noise:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.noise v(current) vdd dec 10 100 1000MEG'
+
+en:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.op'
+
+ctl:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.op'
+
+operating_point:
+  netlist         : 'bandgap_core_verification.sch'
+  sim_command     : '.dc temp -40 125 1'
+

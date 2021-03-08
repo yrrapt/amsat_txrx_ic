@@ -1,6 +1,6 @@
 # xschemrc configuration file
 
-set XSCHEM_SKYDIR $env(PROJECT_ROOT)/../xschem/xschem_sky130
+set XSCHEM_SKYDIR $env(HOME)/skywater/xschem_sky130
 
 ###########################################################################
 ## xschem installation directory XSCHEM_SHAREDIR
@@ -21,7 +21,7 @@ set XSCHEM_SKYDIR $env(PROJECT_ROOT)/../xschem/xschem_sky130
 set XSCHEM_LIBRARY_PATH {}
 append XSCHEM_LIBRARY_PATH :${XSCHEM_SHAREDIR}/xschem_library
 append XSCHEM_LIBRARY_PATH :${XSCHEM_SKYDIR}
-append XSCHEM_LIBRARY_PATH :$env(PROJECT_ROOT)/design
+append XSCHEM_LIBRARY_PATH :$env(PWD)/design
 
 ###########################################################################
 ## set custom colors for xschem libraries matching certain patterns
@@ -200,5 +200,5 @@ lappend tcl_files ${XSCHEM_SKYDIR}/scripts/sky130_models.tcl
 #### toolbar
 set toolbar_visible 0
 
-set SKYWATER_MODELS $env(PROJECT_ROOT)/../skywater/skywater-pdk/libraries/sky130_fd_pr/latest
-set SKYWATER_STDCELLS $env(PROJECT_ROOT)/../skywater/skywater-pdk/libraries/sky130_fd_sc_hd/latest
+set SKYWATER_MODELS $env(HOME)/skywater/skywater-pdk/libraries/sky130_fd_pr/latest
+set SKYWATER_STDCELLS $env(HOME)/skywater/skywater-pdk/libraries/sky130_fd_sc_hd/latest

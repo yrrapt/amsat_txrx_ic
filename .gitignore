@@ -18,3 +18,9 @@ bsim4v5.out
 
 # results files
 *.hdf5
+
+# temporary files
+temp/
+
+# archived files - often older files that don't need to be publised but will keeop a hold of locally
+archive/

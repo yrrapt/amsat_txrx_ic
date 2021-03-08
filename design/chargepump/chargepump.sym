@@ -1,0 +1,68 @@
+v {xschem version=2.9.7 file_version=1.1}
+G {type=subcircuit
+format="@name @pinlist @symname w_invp=@w_invp l_invp=@l_invp w_invn=@w_invn l_invn=@l_invn w_currn=@w_currn l_currn=@l_currn w_currp=@w_currp l_currp=@l_currp m_curr=@m_curr w_swn=@w_swn l_swn=@l_swn w_swp=@w_swp l_swp=@l_swp m_sw=@m_sw "
+template="name=x1 w_invp=3u l_invp=0.18u w_invn=1u l_invn=0.18u w_currn=1u l_currn=4u w_currp=3u l_currp=4u m_curr=20 w_swn=1u l_swn=0.18u w_swp=3u l_swp=0.18u m_sw=4"
+generic_type="w_invp=w_real l_invp=w_real w_invn=w_real l_invn=w_real w_currn=w_real l_currn=w_real w_currp=w_real l_currp=w_real m_curr=w_real w_swn=w_real l_swn=w_real w_swp=w_real l_swp=w_real m_sw=w_real"}
+V {}
+S {}
+E {}
+L 4 -90 -80 90 -80 {}
+L 4 -90 80 90 80 {}
+L 4 -90 -80 -90 80 {}
+L 4 90 -80 90 80 {}
+L 4 -110 -10 -90 -10 {}
+L 4 90 0 110 0 {}
+L 4 -60 -100 -60 -80 {}
+L 4 -110 10 -90 10 {}
+L 4 0 20 0 30 {}
+L 4 -10 10 0 20 {}
+L 4 0 -30 0 -20 {}
+L 4 0 -10 0 0 {}
+L 4 -10 -20 0 -10 {}
+L 4 0 0 0 10 {}
+L 4 0 0 60 0 {}
+L 4 0 34 0 44 {}
+L 4 0 -46 0 -36 {}
+L 4 -0 50 0 60 {}
+L 4 0 -60 -0 -50 {}
+L 4 -50 10 -48 10 {}
+L 4 -44 10 -42 10 {}
+L 4 -38 10 -36 10 {}
+L 4 -32 10 -30 10 {}
+L 4 -26 10 -24 10 {}
+L 4 -24 12 -24 14 {}
+L 4 -22 16 -20 16 {}
+L 4 -16 16 -14 16 {}
+L 4 -10 16 -8 16 {}
+L 4 -50 -10 -48 -10 {}
+L 4 -44 -10 -42 -10 {}
+L 4 -38 -10 -36 -10 {}
+L 4 -32 -10 -30 -10 {}
+L 4 -26 -10 -24 -10 {}
+L 4 -24 -14 -24 -12 {}
+L 4 -22 -14 -20 -14 {}
+L 4 -16 -14 -14 -14 {}
+L 4 -10 -14 -8 -14 {}
+L 4 -68 -10 -66 -10 {}
+L 4 -62 -10 -60 -10 {}
+L 4 -56 -10 -54 -10 {}
+L 7 0 -100 0 -80 {}
+L 7 0 80 0 100 {}
+B 5 -2.5 -102.5 2.5 -97.5 {name=VDD dir=inout }
+B 5 -112.5 -12.5 -107.5 -7.5 {name=UP dir=in }
+B 5 107.5 -2.5 112.5 2.5 {name=OUT dir=out }
+B 5 -62.5 -102.5 -57.5 -97.5 {name=BIAS dir=in }
+B 5 -112.5 7.5 -107.5 12.5 {name=DOWN dir=in }
+B 5 -2.5 97.5 2.5 102.5 {name=GND dir=inout }
+A 4 0 40 9.848857801796104 156.0375110254218 360 {}
+A 4 0 -40 9.848857801796104 156.0375110254218 360 {}
+P 4 4 0 47 3 44 -3 44 0 47 {}
+P 4 4 0 -33 3 -36 -3 -36 0 -33 {}
+T {@symname} 17 84 0 0 0.3 0.3 {}
+T {@name} 25 108 0 0 0.2 0.2 {}
+T {VDD} 12 -75 0 1 0.2 0.2 {}
+T {UP} -85 -16 0 0 0.2 0.2 {}
+T {OUT} 85 -6 0 1 0.2 0.2 {}
+T {BIAS} -72 -75 0 0 0.2 0.2 {}
+T {DOWN} -87 4 0 0 0.2 0.2 {}
+T {GND} -12 75 2 1 0.2 0.2 {}

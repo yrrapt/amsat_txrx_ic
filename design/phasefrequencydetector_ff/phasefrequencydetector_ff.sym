@@ -1,0 +1,36 @@
+v {xschem version=2.9.7 file_version=1.1}
+G {type=subcircuit
+format="@name @pinlist @symname w_n=@w_n l_n=@l_n w_p=@w_p l_p=@l_p"
+template="name=xpfd w_n=0.5u l_n=0.18u w_p=1.5u l_p=0.18u"
+generic_type="w_n=real l_n=real w_p=real l_p=real"
+}
+V {}
+S {}
+E {}
+L 4 -80 -40 80 -40 {}
+L 4 -80 40 80 40 {}
+L 4 -80 -40 -80 40 {}
+L 4 80 -40 80 40 {}
+L 4 80 10 100 10 {}
+L 4 -100 -10 -80 -10 {}
+L 4 -100 10 -80 10 {}
+L 4 80 -10 100 -10 {}
+L 7 0 -60 0 -40 {}
+L 7 0 40 0 60 {}
+L 9 -20 10 0 -10 {}
+B 5 -2.5 -62.5 2.5 -57.5 {name=VDD dir=inout }
+B 5 97.5 7.5 102.5 12.5 {name=DOWN dir=out }
+B 5 -102.5 -12.5 -97.5 -7.5 {name=REF dir=in }
+B 5 -102.5 7.5 -97.5 12.5 {name=FB dir=in }
+B 5 97.5 -12.5 102.5 -7.5 {name=UP dir=out }
+B 5 -2.5 57.5 2.5 62.5 {name=GND dir=inout }
+A 9 -10 0 10 180 360 {}
+T {@symname} 33 44 0 0 0.3 0.3 {}
+T {@name} 35 68 0 0 0.2 0.2 {}
+T {VDD} 11 -38 0 1 0.2 0.2 {}
+T {DOWN} 75 6 0 1 0.2 0.2 {}
+T {REF} -75 -14 0 0 0.2 0.2 {}
+T {FB} -75 6 0 0 0.2 0.2 {}
+T {UP} 75 -14 0 1 0.2 0.2 {}
+T {GND} -12 38 2 1 0.2 0.2 {}
+T {detect} 0 10 0 0 0.15 0.15 {}

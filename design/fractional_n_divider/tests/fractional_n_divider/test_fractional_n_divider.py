@@ -39,22 +39,22 @@ async def coverage(dut):
 
         # reset the DUT
         dut.rst = 1
-        dut.data_in = 0
+        dut.divide_value = 0
         await ClockCycles(dut.input_frequency, 8)
         dut.rst = 0
         model.reset()
 
         # create some random data
-        data_in = random.random() * (2**WIDTH_INTEGER - 0.5*2**ORDER - 1)
-        data_in_fp = int(data_in * 2**WIDTH_MODULUS)
-        dut._log.info("Test number %d, input value = %f" % (test+1, data_in))
+        divide_value = random.random() * (2**WIDTH_INTEGER - 0.5*2**ORDER - 1)
+        divide_value_fp = int(divide_value * 2**WIDTH_MODULUS)
+        dut._log.info("Test number %d, input value = %f" % (test+1, divide_value))
 
         # change the divide value
-        model.set_divide_value(data_in)
+        model.set_divide_value(divide_value)
 
         # update the divider value into the DUT
         status.update()
-        output_data = await new_divider_value(dut, status, data_in_fp)
+        output_data = await new_divider_value(dut, status, divide_value_fp)
         await RisingEdge(dut.input_frequency)
 
         # loop through some clock cycles calculating samples

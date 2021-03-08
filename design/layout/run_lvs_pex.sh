@@ -52,7 +52,14 @@ xschem -n -q -o "$run_dir" --tcl "set top_subckt 1" "design/$1/$1.sch"
 cd $run_dir
 
 # include the digital cell definitions
-sed -i '$s,.end,.include '"$HOME"'\/repositories\/skywater\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/pdk\/skywater130\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
+
+# want to replace with global RF subcircuit include
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/rf_nfet_01v8_lvt\/sky130_fd_pr__rf_nfet_01v8_lvt_aF02W3p00L0p15.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/rf_nfet_01v8_lvt\/sky130_fd_pr__rf_nfet_01v8_lvt_aF02W1p65L0p15.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/rf_pfet_01v8_lvt\/sky130_fd_pr__rf_pfet_01v8_lvt_aM02W5p00L0p35.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/rf_pfet_01v8\/sky130_fd_pr__rf_pfet_01v8_aM02W1p65L0p25.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/res_xhigh_po\/sky130_fd_pr__res_xhigh_po_2p85.model.spice\n.end,g' "$1.spice"
 
 # now compare the xschem schematic netlist and the magic extracted netlist
 netgen -batch lvs "drc_cell_lvs.spice "$1"" ""$1".spice "$1"" ~/skywater/pdk/skywater130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json

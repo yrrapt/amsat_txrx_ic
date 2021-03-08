@@ -1,0 +1,40 @@
+v {xschem version=2.9.7 file_version=1.1}
+G {type=subcircuit
+format="@name @pinlist @symname w_in=@w_in w_cas=@w_cas w_currp=@w_currp w_currn=@w_currn w_outn=@w_outn w_currcas=@w_currcas w_casb=@w_casb l_in=@l_in l_cas=@l_cas l_currp=@l_currp l_currn=@l_currn l_outn=@l_outn l_currcas=@l_currcas l_casb=@l_casb m_currp=@m_currp m_currp=@m_currp m_currn=@m_currn m_curro=@m_curro m_outn=@m_outn m_currcas=@m_currcas m_casb=@m_casb"
+template="name=x1 w_in=20u w_cas=2u w_currp=2u w_currn=2u w_outn=2u w_currcas=2u w_casb=2u l_in=0.5u l_cas=0.5u l_currp=2u l_currn=2u l_outn=2u l_currcas=0.5u l_casb=0.5u m_currp=2 m_currp=2 m_currn=2 m_curro=2 m_outn=2 m_currcas=2 m_casb=2"
+generic_type="w_in=w_real w_cas=w_real w_currp=w_real w_currn=w_real w_outn=w_real w_currcas=w_real w_casb=w_real l_in=w_real l_cas=w_real l_currp=w_real l_currn=w_real l_outn=w_real l_currcas=w_real l_casb=w_real m_currp=w_real m_currp=w_real m_currn=w_real m_curro=w_real m_outn=w_real m_currcas=w_real m_casb=w_real"
+}
+V {}
+S {}
+E {}
+L 4 20 20 60 20 {}
+L 4 20 -20 60 -20 {}
+L 4 -60 20 -40 20 {}
+L 4 -60 -20 -40 -20 {}
+L 4 -20 -60 -20 -40 {}
+L 4 -40 -50 -40 50 {}
+L 4 -40 50 50 0 {}
+L 4 14 20 20 20 {}
+L 4 -40 -50 50 0 {}
+L 4 14 -20 20 -20 {}
+L 4 -20 -40 -20 -39 {}
+L 7 0 -60 0 -40 {}
+L 7 0 30 0 50 {}
+L 7 -0 -40 -0 -28 {}
+L 7 0 28 0 30 {}
+B 5 -2.5 -62.5 2.5 -57.5 {name=vdd dir=inout }
+B 5 57.5 17.5 62.5 22.5 {name=outp dir=out }
+B 5 57.5 -22.5 62.5 -17.5 {name=outn dir=out }
+B 5 -62.5 17.5 -57.5 22.5 {name=inn dir=in }
+B 5 -62.5 -22.5 -57.5 -17.5 {name=inp dir=in }
+B 5 -22.5 -62.5 -17.5 -57.5 {name=bias dir=in }
+B 5 -2.5 47.5 2.5 52.5 {name=vss dir=inout }
+T {@symname} 13.5 44 0 0 0.3 0.3 {}
+T {@name} 15 68 0 0 0.2 0.2 {}
+T {vdd} 26 -65 0 1 0.2 0.2 {}
+T {outp} 56 22 0 1 0.2 0.2 {}
+T {outn} 56 -34 0 1 0.2 0.2 {}
+T {inn} -35 16 0 0 0.2 0.2 {}
+T {inp} -35 -24 0 0 0.2 0.2 {}
+T {bias} -26 -55 2 0 0.2 0.2 {}
+T {vss} -26 55 2 1 0.2 0.2 {}
