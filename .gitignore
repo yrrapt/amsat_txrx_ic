@@ -26,4 +26,4 @@ temp/
 archive/
 
 # pytest run directory
-run_dir/
+rundir/
