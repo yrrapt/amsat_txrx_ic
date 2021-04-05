@@ -24,3 +24,6 @@ temp/
 
 # archived files - often older files that don't need to be publised but will keeop a hold of locally
 archive/
+
+# pytest run directory
+run_dir/
