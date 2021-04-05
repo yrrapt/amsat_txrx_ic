@@ -1,0 +1,6 @@
+site_name: Amateur Radio Satellite Transceiver IC
+
+theme:
+  name: material
+  palette:
+    primary: black
