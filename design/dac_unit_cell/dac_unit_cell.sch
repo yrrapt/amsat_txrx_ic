@@ -114,7 +114,7 @@ N 540 0 800 0 { lab=vssa}
 N 780 -60 780 -0 { lab=vssa}
 N 780 -90 800 -90 { lab=vssa}
 C {iopin.sym} 0 -930 2 0 {name=p1 lab=vdda}
-C {iopin.sym} 0 0 2 0 {name=p2 lab=vssa}
+C {iopin.sym} 0 0 2 0 {name=p2 lab=vss}
 C {ipin.sym} 0 -790 0 0 {name=p3 lab=curr_bias}
 C {ipin.sym} 180 -1110 0 0 {name=p4 lab=clk}
 C {ipin.sym} 180 -1090 0 0 {name=p5 lab=data}
@@ -257,11 +257,11 @@ spiceprefix=X
 }
 C {lab_pin.sym} 400 -510 0 1 {name=l20 sig_type=std_logic lab=data_n}
 C {lab_pin.sym} 560 -510 0 0 {name=l21 sig_type=std_logic lab=data_p}
-C {sky130_stdcells/inv_1.sym} 290 -1000 0 0 {name=xn VGND=vssa VNB=vssa VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
+C {sky130_stdcells/inv_1.sym} 290 -1000 0 0 {name=xn VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
 C {lab_pin.sym} 580 -1110 0 1 {name=l13 sig_type=std_logic lab=data_p}
 C {lab_pin.sym} 580 -1020 0 1 {name=l14 sig_type=std_logic lab=data_n}
-C {sky130_stdcells/dfxtp_1.sym} 490 -1100 0 0 {name=xff_p VGND=vssa VNB=vssa VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
-C {sky130_stdcells/dfxtp_1.sym} 490 -1010 0 0 {name=xff_n VGND=vssa VNB=vssa VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
+C {sky130_stdcells/dfxtp_1.sym} 490 -1100 0 0 {name=xff_p VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
+C {sky130_stdcells/dfxtp_1.sym} 490 -1010 0 0 {name=xff_n VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
 C {ipin.sym} 0 -90 0 0 {name=p10 lab=drive_bias}
 C {sky130_fd_pr/pfet_01v8.sym} 320 -650 0 1 {name=Mload_p
 L=0.15
@@ -315,7 +315,6 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {iopin.sym} 0 -1010 2 0 {name=p12 lab=vssd}
 C {iopin.sym} 0 -1030 2 0 {name=p13 lab=vddd}
 C {lab_wire.sym} 410 -310 0 1 {name=l1 sig_type=std_logic lab=cas_bias}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 760 -90 0 0 {name=Mdrive_currcap1
