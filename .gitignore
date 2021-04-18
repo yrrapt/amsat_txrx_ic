@@ -27,3 +27,9 @@ archive/
 
 # pytest run directory
 rundir/
+
+# CocoTB output files
+sim_build/
+*results.xml
+*.vcd
+*.vvp
