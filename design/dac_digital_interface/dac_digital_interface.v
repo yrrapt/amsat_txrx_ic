@@ -6,7 +6,7 @@ module dac_digital_interface
         input                                       clk_i,
         input                                       rst_ni,
 
-        input                                       randomise_en,
+        input                                       randomise_en_i,
 
         input  [INPUT_WIDTH-1:0]                    input_binary_i,
         output [2**THERMOMETER_WIDTH-1:0]           output_thermometer_o,
@@ -62,7 +62,7 @@ module dac_digital_interface
     assign random_signal = lfsr_q[14:13];
 
     // enable the randomisation?
-    assign remap_control = randomise_en ? random_signal : 2'b00;
+    assign remap_control = randomise_en_i ? random_signal : 2'b00;
 
     // map outputs
     always @* begin
