@@ -38,18 +38,20 @@ N 1030 -150 1130 -150 { lab=out_n}
 N 1130 -830 1130 -490 { lab=out_n}
 N 1030 -170 1150 -170 { lab=out_p}
 N 1150 -850 1150 -510 { lab=out_p}
-N 530 -1010 530 -970 { lab=#net1}
-N 530 -1140 530 -1070 { lab=vdda}
-N 0 -1140 530 -1140 { lab=vdda}
+N 530 -1330 530 -1260 { lab=vdda}
+N 0 -1330 530 -1330 { lab=vdda}
 N 0 -0 880 0 { lab=vss}
 N 880 -40 880 0 { lab=vss}
+N 530 -1000 530 -970 {}
+N 530 -1100 530 -1060 {}
+N 530 -1200 530 -1160 {}
 C {dac_unit_cell/dac_unit_cell.sym} 880 -840 0 0 {name=xunit_cell[255:0]}
 C {dac_unit_cell_half/dac_unit_cell_half.sym} 880 -500 0 0 {name=xunit_cell_half}
 C {dac_unit_cell_quarter/dac_unit_cell_quarter.sym} 880 -160 0 0 {name=xunit_cell_quarter}
 C {dac_bias/dac_bias.sym} 270 -860 0 0 {name=xbias[9:0]}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1040 0 0 {name=Rdrive[7:0]
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1230 0 0 {name=Rdrive[7:0]
 W=0.69
-L=12.84
+L=4.28
 model=res_xhigh_po_0p69
 spiceprefix=X
 mult=1}
@@ -77,9 +79,9 @@ C {lab_pin.sym} 950 -280 2 0 {name=l14 sig_type=std_logic lab=vddd}
 C {lab_pin.sym} 950 -620 2 0 {name=l15 sig_type=std_logic lab=vddd}
 C {lab_pin.sym} 950 -960 2 0 {name=l16 sig_type=std_logic lab=vddd}
 C {lab_pin.sym} 880 -720 0 0 {name=l17 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 510 -1040 0 0 {name=l18 sig_type=std_logic lab=vss}
-C {iopin.sym} 0 -1140 0 1 {name=p8 lab=vdda}
-C {iopin.sym} 0 -1100 0 1 {name=p9 lab=vddd}
+C {lab_pin.sym} 510 -1230 0 0 {name=l18 sig_type=std_logic lab=vss}
+C {iopin.sym} 0 -1330 0 1 {name=p8 lab=vdda}
+C {iopin.sym} 0 -1290 0 1 {name=p9 lab=vddd}
 C {iopin.sym} 0 0 0 1 {name=p10 lab=vss}
 C {sky130_stdcells/decap_12.sym} 830 -1080 0 0 {name=x1 VGND=VGND VNB=VNB VPB=VPB VPWR=VPWR prefix=sky130_fd_sc_hd__ }
 C {lab_pin.sym} 730 -820 0 0 {name=l19 sig_type=std_logic lab=bias_10u}
@@ -88,3 +90,17 @@ C {lab_pin.sym} 730 -140 0 0 {name=l21 sig_type=std_logic lab=bias_10u}
 C {lab_pin.sym} 730 -860 0 0 {name=l22 sig_type=std_logic lab=vss}
 C {lab_pin.sym} 730 -520 0 0 {name=l23 sig_type=std_logic lab=vss}
 C {lab_pin.sym} 730 -180 0 0 {name=l24 sig_type=std_logic lab=vss}
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1030 0 0 {name=Rdrive1[7:0]
+W=0.69
+L=4.28
+model=res_xhigh_po_0p69
+spiceprefix=X
+mult=1}
+C {lab_pin.sym} 510 -1030 0 0 {name=l25 sig_type=std_logic lab=vss}
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1130 0 0 {name=Rdrive2[7:0]
+W=0.69
+L=4.28
+model=res_xhigh_po_0p69
+spiceprefix=X
+mult=1}
+C {lab_pin.sym} 510 -1130 0 0 {name=l26 sig_type=std_logic lab=vss}

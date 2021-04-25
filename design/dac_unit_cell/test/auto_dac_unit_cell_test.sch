@@ -30,12 +30,10 @@ N 270 -120 270 -90 { lab=data}
 N 270 -30 270 0 { lab=GND}
 N 100 0 270 0 { lab=GND}
 N 560 -350 680 -350 { lab=drive_supply}
-N 560 -390 560 -350 { lab=drive_supply}
 N 660 -390 660 -350 { lab=drive_supply}
 N 830 -480 830 -370 { lab=vdd}
 N 420 -480 830 -480 { lab=vdd}
 N 420 -480 420 -350 { lab=vdd}
-N 560 -480 560 -450 { lab=vdd}
 N 660 -480 660 -450 { lab=vdd}
 N 980 -280 1300 -280 { lab=#net4}
 N 1300 -280 1300 -210 { lab=#net4}
@@ -100,10 +98,6 @@ C {pulse_source.sym} 270 -60 0 0 {name=Vdata vlo=0.0 vhi=1.8 delay=0 rise=0.1n f
 C {lab_pin.sym} 100 -120 0 1 {name=l1 sig_type=std_logic lab=clk}
 C {lab_pin.sym} 680 -190 0 0 {name=l2 sig_type=std_logic lab=data}
 C {lab_pin.sym} 680 -210 0 0 {name=l3 sig_type=std_logic lab=clk}
-C {res.sym} 560 -420 0 0 {name=R2
-value=1200k
-device=resistor
-m=1}
 C {capa.sym} 660 -420 0 0 {name=C1
 m=1
 value=100p}
@@ -173,3 +167,26 @@ value=100p}
 C {vsource.sym} 900 -420 0 0 {name=Vdd1 value=0.0}
 C {vsource.sym} 900 -120 0 0 {name=Vdd2 value=0.0}
 C {lab_pin.sym} 680 -290 0 0 {name=l11 sig_type=std_logic lab=gnd}
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -580 0 0 {name=Rdrive2[31:0]
+W=0.69
+L=4.28
+model=res_xhigh_po_0p69
+spiceprefix=X
+mult=1}
+C {lab_pin.sym} 250 -580 0 0 {name=l14 sig_type=std_logic lab=gnd}
+C {lab_wire.sym} 270 -730 0 1 {name=l15 sig_type=std_logic lab=r5[30:0],vdd}
+C {lab_wire.sym} 270 -550 2 0 {name=l16 sig_type=std_logic lab=drive_supply,r5[30:0]}
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -640 0 0 {name=Rdrive1[31:0]
+W=0.69
+L=4.28
+model=res_xhigh_po_0p69
+spiceprefix=X
+mult=1}
+C {lab_pin.sym} 250 -640 0 0 {name=l17 sig_type=std_logic lab=gnd}
+C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -700 0 0 {name=Rdrive3[31:0]
+W=0.69
+L=4.28
+model=res_xhigh_po_0p69
+spiceprefix=X
+mult=1}
+C {lab_pin.sym} 250 -700 0 0 {name=l18 sig_type=std_logic lab=gnd}
