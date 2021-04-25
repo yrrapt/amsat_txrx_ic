@@ -6,6 +6,8 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
+mkdir -p drc_lvs_pex
+
 # go into cell specific run folder
 cd drc_lvs_pex
 if [ ! -d "$1" ]; then
