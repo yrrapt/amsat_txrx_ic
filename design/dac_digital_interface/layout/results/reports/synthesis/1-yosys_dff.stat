@@ -1,0 +1,26 @@
+
+20. Printing statistics.
+
+=== dac_digital_interface ===
+
+   Number of wires:               3403
+   Number of wire bits:           3703
+   Number of public wires:           8
+   Number of public wire bits:     294
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2652
+     $_ANDNOT_                     922
+     $_AND_                        127
+     $_NAND_                         4
+     $_NOR_                          5
+     $_NOT_                        259
+     $_ORNOT_                        1
+     $_OR_                        1039
+     $_XNOR_                         4
+     $_XOR_                         10
+     sky130_fd_sc_hd__dfrtp_2       15
+     sky130_fd_sc_hd__dfxtp_2       10
+     sky130_fd_sc_hd__mux2_1       256
+
