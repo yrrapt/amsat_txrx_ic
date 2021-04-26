@@ -1,19 +1,18 @@
 import re
-import yaml
+import pickle
 import argparse
 
 # define input parameters
 parser = argparse.ArgumentParser()
 parser.add_argument("input_def",     help="Input DEF file to be modified")
-parser.add_argument("configuration", help="YAML configuration of changes to make")
+parser.add_argument("configuration", help="Pickle configuration of changes to make")
 parser.add_argument("--output_def",  help="Location to save the output DEF file ")
 args = parser.parse_args()
 
 #################################################################################################
 # read in the configuration
-with open(args.configuration) as yaml_file:
-    specification = yaml.load(yaml_file, Loader=yaml.FullLoader)
-
+with open(args.configuration, 'rb') as pkl_file:
+    specification = pickle.load(pkl_file)
 
 # read in the file
 with open(args.input_def, 'r') as f_input:
@@ -34,7 +33,9 @@ with open(args.input_def, 'r') as f_input:
     #################################################################################################
     # change pin locations
     pins = contents[1]
+    pin_specification = specification['pins']
     for pin in pin_specification:
+
         string = ''
         for i, line in enumerate(pins.split("\n")):
             if pin['name'] in line:
