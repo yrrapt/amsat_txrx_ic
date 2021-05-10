@@ -24,7 +24,7 @@ module dac_digital_interface
     reg  [BINARY_WIDTH-1:0]         input_binary_slice_q;
     reg  [BINARY_WIDTH-1:0]         input_binary_slice;
     reg  [THERMOMETER_LENGTH-1:0]   reversed_thermometer;
-    wire [THERMOMETER_LENGTH-1:0]   thermometer_code;
+    reg  [THERMOMETER_LENGTH-1:0]   thermometer_code;
 
     // dynamic switching signals
     reg  [14:0]                     lfsr_q;
@@ -42,7 +42,7 @@ module dac_digital_interface
     // pick off the binary LSBs and delay to match the pipelined thermometer coding
     always @(posedge clk_i) begin
         input_binary_slice_q <= input_binary_i[BINARY_WIDTH-1:0];
-        input_binary_slice <= input_binary_slice;
+        input_binary_slice <= input_binary_slice_q;
     end
     
     // use a reversed thermometer to leverage the shift command.
@@ -92,7 +92,7 @@ module dac_digital_interface
     // map outputs
     always @(posedge clk_i) begin
         case(remap_control)
-            0       : thermometer_randomised <= thermometer_code;
+            0       : thermometer_randomised <=  thermometer_code;
             1       : thermometer_randomised <= {thermometer_code[3*THERMOMETER_LENGTH/4-1:0], thermometer_code[THERMOMETER_LENGTH-1:3*THERMOMETER_LENGTH/4]};
             2       : thermometer_randomised <= {thermometer_code[2*THERMOMETER_LENGTH/4-1:0], thermometer_code[THERMOMETER_LENGTH-1:2*THERMOMETER_LENGTH/4]};
             3       : thermometer_randomised <= {thermometer_code[1*THERMOMETER_LENGTH/4-1:0], thermometer_code[THERMOMETER_LENGTH-1:1*THERMOMETER_LENGTH/4]};

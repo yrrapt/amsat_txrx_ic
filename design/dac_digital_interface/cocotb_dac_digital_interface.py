@@ -17,7 +17,8 @@ async def coverage(dut):
     """
 
     # define default input values
-    dut.randomise_en   <= 0
+    dut.en_i <= 0
+    dut.randomise_en_i <= 0
     dut.input_binary_i <= 0
 
     # start clock and reset
@@ -25,6 +26,11 @@ async def coverage(dut):
     dut.rst_ni <= 0
     await ClockCycles(dut.clk_i, 2)
     dut.rst_ni <= 1
+
+    # wait a cycle
+    await FallingEdge(dut.clk_i)
+
+    pipeline_expected = 0
 
     # loop through the tests
     for n in range(2**INPUT_WIDTH):
@@ -38,4 +44,6 @@ async def coverage(dut):
         # read the output values and check it's correct
         value  = 4*dut.output_thermometer_o.value.binstr.count('1')
         value += dut.output_binary_o.value.integer
-        assert value == n
+        dut._log.info('value = %d, pipeline_expected = %d' % (value, pipeline_expected))
+        assert value == pipeline_expected
+        pipeline_expected = n
