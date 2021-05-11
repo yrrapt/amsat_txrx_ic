@@ -1,0 +1,47 @@
+
+28. Printing statistics.
+
+=== dac_digital_interface ===
+
+   Number of wires:               1898
+   Number of wire bits:           2163
+   Number of public wires:         283
+   Number of public wire bits:     548
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2149
+     sky130_fd_sc_hd__a21o_2        13
+     sky130_fd_sc_hd__a21oi_2       70
+     sky130_fd_sc_hd__a221o_2      256
+     sky130_fd_sc_hd__a22oi_2        1
+     sky130_fd_sc_hd__a31o_2        22
+     sky130_fd_sc_hd__a31oi_2       19
+     sky130_fd_sc_hd__a41o_2         1
+     sky130_fd_sc_hd__and2_2        19
+     sky130_fd_sc_hd__and3_2       266
+     sky130_fd_sc_hd__and4_2         1
+     sky130_fd_sc_hd__buf_1        401
+     sky130_fd_sc_hd__buf_2          1
+     sky130_fd_sc_hd__conb_1         1
+     sky130_fd_sc_hd__dfrtp_2       17
+     sky130_fd_sc_hd__dfxtp_2      516
+     sky130_fd_sc_hd__inv_2         28
+     sky130_fd_sc_hd__mux2_1       256
+     sky130_fd_sc_hd__nand2_2       65
+     sky130_fd_sc_hd__nand3_2       30
+     sky130_fd_sc_hd__nor2_2        75
+     sky130_fd_sc_hd__nor3_2         1
+     sky130_fd_sc_hd__o21a_2         8
+     sky130_fd_sc_hd__o21ai_2       65
+     sky130_fd_sc_hd__o22a_2         1
+     sky130_fd_sc_hd__o22ai_2        4
+     sky130_fd_sc_hd__o31a_2         3
+     sky130_fd_sc_hd__o31ai_2        2
+     sky130_fd_sc_hd__or2_2          1
+     sky130_fd_sc_hd__or3_2          2
+     sky130_fd_sc_hd__or3b_2         2
+     sky130_fd_sc_hd__xnor2_2        2
+
+   Chip area for module '\dac_digital_interface': 24149.411200
+

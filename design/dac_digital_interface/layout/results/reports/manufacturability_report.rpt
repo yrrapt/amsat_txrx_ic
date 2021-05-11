@@ -1,19 +1,19 @@
 Design Name: dac_digital_interface
-Run Directory: /amsat_txrx_ic/design/dac_digital_interface/runs/26-04_14-35
+Run Directory: /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30
 ----------------------------------------
 
 Magic DRC Summary:
-Source: /amsat_txrx_ic/design/dac_digital_interface/runs/26-04_14-35/reports/magic//38-magic.drc
+Source: /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic//38-magic.drc
 Total Magic DRC violations is 0
 ----------------------------------------
 
 LVS Summary:
-Source: /amsat_txrx_ic/design/dac_digital_interface/runs/26-04_14-35/results/lvs/dac_digital_interface.lvs_parsed.lef.log
+Source: /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/lvs/dac_digital_interface.lvs_parsed.lef.log
 LVS reports no net, device, pin, or property mismatches.
 Total errors = 0
 ----------------------------------------
 
 Antenna Summary:
-Source: /amsat_txrx_ic/design/dac_digital_interface/runs/26-04_14-35/reports/routing//40-antenna.rpt
-Number of pins violated: 13
-Number of nets violated: 13
+Source: /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/routing//40-antenna.rpt
+Number of pins violated: 41
+Number of nets violated: 34
