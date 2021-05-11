@@ -1,0 +1,121 @@
+**.subckt lc_oscillator_8ghz vdd vss bias vctl
+*.iopin vdd
+*.iopin vss
+*.ipin bias
+*.ipin vctl
+XM1 s_n s_p net1 GND sky130_fd_pr__nfet_01v8_lvt L=0.15 W=20 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM2 s_p s_n net1 GND sky130_fd_pr__nfet_01v8_lvt L=0.15 W=20 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM3 out_p vdd s_p GND sky130_fd_pr__nfet_01v8_lvt L=0.15 W=20 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM4 out_n vdd s_n GND sky130_fd_pr__nfet_01v8_lvt L=0.15 W=20 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM5 net1 bias GND GND sky130_fd_pr__nfet_01v8_lvt L=0.5 W=5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=64 m=64 
+XM6 net1 bias GND GND sky130_fd_pr__nfet_01v8_lvt L=0.5 W=5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=64 m=64 
+XM7 bias bias GND GND sky130_fd_pr__nfet_01v8_lvt L=0.5 W=5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+I0 vdd bias 10u
+x1 vdd out_p gnd lc_oscillator_8ghz_inductor
+x2 vdd out_n gnd lc_oscillator_8ghz_inductor
+x3 vctl out_p oscillator_8ghz_varactor
+x4 vctl out_n oscillator_8ghz_varactor
+V2 vdd GND 1.8
+V3 vctl GND 1.6
+R1 GND vss 1k m=1
+XC2 out_p s_p sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=4 m=4
+XC1 out_n s_n sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=4 m=4
+XC3 s_p net2 sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=1 m=1
+XC4 s_n net2 sky130_fd_pr__cap_mim_m3_1 W=2 L=2 MF=1 m=1
+**** begin user architecture code
+
+
+.param temp=27
+.param vtune=0.90
+
+*.op
+.tran 0.1p 320n uic
+
+
+
+
+
+.options wnflag=1
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_01v8_lvt/sky130_fd_pr__nfet_01v8_lvt__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_03v3_nvt/sky130_fd_pr__nfet_03v3_nvt__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_05v0_nvt/sky130_fd_pr__nfet_05v0_nvt__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/esd_nfet_01v8/sky130_fd_pr__esd_nfet_01v8__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8_lvt/sky130_fd_pr__pfet_01v8_lvt__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8_hvt/sky130_fd_pr__pfet_01v8_hvt__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/esd_pfet_g5v0d10v5/sky130_fd_pr__esd_pfet_g5v0d10v5__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_g5v0d10v5/sky130_fd_pr__pfet_g5v0d10v5__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_g5v0d16v0/sky130_fd_pr__pfet_g5v0d16v0__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_g5v0d10v5/sky130_fd_pr__nfet_g5v0d10v5__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_g5v0d16v0/sky130_fd_pr__nfet_g5v0d16v0__tt_discrete.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/esd_nfet_g5v0d10v5/sky130_fd_pr__esd_nfet_g5v0d10v5__tt.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/tt/nonfet.spice
+* Mismatch parameters
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_01v8_lvt/sky130_fd_pr__nfet_01v8_lvt__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8_lvt/sky130_fd_pr__pfet_01v8_lvt__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_01v8_hvt/sky130_fd_pr__pfet_01v8_hvt__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_g5v0d10v5/sky130_fd_pr__nfet_g5v0d10v5__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/pfet_g5v0d10v5/sky130_fd_pr__pfet_g5v0d10v5__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_05v0_nvt/sky130_fd_pr__nfet_05v0_nvt__mismatch.corner.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_03v3_nvt/sky130_fd_pr__nfet_03v3_nvt__mismatch.corner.spice
+* Resistor/home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/Capacitor
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/r+c/res_typical__cap_typical.spice
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/r+c/res_typical__cap_typical__lin.spice
+* Special cells
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/tt/specialized_cells.spice
+* All models
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/all.spice
+* Corner
+.include /home/tom/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/tt/rf.spice
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  lc_oscillator_8ghz_inductor/lc_oscillator_8ghz_inductor.sym # of pins=3
+* sym_path:
+*+ /home/tom/repositories/amsat_txrx_ic/design/lc_oscillator_8ghz_inductor/lc_oscillator_8ghz_inductor.sym
+* sch_path:
+*+ /home/tom/repositories/amsat_txrx_ic/design/lc_oscillator_8ghz_inductor/lc_oscillator_8ghz_inductor.sch
+.subckt lc_oscillator_8ghz_inductor  p1 p2 vss
+*.iopin p1
+*.iopin vss
+*.iopin p2
+Ls net1 p1 2.9n m=1
+Rs p2 net1 20 m=1
+C1 p2 p1 2.25f m=1
+.ends
+
+
+* expanding   symbol:  lc_oscillator_8ghz_varactor/oscillator_8ghz_varactor.sym # of pins=2
+* sym_path:
+*+ /home/tom/repositories/amsat_txrx_ic/design/lc_oscillator_8ghz_varactor/oscillator_8ghz_varactor.sym
+* sch_path:
+*+ /home/tom/repositories/amsat_txrx_ic/design/lc_oscillator_8ghz_varactor/oscillator_8ghz_varactor.sch
+.subckt oscillator_8ghz_varactor  p m
+*.iopin m
+*.iopin p
+XM2 p m p p sky130_fd_pr__nfet_01v8 L=4 W=4 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+.ends
+
+.GLOBAL GND
+** flattened .save nodes
+.end

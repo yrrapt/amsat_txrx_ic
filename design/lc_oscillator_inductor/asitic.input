@@ -1,0 +1,3 @@
+sympoly name=diff:rad=80:w=6:s=6:n=4:sides=8:xorg=250:yorg=250:orient=90
+pix diff 8
+#cifsave diff octogon_inductor.cif

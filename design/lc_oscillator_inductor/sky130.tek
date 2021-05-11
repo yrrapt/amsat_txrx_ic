@@ -1,0 +1,210 @@
+; Auto-Generated from ../sky130_stackup.yaml
+;  at 202012/23, 21:48:00
+
+
+; ---------------------------------------------------------------------------------------
+; Define the chip specs
+; ---------------------------------------------------------------------------------------
+
+<chip>
+    chipx     = 512
+    chipy     = 512
+    fftx      = 256
+    ffty      = 256
+    TechFile  = sky130.tek    TechPath  = .    eddy  = 0
+    eddy  = 1
+; ---------------------------------------------------------------------------------------
+; Define the cross section layers
+; ---------------------------------------------------------------------------------------
+
+<layer> 0  ; Bulk Substrate
+    rho = 0.100000
+    t   = 400.000000
+    eps = 11.900000
+
+<layer> 1  ; Epi Layer
+    rho = 15.000000
+    t   = 1.000000
+    eps = 11.900000
+
+<layer> 2  ; Oxide Layer 1
+    rho = 10000000000.000000
+    t   = 0.936100
+    eps = 3.900000
+
+<layer> 3  ; Oxide Layer 2
+    rho = 10000000000.000000
+    t   = 0.150000
+    eps = 7.300000
+
+<layer> 4  ; Oxide Layer 3
+    rho = 10000000000.000000
+    t   = 0.265000
+    eps = 4.050000
+
+<layer> 5  ; Oxide Layer 4
+    rho = 10000000000.000000
+    t   = 0.630000
+    eps = 4.500000
+
+<layer> 6  ; Oxide Layer 5
+    rho = 10000000000.000000
+    t   = 0.780000
+    eps = 4.200000
+
+<layer> 7  ; Oxide Layer 6
+    rho = 10000000000.000000
+    t   = 1.235000
+    eps = 4.100000
+
+<layer> 8  ; Oxide Layer 7
+    rho = 10000000000.000000
+    t   = 1.350000
+    eps = 4.000000
+
+<layer> 9  ; Oxide Layer 8
+    rho = 10000000000.000000
+    t   = 1.260000
+    eps = 7.500000
+
+<layer> 10  ; Oxide Layer 9
+    rho = 10000000000.000000
+    t   = 0.090000
+    eps = 3.900000
+
+<layer> 11  ; Oxide Layer 10
+    rho = 10000000000.000000
+    t   = 0.540000
+    eps = 7.500000
+
+<layer> 12  ; Oxide Layer 11
+    rho = 10000000000.000000
+    t   = 4.244600
+    eps = 2.940000
+
+; ---------------------------------------------------------------------------------------
+; Define the metal and via layers
+; ---------------------------------------------------------------------------------------
+
+<metal> 0  ; Substrate Contact Layer
+    layer = 1
+    rsh   = 30.000000
+    t     = 0.100000
+    d     = 0.500000
+    name  = msub
+    color = red
+
+<metal> 1  ; Local Interconnect Layer
+    layer = 3
+    rsh   = 12800.000000
+    t     = 0.100000
+    d     = 0.000000
+    name  = li
+    color = blue
+
+<metal> 2  ; Metal 1 Layer
+    layer = 5
+    rsh   = 125.000000
+    t     = 0.360000
+    d     = 0.000000
+    name  = met1
+    color = green
+
+<metal> 3  ; Metal 2 Layer
+    layer = 6
+    rsh   = 125.000000
+    t     = 0.360000
+    d     = 0.000000
+    name  = met2
+    color = yellow
+
+<metal> 4  ; Metal 3 Layer
+    layer = 7
+    rsh   = 47.000000
+    t     = 0.845000
+    d     = 0.000000
+    name  = met3
+    color = orange
+
+<metal> 5  ; Metal 4 Layer
+    layer = 8
+    rsh   = 47.000000
+    t     = 0.845000
+    d     = 0.000000
+    name  = met4
+    color = grey
+
+<metal> 6  ; Metal 5 Layer
+    layer = 9
+    rsh   = 29.000000
+    t     = 1.260000
+    d     = 0.000000
+    name  = met5
+    color = white
+
+<via> 0  ; Substrate to Local Interconnect Contact
+    top       = 1
+    bottom    = 0
+    r         = 152
+    width     = 0.150000
+    space     = 0.270000
+    overplot1 = 0.300000
+    overplot2 = 0.300000
+    name      = mcon
+    color     = cyan
+
+<via> 1  ; Local Interconnect to Metal 1 Contact
+    top       = 2
+    bottom    = 1
+    r         = 15
+    width     = 0.170000
+    space     = 0.170000
+    overplot1 = 0.400000
+    overplot2 = 0.400000
+    name      = licon
+    color     = purple
+
+<via> 2  ; Metal 1 to Metal 2 Contact
+    top       = 3
+    bottom    = 2
+    r         = 4
+    width     = 0.150000
+    space     = 0.170000
+    overplot1 = 0.085000
+    overplot2 = 0.085000
+    name      = via1
+    color     = brown
+
+<via> 3  ; Metal 2 to Metal 3 Contact
+    top       = 4
+    bottom    = 3
+    r         = 3
+    width     = 0.200000
+    space     = 0.200000
+    overplot1 = 0.085000
+    overplot2 = 0.065000
+    name      = via2
+    color     = navy
+
+<via> 4  ; Metal 3 to Metal 4 Contact
+    top       = 5
+    bottom    = 4
+    r         = 3
+    width     = 0.200000
+    space     = 0.210000
+    overplot1 = 0.060000
+    overplot2 = 0.065000
+    name      = via3
+    color     = lightblue
+
+<via> 5  ; Metal 4 to Metal 5 Contact
+    top       = 6
+    bottom    = 5
+    r         = 0
+    width     = 0.800000
+    space     = 0.800000
+    overplot1 = 0.060000
+    overplot2 = 0.065000
+    name      = via4
+    color     = wheat
+
