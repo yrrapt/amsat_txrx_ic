@@ -134,8 +134,9 @@ for i in range(len(pins[0])):
 
     location += args.out_pitch
 
+# add the enable signal
+def_string = add_pin('en_o', location, top_y, 'output', def_string)
 
-print(def_string)
 
 ####################################################################################################################################################################################
 # write control inputs
@@ -150,6 +151,9 @@ def_string = add_pin('rst_ni', x, location, 'input', def_string)
 location += args.in_pitch
 
 def_string = add_pin('randomise_en_i', x, location, 'input', def_string)
+location += args.in_pitch
+
+def_string = add_pin('en_i', x, location, 'input', def_string)
 location += args.in_pitch
 
 for i in range(args.in_binary):

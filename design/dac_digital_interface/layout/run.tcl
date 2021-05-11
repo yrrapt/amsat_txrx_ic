@@ -3,15 +3,15 @@
 # set some global settings
 set CONFIG_DIR /amsat_txrx_ic/design/dac_digital_interface/layout 
 
+
 # synth
 prep -design /amsat_txrx_ic/design/dac_digital_interface
 run_synthesis
 
 # define area
-set ::env(FP_SIZING)   "absolute"
-set ::env(DIE_AREA)    "0 0 200 210"
-set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hs"
-set ::env(PL_TARGET_DENSITY) 0.45
+set ::env(FP_SIZING)        "absolute"
+set ::env(DIE_AREA)         "0 0 280 210"
+# set ::env(PL_TARGET_DENSITY) 0.4
 
 # create initial floorplan
 init_floorplan
