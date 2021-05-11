@@ -33,3 +33,9 @@ sim_build/
 *results.xml
 *.vcd
 *.vvp
+
+.log
+.LOG
+.raw
+.out
+
