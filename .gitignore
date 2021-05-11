@@ -34,8 +34,8 @@ sim_build/
 *.vcd
 *.vvp
 
-.log
-.LOG
-.raw
-.out
+*.log
+*.LOG
+*.raw
+*.out
 
