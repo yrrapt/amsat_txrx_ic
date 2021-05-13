@@ -11,9 +11,7 @@ N 0 -190 0 -0 { lab=GND}
 N 680 -100 680 -0 { lab=GND}
 N 800 -100 800 -0 { lab=GND}
 N 550 -210 680 -210 { lab=out_n}
-N 680 -210 680 -160 { lab=out_n}
 N 550 -230 800 -230 { lab=out_p}
-N 800 -230 800 -160 { lab=out_p}
 N 0 -0 680 -0 { lab=GND}
 N 680 -0 800 -0 { lab=GND}
 N 400 -120 400 -0 { lab=GND}
@@ -23,8 +21,11 @@ N 160 -180 250 -180 { lab=#net2}
 N 160 -420 160 -380 { lab=#net1}
 N 160 -320 160 -260 { lab=#net3}
 N 160 -260 250 -260 { lab=#net3}
+N 680 -160 800 -160 { lab=GND}
+N 620 -160 680 -160 { lab=GND}
+N 620 -160 620 -0 { lab=GND}
 C {lc_oscillator/lc_oscillator.sym} 400 -220 0 0 {name=x1}
-C {isource.sym} 160 -350 0 0 {name=Ibias value=10u}
+C {isource.sym} 160 -350 0 0 {name=Ibias value=20u}
 C {vsource.sym} 160 -90 0 0 {name=Vctl value=\{vctl\}}
 C {vsource.sym} 0 -220 0 0 {name=Vdd value=\{vdd\}}
 C {capa.sym} 680 -130 0 0 {name=C1
@@ -43,7 +44,7 @@ C {gnd.sym} 0 0 0 0 {name=l3 lab=GND}
 C {code.sym} 750 -400 0 0 {name=SIM only_toplevel=false value="
 .param temp=27
 
-.param vdd=1.8 vctl=0.9
+.param vdd=1.8 vctl=1.6
 
 *.op
 .tran 1p 300n uic

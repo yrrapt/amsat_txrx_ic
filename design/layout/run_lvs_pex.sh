@@ -19,6 +19,8 @@ cd "$1"
 echo "gds flatten true
 gds read ../../amsat_txrx_ic.gds
 load $1
+#flatten drc_cell_lvs
+#load drc_cell_lvs
 extract all
 extract do all
 ext2spice lvs
@@ -56,8 +58,8 @@ xschem -n -q -o "$run_dir" "design/$1/$1.sch"
 cd $run_dir
 
 # include the digital cell definitions
-sed -i '$s,.end,.include '"$HOME"'\/skywater\/open_pdks\/sky130\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
-sed -i '$s,.end,.include '"$HOME"'\/skywater\/open_pdks\/sky130\/sky130A\/libs.ref\/sky130_fd_sc_hs\/spice\/sky130_fd_sc_hs.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$SKY130A"'\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
+sed -i '$s,.end,.include '"$SKY130A"'\/libs.ref\/sky130_fd_sc_hs\/spice\/sky130_fd_sc_hs.spice\n.end,g' "$1.spice"
 
 # want to replace with global RF subcircuit include
 #sed -i '$s,.end,.include '"$HOME"'\/skywater\/skywater-pdk\/libraries\/sky130_fd_pr\/latest\/cells\/rf_nfet_01v8_lvt\/sky130_fd_pr__rf_nfet_01v8_lvt_aF02W3p00L0p15.spice\n.end,g' "$1.spice"
@@ -68,7 +70,8 @@ sed -i '$s,.end,.include '"$HOME"'\/skywater\/open_pdks\/sky130\/sky130A\/libs.r
 
 # now compare the xschem schematic netlist and the magic extracted netlist
 #netgen -batch lvs "drc_cell_lvs.spice "$1"" ""$1".spice "$1"" ~/skywater/pdk/skywater130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
-netgen -batch lvs "drc_cell_lvs.spice" ""$1".spice" ~/skywater/open_pdks/sky130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
+# netgen -batch lvs "drc_cell_lvs.spice" ""$1".spice" ~/skywater/open_pdks/sky130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
+netgen -batch lvs "drc_cell_lvs.spice" ""$1".spice" "$SKY130A/libs.tech/netgen/sky130A_setup.tcl" lvs_report.out -json
 
 
 # organise the parasitic extraction netlist

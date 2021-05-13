@@ -4,103 +4,106 @@ K {}
 V {}
 S {}
 E {}
-N 530 -580 530 -240 { lab=#net1}
-N 530 -240 730 -240 { lab=#net1}
-N 530 -580 730 -580 { lab=#net1}
-N 530 -920 730 -920 { lab=#net1}
-N 490 -880 730 -880 { lab=#net2}
-N 490 -200 730 -200 { lab=#net2}
-N 490 -540 490 -200 { lab=#net2}
-N 490 -540 730 -540 { lab=#net2}
-N 450 -840 730 -840 { lab=#net3}
-N 450 -160 730 -160 { lab=#net3}
-N 450 -500 450 -160 { lab=#net3}
-N 450 -500 730 -500 { lab=#net3}
-N 1130 -150 1220 -150 { lab=out_n}
-N 1150 -170 1220 -170 { lab=out_p}
-N 1030 -830 1130 -830 { lab=out_n}
-N 1130 -490 1130 -150 { lab=out_n}
-N 1030 -490 1130 -490 { lab=out_n}
-N 1030 -850 1150 -850 { lab=out_p}
-N 1150 -510 1150 -170 { lab=out_p}
-N 1030 -510 1150 -510 { lab=out_p}
-N -10 -840 150 -840 { lab=bias_10u}
-N 110 -880 150 -880 { lab=#net1}
-N 110 -970 110 -880 { lab=#net1}
-N 110 -970 530 -970 { lab=#net1}
-N 530 -920 530 -580 { lab=#net1}
-N 530 -970 530 -920 { lab=#net1}
-N 390 -880 490 -880 { lab=#net2}
-N 490 -880 490 -540 { lab=#net2}
-N 390 -840 450 -840 { lab=#net3}
-N 450 -840 450 -500 { lab=#net3}
-N 1030 -150 1130 -150 { lab=out_n}
-N 1130 -830 1130 -490 { lab=out_n}
-N 1030 -170 1150 -170 { lab=out_p}
-N 1150 -850 1150 -510 { lab=out_p}
-N 530 -1330 530 -1260 { lab=vdda}
-N 0 -1330 530 -1330 { lab=vdda}
-N 0 -0 880 0 { lab=vss}
-N 880 -40 880 0 { lab=vss}
-N 530 -1000 530 -970 {}
-N 530 -1100 530 -1060 {}
-N 530 -1200 530 -1160 {}
-C {dac_unit_cell/dac_unit_cell.sym} 880 -840 0 0 {name=xunit_cell[255:0]}
-C {dac_unit_cell_half/dac_unit_cell_half.sym} 880 -500 0 0 {name=xunit_cell_half}
-C {dac_unit_cell_quarter/dac_unit_cell_quarter.sym} 880 -160 0 0 {name=xunit_cell_quarter}
-C {dac_bias/dac_bias.sym} 270 -860 0 0 {name=xbias[9:0]}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1230 0 0 {name=Rdrive[7:0]
-W=0.69
-L=4.28
-model=res_xhigh_po_0p69
-spiceprefix=X
-mult=1}
-C {opin.sym} 1220 -170 0 0 {name=p1 lab=out_p}
-C {opin.sym} 1220 -150 0 0 {name=p2 lab=out_n}
-C {ipin.sym} 0 -400 0 0 {name=p3 lab=clk}
-C {ipin.sym} 0 -380 0 0 {name=p4 lab=data_therm[255:0]}
-C {ipin.sym} 0 -360 0 0 {name=p5 lab=data_half}
-C {ipin.sym} 0 -340 0 0 {name=p6 lab=data_quarter}
-C {lab_pin.sym} 730 -100 0 0 {name=l3 sig_type=std_logic lab=clk}
-C {lab_pin.sym} 730 -440 0 0 {name=l1 sig_type=std_logic lab=clk}
-C {lab_pin.sym} 730 -780 0 0 {name=l2 sig_type=std_logic lab=clk}
-C {lab_pin.sym} 730 -760 0 0 {name=l4 sig_type=std_logic lab=data_therm[255:0]}
-C {lab_pin.sym} 730 -420 0 0 {name=l5 sig_type=std_logic lab=data_half}
-C {lab_pin.sym} 730 -80 0 0 {name=l6 sig_type=std_logic lab=data_quarter}
-C {ipin.sym} -10 -840 0 0 {name=p7 lab=bias_10u}
-C {lab_pin.sym} 270 -800 0 0 {name=l7 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 270 -920 2 0 {name=l8 sig_type=std_logic lab=vdda}
-C {lab_pin.sym} 880 -380 0 0 {name=l10 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 880 -40 0 0 {name=l11 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 880 -280 2 0 {name=l12 sig_type=std_logic lab=vdda}
-C {lab_pin.sym} 880 -620 2 0 {name=l13 sig_type=std_logic lab=vdda}
-C {lab_pin.sym} 880 -960 2 0 {name=l9 sig_type=std_logic lab=vdda}
-C {lab_pin.sym} 950 -280 2 0 {name=l14 sig_type=std_logic lab=vddd}
-C {lab_pin.sym} 950 -620 2 0 {name=l15 sig_type=std_logic lab=vddd}
-C {lab_pin.sym} 950 -960 2 0 {name=l16 sig_type=std_logic lab=vddd}
-C {lab_pin.sym} 880 -720 0 0 {name=l17 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 510 -1230 0 0 {name=l18 sig_type=std_logic lab=vss}
-C {iopin.sym} 0 -1330 0 1 {name=p8 lab=vdda}
-C {iopin.sym} 0 -1290 0 1 {name=p9 lab=vddd}
+N 720 -910 720 -570 { lab=#net1}
+N 720 -570 920 -570 { lab=#net1}
+N 720 -910 920 -910 { lab=#net1}
+N 720 -1250 920 -1250 { lab=#net1}
+N 680 -1210 920 -1210 { lab=#net2}
+N 680 -530 920 -530 { lab=#net2}
+N 680 -870 680 -530 { lab=#net2}
+N 680 -870 920 -870 { lab=#net2}
+N 640 -1170 920 -1170 { lab=#net3}
+N 640 -490 920 -490 { lab=#net3}
+N 640 -830 640 -490 { lab=#net3}
+N 640 -830 920 -830 { lab=#net3}
+N 1320 -480 1410 -480 { lab=out_n}
+N 1340 -500 1410 -500 { lab=out_p}
+N 1220 -1160 1320 -1160 { lab=out_n}
+N 1320 -820 1320 -480 { lab=out_n}
+N 1220 -820 1320 -820 { lab=out_n}
+N 1220 -1180 1340 -1180 { lab=out_p}
+N 1340 -840 1340 -500 { lab=out_p}
+N 1220 -840 1340 -840 { lab=out_p}
+N 20 -1090 340 -1090 { lab=bias_10u}
+N 310 -1130 340 -1130 { lab=#net1}
+N 720 -1250 720 -910 { lab=#net1}
+N 680 -1210 680 -870 { lab=#net2}
+N 640 -1170 640 -830 { lab=#net3}
+N 1220 -480 1320 -480 { lab=out_n}
+N 1320 -1160 1320 -820 { lab=out_n}
+N 1220 -500 1340 -500 { lab=out_p}
+N 1340 -1180 1340 -840 { lab=out_p}
+N 500 -1430 720 -1430 { lab=vdda}
+N 460 0 1070 0 { lab=vss}
+N 460 -1050 460 0 { lab=vss}
+N 20 -910 110 -910 { lab=bias_10u}
+N 20 -1090 20 -910 { lab=bias_10u}
+N 0 0 460 0 { lab=vss}
+N -10 -1090 20 -1090 { lab=bias_10u}
+N 0 -1430 500 -1430 { lab=vdda}
+N 500 -1430 500 -1190 { lab=vdda}
+N 270 -1430 270 -1010 { lab=vdda}
+N 1070 -1430 1070 -1290 { lab=vdda}
+N 720 -1430 1070 -1430 { lab=vdda}
+N 0 -1390 1140 -1390 { lab=vddd}
+N 1140 -1390 1140 -1290 { lab=vddd}
+N 420 -1380 420 -1190 { lab=vddd}
+N 420 -1390 420 -1380 { lab=vddd}
+N 190 -1390 190 -1010 { lab=vddd}
+N 90 -950 110 -950 { lab=#net1}
+N 90 -1250 90 -950 { lab=#net1}
+N 310 -1250 310 -1130 { lab=#net1}
+N 230 -870 230 0 { lab=vss}
+N 350 -950 680 -950 { lab=#net2}
+N 350 -910 640 -910 { lab=#net3}
+N 90 -1250 720 -1250 { lab=#net1}
+N 580 -1090 640 -1090 { lab=#net3}
+N 580 -1130 680 -1130 { lab=#net2}
+N 720 -570 720 -230 { lab=#net1}
+N 720 -230 920 -230 { lab=#net1}
+N 680 -190 920 -190 { lab=#net2}
+N 680 -530 680 -190 { lab=#net2}
+N 640 -150 920 -150 { lab=#net3}
+N 640 -490 640 -150 { lab=#net3}
+N 1070 -30 1070 0 { lab=vss}
+C {dac_unit_cell/dac_unit_cell.sym} 1070 -1170 0 0 {name=xunit_cell[255:0]}
+C {dac_unit_cell_half/dac_unit_cell_half.sym} 1070 -830 0 0 {name=xunit_cell_half}
+C {dac_unit_cell_quarter/dac_unit_cell_quarter.sym} 1070 -490 0 0 {name=xunit_cell_quarter}
+C {dac_bias/dac_bias.sym} 460 -1110 0 0 {name=xbias[7:0]}
+C {opin.sym} 1410 -500 0 0 {name=p1 lab=out_p}
+C {opin.sym} 1410 -480 0 0 {name=p2 lab=out_n}
+C {ipin.sym} 0 -750 0 0 {name=p3 lab=clk}
+C {ipin.sym} 0 -710 0 0 {name=p4 lab=data_therm[255:0]}
+C {ipin.sym} 0 -690 0 0 {name=p5 lab=data_half}
+C {ipin.sym} 0 -670 0 0 {name=p6 lab=data_quarter}
+C {lab_pin.sym} 920 -430 0 0 {name=l3 sig_type=std_logic lab=clk}
+C {lab_pin.sym} 920 -770 0 0 {name=l1 sig_type=std_logic lab=clk}
+C {lab_pin.sym} 920 -1110 0 0 {name=l2 sig_type=std_logic lab=clk}
+C {lab_pin.sym} 920 -1090 0 0 {name=l4 sig_type=std_logic lab=data_therm[255:0]}
+C {lab_pin.sym} 920 -750 0 0 {name=l5 sig_type=std_logic lab=data_half}
+C {lab_pin.sym} 920 -410 0 0 {name=l6 sig_type=std_logic lab=data_quarter}
+C {ipin.sym} -10 -1090 0 0 {name=p7 lab=bias_10u}
+C {lab_pin.sym} 1070 -710 0 0 {name=l10 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 1070 -370 0 0 {name=l11 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 1070 -610 2 0 {name=l12 sig_type=std_logic lab=vdda}
+C {lab_pin.sym} 1070 -950 2 0 {name=l13 sig_type=std_logic lab=vdda}
+C {lab_pin.sym} 1070 -1290 2 0 {name=l9 sig_type=std_logic lab=vdda}
+C {lab_pin.sym} 1140 -610 2 0 {name=l14 sig_type=std_logic lab=vddd}
+C {lab_pin.sym} 1140 -950 2 0 {name=l15 sig_type=std_logic lab=vddd}
+C {lab_pin.sym} 1070 -1050 0 0 {name=l17 sig_type=std_logic lab=vss}
+C {iopin.sym} 0 -1430 0 1 {name=p8 lab=vdda}
+C {iopin.sym} 0 -1390 0 1 {name=p9 lab=vddd}
 C {iopin.sym} 0 0 0 1 {name=p10 lab=vss}
-C {sky130_stdcells/decap_12.sym} 830 -1080 0 0 {name=x1 VGND=VGND VNB=VNB VPB=VPB VPWR=VPWR prefix=sky130_fd_sc_hd__ }
-C {lab_pin.sym} 730 -820 0 0 {name=l19 sig_type=std_logic lab=bias_10u}
-C {lab_pin.sym} 730 -480 0 0 {name=l20 sig_type=std_logic lab=bias_10u}
-C {lab_pin.sym} 730 -140 0 0 {name=l21 sig_type=std_logic lab=bias_10u}
-C {lab_pin.sym} 730 -860 0 0 {name=l22 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 730 -520 0 0 {name=l23 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 730 -180 0 0 {name=l24 sig_type=std_logic lab=vss}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1030 0 0 {name=Rdrive1[7:0]
-W=0.69
-L=4.28
-model=res_xhigh_po_0p69
-spiceprefix=X
-mult=1}
-C {lab_pin.sym} 510 -1030 0 0 {name=l25 sig_type=std_logic lab=vss}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 530 -1130 0 0 {name=Rdrive2[7:0]
-W=0.69
-L=4.28
-model=res_xhigh_po_0p69
-spiceprefix=X
-mult=1}
-C {lab_pin.sym} 510 -1130 0 0 {name=l26 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 920 -1150 0 0 {name=l19 sig_type=std_logic lab=bias_10u}
+C {lab_pin.sym} 920 -810 0 0 {name=l20 sig_type=std_logic lab=bias_10u}
+C {lab_pin.sym} 920 -470 0 0 {name=l21 sig_type=std_logic lab=bias_10u}
+C {lab_pin.sym} 920 -1190 0 0 {name=l22 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 920 -850 0 0 {name=l23 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 920 -510 0 0 {name=l24 sig_type=std_logic lab=vss}
+C {dac_bias_nores/dac_bias_nores.sym} 230 -930 0 0 {name=x1[1:0]}
+C {dac_unit_cell_dummy/dac_unit_cell_dummy.sym} 1070 -150 0 0 {name=x1[5:0]}
+C {lab_pin.sym} 1070 -270 2 0 {name=l18 sig_type=std_logic lab=vdda}
+C {lab_pin.sym} 1140 -270 2 0 {name=l25 sig_type=std_logic lab=vddd}
+C {lab_pin.sym} 920 -130 0 0 {name=l26 sig_type=std_logic lab=bias_10u}
+C {lab_pin.sym} 920 -170 0 0 {name=l27 sig_type=std_logic lab=vss}
+C {ipin.sym} 0 -730 0 0 {name=p11 lab=en}

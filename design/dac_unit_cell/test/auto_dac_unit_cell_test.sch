@@ -59,7 +59,7 @@ N 900 -90 900 -0 { lab=GND}
 N 900 -480 900 -450 { lab=vdd}
 N 830 -480 900 -480 { lab=vdd}
 C {dac_unit_cell/dac_unit_cell.sym} 830 -270 0 0 {name=xunit_cell}
-C {dac_bias/dac_bias.sym} 420 -290 0 0 {name=xbias}
+C {dac_bias_nores/dac_bias_nores.sym} 420 -290 0 0 {name=xbias}
 C {vsource.sym} 0 -280 0 0 {name=Vdd value=1.8}
 C {isource.sym} 150 -400 0 0 {name=I0 value=1u}
 C {vsource.sym} 1120 -180 0 0 {name=Vout_n value=0.}
@@ -167,26 +167,26 @@ value=100p}
 C {vsource.sym} 900 -420 0 0 {name=Vdd1 value=0.0}
 C {vsource.sym} 900 -120 0 0 {name=Vdd2 value=0.0}
 C {lab_pin.sym} 680 -290 0 0 {name=l11 sig_type=std_logic lab=gnd}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -580 0 0 {name=Rdrive2[31:0]
-W=0.69
-L=4.28
-model=res_xhigh_po_0p69
-spiceprefix=X
-mult=1}
 C {lab_pin.sym} 250 -580 0 0 {name=l14 sig_type=std_logic lab=gnd}
 C {lab_wire.sym} 270 -730 0 1 {name=l15 sig_type=std_logic lab=r5[30:0],vdd}
 C {lab_wire.sym} 270 -550 2 0 {name=l16 sig_type=std_logic lab=drive_supply,r5[30:0]}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -640 0 0 {name=Rdrive1[31:0]
-W=0.69
-L=4.28
-model=res_xhigh_po_0p69
-spiceprefix=X
-mult=1}
 C {lab_pin.sym} 250 -640 0 0 {name=l17 sig_type=std_logic lab=gnd}
-C {sky130_fd_pr/res_xhigh_po_0p69.sym} 270 -700 0 0 {name=Rdrive3[31:0]
+C {lab_pin.sym} 250 -700 0 0 {name=l18 sig_type=std_logic lab=gnd}
+C {sky130_fd_pr/res_xhigh_po.sym} 270 -700 0 0 {name=R1[31:0]
 W=0.69
 L=4.28
-model=res_xhigh_po_0p69
+model=res_xhigh_po
 spiceprefix=X
 mult=1}
-C {lab_pin.sym} 250 -700 0 0 {name=l18 sig_type=std_logic lab=gnd}
+C {sky130_fd_pr/res_xhigh_po.sym} 270 -640 0 0 {name=R2[31:0]
+W=0.69
+L=4.28
+model=res_xhigh_po
+spiceprefix=X
+mult=1}
+C {sky130_fd_pr/res_xhigh_po.sym} 270 -580 0 0 {name=R3[31:0]
+W=0.69
+L=4.28
+model=res_xhigh_po
+spiceprefix=X
+mult=1}
