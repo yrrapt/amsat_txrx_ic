@@ -21,7 +21,7 @@ set XSCHEM_SKYDIR $env(HOME)/.xschem/xschem_library/xschem_sky130
 set XSCHEM_LIBRARY_PATH {}
 append XSCHEM_LIBRARY_PATH :${XSCHEM_SHAREDIR}/xschem_library
 append XSCHEM_LIBRARY_PATH :${XSCHEM_SKYDIR}
-append XSCHEM_LIBRARY_PATH :$env(PWD)/design
+append XSCHEM_LIBRARY_PATH :$env(PROJECT_ROOT)/design
 
 ###########################################################################
 ## set custom colors for xschem libraries matching certain patterns
