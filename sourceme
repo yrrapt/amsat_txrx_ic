@@ -4,4 +4,4 @@
 export PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # start the Python virtual environment
-source $PROJECT_ROOT/env/venv/bin/activate
+source ~/.venvs/amsat_txrx_ic/bin/activate

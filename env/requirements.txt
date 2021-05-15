@@ -1,20 +1,17 @@
-Package                  Version            Location
------------------------- ------------------ ------------------------------------
-cocotb                   1.5.2
-cocotb-bus               0.1.1
-cocotb-coverage          1.1.0
-cocotb-test              0.2.0
-control                  0.8.3
-h5py                     2.10.0
-jupyter                  1.0.0
-matplotlib               3.3.0
-numpy                    1.19.1
-openhtf                  1.4.4
-pylint                   2.6.0
-PySpice                  1.4.3
-pytest                   6.2.3
-pytest-html              3.1.1
-PyYAML                   5.4.1
-QtPy                     1.9.0
-scipy                    1.5.2
-spyci                    1.0.2
+cocotb
+cocotb-bus
+cocotb-coverage
+cocotb-test
+control
+h5py
+jupyter
+matplotlib
+numpy
+pylint
+PySpice
+pytest
+pytest-html
+PyYAML
+QtPy
+scipy
+spyci
