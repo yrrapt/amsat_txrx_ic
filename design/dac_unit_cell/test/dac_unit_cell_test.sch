@@ -31,7 +31,7 @@ N 660 -390 660 -350 { lab=drive_supply}
 N 660 -480 830 -480 { lab=vdd}
 N 660 -480 660 -450 { lab=vdd}
 N 980 -280 1480 -280 { lab=#net4}
-N 420 -230 420 -0 { lab=GND}
+N 420 -160 420 -0 { lab=GND}
 N 1230 0 1370 0 { lab=GND}
 N 150 -370 150 -270 { lab=currn_bias}
 N 150 -270 300 -270 { lab=currn_bias}
@@ -228,3 +228,5 @@ C {lab_pin.sym} 90 -720 0 0 {name=l18 sig_type=std_logic lab=gnd}
 C {isource.sym} 1210 -350 0 0 {name=I2 value=4u}
 C {isource.sym} 1390 -350 0 0 {name=I3 value=4u}
 C {dac_unit_cell/dac_unit_cell.sym} 830 -270 0 0 {name=x1}
+C {lab_pin.sym} 300 -240 0 0 {name=l12 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 300 -220 0 0 {name=l19 sig_type=std_logic lab=gnd}

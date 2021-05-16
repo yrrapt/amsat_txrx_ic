@@ -4,67 +4,90 @@ K {}
 V {}
 S {}
 E {}
-N 500 -450 520 -450 {lab=vdda}
-N 500 -690 500 -450 {lab=vdda}
-N 500 -690 520 -690 {lab=vdda}
-N 520 -690 520 -480 {lab=vdda}
-N 520 -370 520 -90 {lab=currp_bias}
-N 440 -60 480 -60 {lab=ref}
-N 440 -140 440 -60 {lab=ref}
-N 520 -60 540 -60 {lab=vss}
-N 540 -60 540 0 {lab=vss}
-N 520 0 540 0 {lab=vss}
-N 520 -30 520 0 {lab=vss}
-N 560 -450 590 -450 { lab=currp_bias}
-N 520 -370 590 -370 { lab=currp_bias}
-N 520 -420 520 -370 { lab=currp_bias}
-N 590 -450 590 -370 { lab=currp_bias}
-N 90 -140 90 -90 {lab=ref}
-N 170 -140 170 -60 {lab=ref}
-N 330 0 520 0 {lab=vss}
-N 90 -30 90 0 {lab=vss}
-N 70 -60 90 -60 {lab=vss}
-N 70 -60 70 0 {lab=vss}
-N 70 0 90 0 {lab=vss}
-N 90 -140 170 -140 {lab=ref}
-N 130 -60 170 -60 {lab=ref}
-N 590 -450 700 -450 { lab=currp_bias}
-N 0 0 70 -0 { lab=vss}
-N -0 -200 90 -200 { lab=ref}
-N 90 -200 90 -140 { lab=ref}
-N 330 -690 500 -690 { lab=vdda}
-N 230 -60 270 -60 {lab=ref}
-N 230 -140 230 -60 {lab=ref}
-N 310 -60 330 -60 { lab=vss}
-N 330 -60 330 0 { lab=vss}
-N 310 -30 310 -0 { lab=vss}
-N 310 -370 330 -370 { lab=vdda}
-N 330 -690 330 -370 { lab=vdda}
-N 220 -370 270 -370 { lab=load_bias}
-N 220 -370 220 -300 { lab=load_bias}
-N 310 -340 310 -300 { lab=load_bias}
-N 310 -240 310 -90 { lab=load_bias}
-N 230 -140 440 -140 { lab=ref}
-N 170 -140 230 -140 { lab=ref}
-N 310 -0 330 0 {lab=vss}
-N 90 0 310 -0 {lab=vss}
-N 0 -690 330 -690 { lab=vdda}
-N 220 -300 310 -300 { lab=load_bias}
-N 310 -240 700 -240 { lab=load_bias}
-N 310 -450 310 -400 { lab=drive_supply}
-N 310 -300 310 -240 { lab=load_bias}
-N 0 -450 310 -450 { lab=drive_supply}
-N 160 -480 160 -450 { lab=drive_supply}
-N 160 -690 160 -660 { lab=vdda}
-N 620 -690 620 -560 { lab=vdda}
-N 520 -690 620 -690 { lab=vdda}
-N 560 -560 590 -560 { lab=vdda}
-N 560 -690 560 -560 { lab=vdda}
-N 650 -560 680 -560 { lab=vdda}
-N 680 -690 680 -560 { lab=vdda}
-N 620 -690 680 -690 { lab=vdda}
-N 620 -520 620 -450 { lab=currp_bias}
-C {sky130_fd_pr/pfet_01v8_lvt.sym} 540 -450 0 1 {name=Mcurrp_b
+N 700 -450 720 -450 {lab=vdda}
+N 700 -690 700 -450 {lab=vdda}
+N 700 -690 720 -690 {lab=vdda}
+N 720 -690 720 -480 {lab=vdda}
+N 720 -370 720 -90 {lab=currp_bias}
+N 640 -60 680 -60 {lab=load_bias}
+N 640 -140 640 -60 {lab=load_bias}
+N 720 -60 740 -60 {lab=vss}
+N 740 -60 740 0 {lab=vss}
+N 720 0 740 0 {lab=vss}
+N 720 -30 720 0 {lab=vss}
+N 760 -450 790 -450 { lab=currp_bias}
+N 720 -370 790 -370 { lab=currp_bias}
+N 720 -420 720 -370 { lab=currp_bias}
+N 790 -450 790 -370 { lab=currp_bias}
+N 290 -140 290 -90 {lab=load_bias}
+N 370 -140 370 -60 {lab=load_bias}
+N 530 0 720 0 {lab=vss}
+N 290 -30 290 0 {lab=vss}
+N 270 -60 290 -60 {lab=vss}
+N 270 -60 270 0 {lab=vss}
+N 270 0 290 0 {lab=vss}
+N 290 -140 370 -140 {lab=load_bias}
+N 330 -60 370 -60 {lab=load_bias}
+N 790 -450 1130 -450 { lab=currp_bias}
+N 0 0 270 0 { lab=vss}
+N 0 -270 290 -270 { lab=ref}
+N 530 -690 700 -690 { lab=vdda}
+N 430 -60 470 -60 {lab=load_bias}
+N 430 -140 430 -60 {lab=load_bias}
+N 510 -60 530 -60 { lab=vss}
+N 530 -60 530 0 { lab=vss}
+N 510 -30 510 0 { lab=vss}
+N 510 -370 530 -370 { lab=vdda}
+N 530 -690 530 -370 { lab=vdda}
+N 420 -370 470 -370 { lab=load_bias}
+N 420 -370 420 -300 { lab=load_bias}
+N 510 -340 510 -300 { lab=load_bias}
+N 510 -240 510 -90 { lab=load_bias}
+N 430 -140 640 -140 { lab=load_bias}
+N 370 -140 430 -140 { lab=load_bias}
+N 510 0 530 0 {lab=vss}
+N 290 0 510 0 {lab=vss}
+N 0 -690 530 -690 { lab=vdda}
+N 420 -300 510 -300 { lab=load_bias}
+N 510 -240 1130 -240 { lab=load_bias}
+N 510 -450 510 -400 { lab=drive_supply}
+N 510 -300 510 -240 { lab=load_bias}
+N 0 -450 510 -450 { lab=drive_supply}
+N 360 -480 360 -450 { lab=drive_supply}
+N 360 -690 360 -660 { lab=vdda}
+N 820 -690 820 -560 { lab=vdda}
+N 720 -690 820 -690 { lab=vdda}
+N 760 -560 790 -560 { lab=vdda}
+N 760 -690 760 -560 { lab=vdda}
+N 850 -560 880 -560 { lab=vdda}
+N 880 -690 880 -560 { lab=vdda}
+N 820 -690 880 -690 { lab=vdda}
+N 290 -170 290 -140 { lab=load_bias}
+N 270 -200 290 -200 { lab=vss}
+N 270 -200 270 -60 { lab=vss}
+N 290 -270 290 -230 { lab=ref}
+N 180 -540 180 -450 { lab=drive_supply}
+N 180 -690 180 -600 { lab=vdda}
+N 90 -120 90 -90 { lab=load_bias}
+N 90 -120 290 -120 { lab=load_bias}
+N 90 -60 110 -60 { lab=vss}
+N 110 -60 110 0 { lab=vss}
+N 90 -30 90 0 { lab=vss}
+N 1080 -690 1080 -640 { lab=vdda}
+N 880 -690 1080 -690 { lab=vdda}
+N 950 -520 970 -520 { lab=vdda}
+N 950 -690 950 -520 { lab=vdda}
+N 970 -690 970 -550 { lab=vdda}
+N 1060 -610 1080 -610 { lab=vdda}
+N 1060 -690 1060 -610 { lab=vdda}
+N 970 -490 970 -240 { lab=load_bias}
+N 1080 -580 1080 -450 { lab=currp_bias}
+N 180 -570 200 -570 { lab=vdda}
+N 200 -680 200 -570 { lab=vdda}
+N 200 -690 200 -680 { lab=vdda}
+N 820 -520 820 -450 { lab=currp_bias}
+N 640 -140 1130 -140 { lab=load_bias}
+C {sky130_fd_pr/pfet_01v8_lvt.sym} 740 -450 0 1 {name=Mcurrp_b
 L=8.00
 W=0.55
 nf=1
@@ -80,9 +103,9 @@ spiceprefix=X
 }
 C {iopin.sym} 0 -690 2 0 {name=p1 lab=vdda}
 C {iopin.sym} 0 0 2 0 {name=p2 lab=vss}
-C {opin.sym} 700 -450 0 0 {name=p7 lab=currp_bias}
-C {ipin.sym} 0 -200 0 0 {name=p10 lab=ref}
-C {sky130_fd_pr/nfet_01v8_lvt.sym} 110 -60 0 1 {name=Mcurrn_r
+C {opin.sym} 1130 -450 0 0 {name=p7 lab=currp_bias}
+C {ipin.sym} 0 -270 0 0 {name=p10 lab=ref}
+C {sky130_fd_pr/nfet_01v8_lvt.sym} 310 -60 0 1 {name=Mcurrn_r
 L=8.00
 W=0.42
 nf=1
@@ -96,7 +119,7 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {sky130_fd_pr/nfet_01v8_lvt.sym} 500 -60 0 0 {name=Mcurrn_c
+C {sky130_fd_pr/nfet_01v8_lvt.sym} 700 -60 0 0 {name=Mcurrn_c
 L=8.00
 W=0.42
 nf=1
@@ -110,7 +133,7 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {sky130_fd_pr/nfet_01v8_lvt.sym} 290 -60 0 0 {name=Mcurrn_a
+C {sky130_fd_pr/nfet_01v8_lvt.sym} 490 -60 0 0 {name=Mcurrn_a
 L=8.00
 W=0.42
 nf=1
@@ -124,7 +147,7 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {sky130_fd_pr/pfet_01v8.sym} 290 -370 0 0 {name=Mload_r
+C {sky130_fd_pr/pfet_01v8.sym} 490 -370 0 0 {name=Mload_r
 L=0.15
 W=0.42
 ad="'W * 0.29'" pd="'2 * (W + 0.29)'"
@@ -135,12 +158,12 @@ nf=1 mult=1
 model=pfet_01v8
 spiceprefix=X
 }
-C {opin.sym} 700 -240 0 0 {name=p4 lab=load_bias}
+C {opin.sym} 1130 -240 0 0 {name=p4 lab=load_bias}
 C {ipin.sym} 0 -450 0 0 {name=p5 lab=drive_supply}
-C {lab_pin.sym} 140 -510 0 0 {name=l14 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 140 -570 0 0 {name=l1 sig_type=std_logic lab=vss}
-C {lab_pin.sym} 140 -630 0 0 {name=l2 sig_type=std_logic lab=vss}
-C {sky130_fd_pr/pfet_01v8_lvt.sym} 620 -540 1 1 {name=Mcurrp_b1
+C {lab_pin.sym} 340 -510 0 0 {name=l14 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 340 -570 0 0 {name=l1 sig_type=std_logic lab=vss}
+C {lab_pin.sym} 340 -630 0 0 {name=l2 sig_type=std_logic lab=vss}
+C {sky130_fd_pr/pfet_01v8_lvt.sym} 820 -540 1 1 {name=Mcap
 L=8.00
 W=0.55
 nf=1
@@ -154,24 +177,93 @@ sa=0 sb=0 sd=0
 model=pfet_01v8_lvt
 spiceprefix=X
 }
-C {sky130_stdcells/decap_8.sym} 230 -740 0 0 {name=xdecap[11:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
+C {sky130_stdcells/decap_8.sym} 170 -740 0 0 {name=xdecap[11:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
 C {iopin.sym} 0 -720 2 0 {name=p3 lab=vddd}
-C {sky130_stdcells/decap_4.sym} 480 -740 0 0 {name=xdecap2[2:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
-C {sky130_fd_pr/res_xhigh_po.sym} 160 -630 0 0 {name=R1
+C {sky130_stdcells/decap_4.sym} 420 -740 0 0 {name=xdecap2[2:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
+C {sky130_fd_pr/res_xhigh_po.sym} 360 -630 0 0 {name=R1
 W=0.69
 L=4.28
 model=res_xhigh_po
 spiceprefix=X
 mult=1}
-C {sky130_fd_pr/res_xhigh_po.sym} 160 -570 0 0 {name=R2
+C {sky130_fd_pr/res_xhigh_po.sym} 360 -570 0 0 {name=R2
 W=0.69
 L=4.28
 model=res_xhigh_po
 spiceprefix=X
 mult=1}
-C {sky130_fd_pr/res_xhigh_po.sym} 160 -510 0 0 {name=R3
+C {sky130_fd_pr/res_xhigh_po.sym} 360 -510 0 0 {name=R3
 W=0.69
 L=4.28
 model=res_xhigh_po
 spiceprefix=X
 mult=1}
+C {sky130_fd_pr/nfet_01v8_lvt.sym} 310 -200 0 1 {name=Men4
+L=0.15
+W=1
+nf=1
+mult=2
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=nfet_01v8_lvt
+spiceprefix=X
+}
+C {ipin.sym} 0 -350 0 0 {name=p6 lab=en}
+C {sky130_fd_pr/pfet_01v8.sym} 160 -570 0 0 {name=Men1
+L=0.15
+W=0.42
+ad="'W * 0.29'" pd="'2 * (W + 0.29)'"
+as="'W * 0.29'" ps="'2 * (W + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+nf=1 mult=1
+model=pfet_01v8
+spiceprefix=X
+}
+C {lab_pin.sym} 140 -570 0 0 {name=l3 sig_type=std_logic lab=en}
+C {sky130_fd_pr/nfet_01v8_lvt.sym} 70 -60 0 0 {name=Men5
+L=0.15
+W=0.42
+nf=1
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=nfet_01v8_lvt
+spiceprefix=X
+}
+C {sky130_fd_pr/pfet_01v8.sym} 990 -520 0 1 {name=Men2
+L=0.15
+W=0.42
+ad="'W * 0.29'" pd="'2 * (W + 0.29)'"
+as="'W * 0.29'" ps="'2 * (W + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+nf=1 mult=1
+model=pfet_01v8
+spiceprefix=X
+}
+C {sky130_fd_pr/pfet_01v8.sym} 1100 -610 0 1 {name=Men3
+L=0.15
+W=0.42
+ad="'W * 0.29'" pd="'2 * (W + 0.29)'"
+as="'W * 0.29'" ps="'2 * (W + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+nf=1 mult=1
+model=pfet_01v8
+spiceprefix=X
+}
+C {lab_pin.sym} 1010 -520 0 1 {name=l4 sig_type=std_logic lab=en}
+C {lab_pin.sym} 1120 -610 0 1 {name=l5 sig_type=std_logic lab=en}
+C {lab_pin.sym} 330 -200 0 1 {name=l6 sig_type=std_logic lab=en}
+C {lab_pin.sym} 50 -60 0 0 {name=l7 sig_type=std_logic lab=en_n}
+C {ipin.sym} 0 -330 0 0 {name=p8 lab=en_n}
+C {opin.sym} 1130 -140 0 0 {name=p9 lab=diff_bias}

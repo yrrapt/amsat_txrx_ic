@@ -33,7 +33,7 @@ ext2spice" > magic_commands.tcl
 rm -f drc_cell_lvs.spice
 
 # run magic
-magic -noconsole -dnull magic_commands.tcl &
+magic -noconsole -dnull magic_commands.tcl
 
 # wait for new file to be generated
 printf "Waiting for LVS extracted netlist to be generated.."

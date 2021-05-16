@@ -31,13 +31,12 @@ N 270 -30 270 0 { lab=GND}
 N 100 0 270 0 { lab=GND}
 N 560 -350 680 -350 { lab=drive_supply}
 N 660 -390 660 -350 { lab=drive_supply}
-N 830 -480 830 -370 { lab=vdd}
+N 830 -480 830 -390 { lab=vdd}
 N 420 -480 830 -480 { lab=vdd}
-N 420 -480 420 -350 { lab=vdd}
 N 660 -480 660 -450 { lab=vdd}
 N 980 -280 1300 -280 { lab=#net4}
 N 1300 -280 1300 -210 { lab=#net4}
-N 420 -230 420 -0 { lab=GND}
+N 420 -160 420 -0 { lab=GND}
 N 270 0 1120 0 { lab=GND}
 N 1140 0 1280 0 { lab=GND}
 N 150 -370 150 -270 { lab=currn_bias}
@@ -50,7 +49,7 @@ N -0 -480 410 -480 { lab=vdd}
 N 410 -480 420 -480 { lab=vdd}
 N 150 -470 150 -430 { lab=vdd}
 N 150 -480 150 -470 { lab=vdd}
-N 830 -170 830 -0 { lab=GND}
+N 830 -150 830 -0 { lab=GND}
 N 540 -310 680 -310 { lab=#net5}
 N 540 -270 680 -270 { lab=#net6}
 N 570 -270 570 -130 { lab=#net6}
@@ -58,6 +57,8 @@ N 570 -70 570 0 { lab=GND}
 N 900 -90 900 -0 { lab=GND}
 N 900 -480 900 -450 { lab=vdd}
 N 830 -480 900 -480 { lab=vdd}
+N 460 -480 460 -370 { lab=vdd}
+N 380 -480 380 -370 { lab=vdd}
 C {dac_unit_cell/dac_unit_cell.sym} 830 -270 0 0 {name=xunit_cell}
 C {dac_bias_nores/dac_bias_nores.sym} 420 -290 0 0 {name=xbias}
 C {vsource.sym} 0 -280 0 0 {name=Vdd value=1.8}
@@ -108,48 +109,13 @@ C {code.sym} 1190 -480 0 0 {name=SIM only_toplevel=false value="
 .ic v(xunit_cell.data_p)=1.8 v(xunit_cell.data_n)=0.0
 
 "}
-C {devices/code.sym} 1350 -480 0 0 {name=TT_MODELS
+C {devices/code.sym} 1350 -480 0 0 {name=MODELS
 only_toplevel=true
 format="tcleval( @value )"
 value="
 .options wnflag=1
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_01v8_lvt/sky130_fd_pr__nfet_01v8_lvt__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_03v3_nvt/sky130_fd_pr__nfet_03v3_nvt__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_05v0_nvt/sky130_fd_pr__nfet_05v0_nvt__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/esd_nfet_01v8/sky130_fd_pr__esd_nfet_01v8__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8_lvt/sky130_fd_pr__pfet_01v8_lvt__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8_hvt/sky130_fd_pr__pfet_01v8_hvt__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/esd_pfet_g5v0d10v5/sky130_fd_pr__esd_pfet_g5v0d10v5__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_g5v0d10v5/sky130_fd_pr__pfet_g5v0d10v5__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_g5v0d16v0/sky130_fd_pr__pfet_g5v0d16v0__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_g5v0d10v5/sky130_fd_pr__nfet_g5v0d10v5__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_g5v0d16v0/sky130_fd_pr__nfet_g5v0d16v0__tt_discrete.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/esd_nfet_g5v0d10v5/sky130_fd_pr__esd_nfet_g5v0d10v5__tt.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/models/corners/tt/nonfet.spice
-* Mismatch parameters
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_01v8_lvt/sky130_fd_pr__nfet_01v8_lvt__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8_lvt/sky130_fd_pr__pfet_01v8_lvt__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_01v8_hvt/sky130_fd_pr__pfet_01v8_hvt__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_g5v0d10v5/sky130_fd_pr__nfet_g5v0d10v5__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/pfet_g5v0d10v5/sky130_fd_pr__pfet_g5v0d10v5__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_05v0_nvt/sky130_fd_pr__nfet_05v0_nvt__mismatch.corner.spice
-.include \\\\$::SKYWATER_MODELS\\\\/cells/nfet_03v3_nvt/sky130_fd_pr__nfet_03v3_nvt__mismatch.corner.spice
-* Resistor\\\\$::SKYWATER_MODELS\\\\/Capacitor
-.include \\\\$::SKYWATER_MODELS\\\\/models/r+c/res_typical__cap_typical.spice
-.include \\\\$::SKYWATER_MODELS\\\\/models/r+c/res_typical__cap_typical__lin.spice
-* Special cells
-.include \\\\$::SKYWATER_MODELS\\\\/models/corners/tt/specialized_cells.spice
-* All models
-.include \\\\$::SKYWATER_MODELS\\\\/models/all.spice
-* Corner
-.include \\\\$::SKYWATER_MODELS\\\\/models/corners/tt/rf.spice
 
-.include \\\\$::SKYWATER_STDCELLS\\\\/cells/inv/sky130_fd_sc_hs__inv_1.spice
-.include \\\\$::SKYWATER_STDCELLS\\\\/cells/dfxtp/sky130_fd_sc_hs__dfxtp_1.spice
+.lib \\\\$::SKYWATER_MODELS\\\\/models/sky130.lib.spice tt
 "}
 C {code.sym} 1010 -480 0 0 {name=STDCELL_MODELS
 only_toplevel=true
@@ -186,7 +152,9 @@ spiceprefix=X
 mult=1}
 C {sky130_fd_pr/res_xhigh_po.sym} 270 -580 0 0 {name=R3[31:0]
 W=0.69
-L=4.28
+L=10
 model=res_xhigh_po
 spiceprefix=X
 mult=1}
+C {lab_pin.sym} 300 -240 0 0 {name=l12 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 300 -220 0 0 {name=l13 sig_type=std_logic lab=gnd}
