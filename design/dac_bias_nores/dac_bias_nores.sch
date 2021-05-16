@@ -86,7 +86,7 @@ N 200 -690 200 -570 { lab=vdda}
 N 640 -140 1130 -140 { lab=load_bias}
 C {sky130_stdcells/decap_8.sym} 160 -750 0 0 {name=xdecap[11:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
 C {sky130_stdcells/decap_4.sym} 410 -750 0 0 {name=xdecap2[2:0] VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
-C {iopin.sym} 0 -760 2 0 {name=p3 lab=vddd}
+C {devices/iopin.sym} 0 -760 2 0 {name=p3 lab=vddd}
 C {sky130_fd_pr/pfet_01v8_lvt.sym} 740 -450 0 1 {name=Mcurrp_b
 L=8.00
 W=0.55
@@ -101,10 +101,10 @@ sa=0 sb=0 sd=0
 model=pfet_01v8_lvt
 spiceprefix=X
 }
-C {iopin.sym} 0 -690 2 0 {name=p1 lab=vdda}
-C {iopin.sym} 0 0 2 0 {name=p2 lab=vss}
-C {opin.sym} 1130 -450 0 0 {name=p7 lab=currp_bias}
-C {ipin.sym} 0 -270 0 0 {name=p10 lab=ref}
+C {devices/iopin.sym} 0 -690 2 0 {name=p1 lab=vdda}
+C {devices/iopin.sym} 0 0 2 0 {name=p2 lab=vss}
+C {devices/opin.sym} 1130 -450 0 0 {name=p7 lab=currp_bias}
+C {devices/ipin.sym} 0 -270 0 0 {name=p10 lab=ref}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 310 -60 0 1 {name=Mcurrn_r
 L=8.00
 W=0.42
@@ -158,8 +158,8 @@ nf=1 mult=1
 model=pfet_01v8
 spiceprefix=X
 }
-C {opin.sym} 1130 -240 0 0 {name=p4 lab=load_bias}
-C {ipin.sym} 0 -450 0 0 {name=p5 lab=drive_supply}
+C {devices/opin.sym} 1130 -240 0 0 {name=p4 lab=load_bias}
+C {devices/ipin.sym} 0 -450 0 0 {name=p5 lab=drive_supply}
 C {sky130_fd_pr/pfet_01v8_lvt.sym} 820 -540 1 1 {name=Mcap
 L=8.00
 W=0.55
@@ -188,7 +188,7 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {ipin.sym} 0 -340 0 0 {name=p6 lab=en}
+C {devices/ipin.sym} 0 -340 0 0 {name=p6 lab=en}
 C {sky130_fd_pr/pfet_01v8.sym} 160 -570 0 0 {name=Men1
 L=0.15
 W=0.42
@@ -200,7 +200,7 @@ nf=1 mult=1
 model=pfet_01v8
 spiceprefix=X
 }
-C {lab_pin.sym} 140 -570 0 0 {name=l3 sig_type=std_logic lab=en}
+C {devices/lab_pin.sym} 140 -570 0 0 {name=l3 sig_type=std_logic lab=en}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 70 -60 0 0 {name=Men5
 L=0.15
 W=0.42
@@ -237,9 +237,9 @@ nf=1 mult=1
 model=pfet_01v8
 spiceprefix=X
 }
-C {lab_pin.sym} 1010 -520 0 1 {name=l4 sig_type=std_logic lab=en}
-C {lab_pin.sym} 1120 -610 0 1 {name=l5 sig_type=std_logic lab=en}
-C {lab_pin.sym} 330 -200 0 1 {name=l6 sig_type=std_logic lab=en}
-C {lab_pin.sym} 50 -60 0 0 {name=l7 sig_type=std_logic lab=en_n}
-C {ipin.sym} 0 -320 0 0 {name=p8 lab=en_n}
-C {opin.sym} 1130 -140 0 0 {name=p9 lab=diff_bias}
+C {devices/lab_pin.sym} 1010 -520 0 1 {name=l4 sig_type=std_logic lab=en}
+C {devices/lab_pin.sym} 1120 -610 0 1 {name=l5 sig_type=std_logic lab=en}
+C {devices/lab_pin.sym} 330 -200 0 1 {name=l6 sig_type=std_logic lab=en}
+C {devices/lab_pin.sym} 50 -60 0 0 {name=l7 sig_type=std_logic lab=en_n}
+C {devices/ipin.sym} 0 -320 0 0 {name=p8 lab=en_n}
+C {devices/opin.sym} 1130 -140 0 0 {name=p9 lab=diff_bias}

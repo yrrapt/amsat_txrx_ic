@@ -113,15 +113,15 @@ N 800 -10 800 0 { lab=vssa}
 N 540 0 800 0 { lab=vssa}
 N 780 -60 780 -0 { lab=vssa}
 N 780 -90 800 -90 { lab=vssa}
-C {iopin.sym} 0 -930 2 0 {name=p1 lab=vdda}
-C {iopin.sym} 0 0 2 0 {name=p2 lab=vss}
-C {ipin.sym} 0 -790 0 0 {name=p3 lab=curr_bias}
-C {ipin.sym} 180 -1110 0 0 {name=p4 lab=clk}
-C {ipin.sym} 180 -1090 0 0 {name=p5 lab=data}
-C {ipin.sym} 0 -700 0 0 {name=p6 lab=drive_supply}
-C {opin.sym} 960 -200 0 0 {name=p7 lab=out_p}
-C {opin.sym} 960 -240 0 0 {name=p8 lab=out_n}
-C {ipin.sym} 0 -310 0 0 {name=p9 lab=cas_bias}
+C {devices/iopin.sym} 0 -930 2 0 {name=p1 lab=vdda}
+C {devices/iopin.sym} 0 0 2 0 {name=p2 lab=vss}
+C {devices/ipin.sym} 0 -790 0 0 {name=p3 lab=curr_bias}
+C {devices/ipin.sym} 180 -1110 0 0 {name=p4 lab=clk}
+C {devices/ipin.sym} 180 -1090 0 0 {name=p5 lab=data}
+C {devices/ipin.sym} 0 -700 0 0 {name=p6 lab=drive_supply}
+C {devices/opin.sym} 960 -200 0 0 {name=p7 lab=out_p}
+C {devices/opin.sym} 960 -240 0 0 {name=p8 lab=out_n}
+C {devices/ipin.sym} 0 -310 0 0 {name=p9 lab=cas_bias}
 C {sky130_fd_pr/pfet_01v8.sym} 130 -310 0 1 {name=Mcas_p
 L=0.15
 W=0.42
@@ -222,11 +222,11 @@ sa=0 sb=0 sd=0
 model=nfet_01v8
 spiceprefix=X
 }
-C {lab_pin.sym} 700 -410 0 1 {name=l2 sig_type=std_logic lab=data_n}
-C {lab_pin.sym} 260 -410 0 0 {name=l3 sig_type=std_logic lab=data_p}
-C {lab_wire.sym} 200 -510 0 1 {name=l12 sig_type=std_logic lab=ctl_p}
-C {lab_wire.sym} 760 -510 0 1 {name=l15 sig_type=std_logic lab=ctl_n}
-C {lab_wire.sym} 410 -340 0 1 {name=l17 sig_type=std_logic lab=ctl_s}
+C {devices/lab_pin.sym} 700 -410 0 1 {name=l2 sig_type=std_logic lab=data_n}
+C {devices/lab_pin.sym} 260 -410 0 0 {name=l3 sig_type=std_logic lab=data_p}
+C {devices/lab_wire.sym} 200 -510 0 1 {name=l12 sig_type=std_logic lab=ctl_p}
+C {devices/lab_wire.sym} 760 -510 0 1 {name=l15 sig_type=std_logic lab=ctl_n}
+C {devices/lab_wire.sym} 410 -340 0 1 {name=l17 sig_type=std_logic lab=ctl_s}
 C {sky130_fd_pr/nfet_01v8.sym} 380 -510 0 1 {name=Mdrive_comp_p
 L=0.15
 W=0.84
@@ -255,14 +255,14 @@ sa=0 sb=0 sd=0
 model=nfet_01v8
 spiceprefix=X
 }
-C {lab_pin.sym} 400 -510 0 1 {name=l20 sig_type=std_logic lab=data_n}
-C {lab_pin.sym} 560 -510 0 0 {name=l21 sig_type=std_logic lab=data_p}
+C {devices/lab_pin.sym} 400 -510 0 1 {name=l20 sig_type=std_logic lab=data_n}
+C {devices/lab_pin.sym} 560 -510 0 0 {name=l21 sig_type=std_logic lab=data_p}
 C {sky130_stdcells/inv_1.sym} 290 -1000 0 0 {name=xn VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
-C {lab_pin.sym} 580 -1110 0 1 {name=l13 sig_type=std_logic lab=data_p}
-C {lab_pin.sym} 580 -1020 0 1 {name=l14 sig_type=std_logic lab=data_n}
+C {devices/lab_pin.sym} 580 -1110 0 1 {name=l13 sig_type=std_logic lab=data_p}
+C {devices/lab_pin.sym} 580 -1020 0 1 {name=l14 sig_type=std_logic lab=data_n}
 C {sky130_stdcells/dfxtp_1.sym} 490 -1100 0 0 {name=xff_p VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
 C {sky130_stdcells/dfxtp_1.sym} 490 -1010 0 0 {name=xff_n VGND=vss VNB=vss VPB=vddd VPWR=vddd prefix=sky130_fd_sc_hs__ }
-C {ipin.sym} 0 -90 0 0 {name=p10 lab=drive_bias}
+C {devices/ipin.sym} 0 -90 0 0 {name=p10 lab=drive_bias}
 C {sky130_fd_pr/pfet_01v8.sym} 320 -650 0 1 {name=Mload_p
 L=0.15
 W=0.84
@@ -285,8 +285,8 @@ nf=1 mult=1
 model=pfet_01v8
 spiceprefix=X
 }
-C {ipin.sym} 0 -650 0 0 {name=p11 lab=drive_load}
-C {lab_wire.sym} 430 -650 0 1 {name=l4 sig_type=std_logic lab=drive_load}
+C {devices/ipin.sym} 0 -650 0 0 {name=p11 lab=drive_load}
+C {devices/lab_wire.sym} 430 -650 0 1 {name=l4 sig_type=std_logic lab=drive_load}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 280 -90 0 0 {name=Mdrive_curr
 L=8.00
 W=0.42
@@ -315,8 +315,8 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {iopin.sym} 0 -1030 2 0 {name=p13 lab=vddd}
-C {lab_wire.sym} 410 -310 0 1 {name=l1 sig_type=std_logic lab=cas_bias}
+C {devices/iopin.sym} 0 -1030 2 0 {name=p13 lab=vddd}
+C {devices/lab_wire.sym} 410 -310 0 1 {name=l1 sig_type=std_logic lab=cas_bias}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 760 -90 0 0 {name=Mdrive_currcap1
 L=2.00
 W=4.00

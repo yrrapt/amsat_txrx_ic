@@ -1,6 +1,6 @@
 # xschemrc configuration file
 
-set XSCHEM_SKYDIR $env(HOME)/.xschem/xschem_library/xschem_sky130
+set XSCHEM_SKYDIR /tools/xschem_library/xschem_sky130
 
 ###########################################################################
 ## xschem installation directory XSCHEM_SHAREDIR

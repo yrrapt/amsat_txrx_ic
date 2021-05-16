@@ -81,11 +81,11 @@ N 0 -530 480 -530 { lab=drive_load}
 N 480 -640 480 -530 { lab=drive_load}
 N -0 -480 640 -480 { lab=cas_bias}
 N 640 -640 640 -480 { lab=cas_bias}
-C {iopin.sym} 0 -930 2 0 {name=p1 lab=vdda}
-C {iopin.sym} 0 0 2 0 {name=p2 lab=vss}
-C {ipin.sym} 0 -790 0 0 {name=p3 lab=curr_bias}
-C {ipin.sym} 0 -580 0 0 {name=p6 lab=drive_supply}
-C {ipin.sym} 0 -480 0 0 {name=p9 lab=cas_bias}
+C {devices/iopin.sym} 0 -930 2 0 {name=p1 lab=vdda}
+C {devices/iopin.sym} 0 0 2 0 {name=p2 lab=vss}
+C {devices/ipin.sym} 0 -790 0 0 {name=p3 lab=curr_bias}
+C {devices/ipin.sym} 0 -580 0 0 {name=p6 lab=drive_supply}
+C {devices/ipin.sym} 0 -480 0 0 {name=p9 lab=cas_bias}
 C {sky130_fd_pr/pfet_01v8_lvt.sym} 130 -860 0 1 {name=Mcurr_p
 L=8.00
 W=0.55
@@ -114,8 +114,8 @@ sa=0 sb=0 sd=0
 model=pfet_01v8_lvt
 spiceprefix=X
 }
-C {ipin.sym} 0 -90 0 0 {name=p10 lab=drive_bias}
-C {ipin.sym} 0 -530 0 0 {name=p11 lab=drive_load}
+C {devices/ipin.sym} 0 -90 0 0 {name=p10 lab=drive_bias}
+C {devices/ipin.sym} 0 -530 0 0 {name=p11 lab=drive_load}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 280 -90 0 0 {name=Mdrive_curr
 L=8.00
 W=0.42
@@ -144,7 +144,7 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {iopin.sym} 0 -1030 2 0 {name=p13 lab=vddd}
+C {devices/iopin.sym} 0 -1030 2 0 {name=p13 lab=vddd}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 760 -90 0 0 {name=Mdrive_currcap1
 L=2.00
 W=4.00

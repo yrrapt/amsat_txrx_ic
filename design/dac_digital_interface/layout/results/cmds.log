@@ -1,146 +1,146 @@
-Tue May 11 18:30:28 UTC 2021 - Executing "python3 /openLANE_flow/scripts/extract_metal_layers.py -t /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/met_layers_list.txt"
+Sun May 16 11:04:18 UTC 2021 - Executing "python3 /openLANE_flow/scripts/extract_metal_layers.py -t /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/met_layers_list.txt"
 
-Tue May 11 18:30:29 UTC 2021 - Executing "/openLANE_flow/scripts/mergeLef.py -i /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef {/home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__fill_12.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__decap_12.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__fakediode_2.lef} -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/merged_unpadded.lef |& tee >&@stdout"
+Sun May 16 11:04:18 UTC 2021 - Executing "/openLANE_flow/scripts/mergeLef.py -i /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef {/home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__fill_12.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__decap_12.lef /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd__fakediode_2.lef} -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/merged_unpadded.lef |& tee >&@stdout"
 
-Tue May 11 18:30:29 UTC 2021 - Executing "/openLANE_flow/scripts/libtrim.pl /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/trimmed.lib.exclude.list > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/trimmed.lib"
+Sun May 16 11:04:19 UTC 2021 - Executing "/openLANE_flow/scripts/libtrim.pl /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/trimmed.lib.exclude.list > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/trimmed.lib"
 
-Tue May 11 18:30:29 UTC 2021 - Executing "echo {openlane v0.15} > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/OPENLANE_VERSION"
+Sun May 16 11:04:19 UTC 2021 - Executing "echo {openlane v0.15} > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/OPENLANE_VERSION"
 
-Tue May 11 18:30:29 UTC 2021 - Executing "sed -E {s/^([[:space:]]+)pg_pin(.*)/\1pin\2\n\1    direction : "inout";/g} /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/sky130_fd_sc_hd__tt_025C_1v80.no_pg.lib"
+Sun May 16 11:04:19 UTC 2021 - Executing "sed -E {s/^([[:space:]]+)pg_pin(.*)/\1pin\2\n\1    direction : "inout";/g} /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/sky130_fd_sc_hd__tt_025C_1v80.no_pg.lib"
 
-Tue May 11 18:30:29 UTC 2021 - Executing "yosys -c /openLANE_flow/scripts/synth.tcl -l /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/synthesis/1-yosys.log |& tee >&@stdout"
+Sun May 16 11:04:19 UTC 2021 - Executing "yosys -c /openLANE_flow/scripts/synth.tcl -l /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/synthesis/1-yosys.log |& tee >&@stdout"
 
-Tue May 11 18:30:41 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:04:30 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:30:41 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 0/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:04:30 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 0/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:30:41 UTC 2021 - Executing "sed -i /defparam/d /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/synthesis/dac_digital_interface.synthesis.v"
+Sun May 16 11:04:30 UTC 2021 - Executing "sed -i /defparam/d /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/synthesis/dac_digital_interface.synthesis.v"
 
-Tue May 11 18:30:41 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/synthesis/2-opensta"
+Sun May 16 11:04:30 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/synthesis/2-opensta"
 
-Tue May 11 18:30:43 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_floorplan.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/floorplan/3-verilog2def.openroad.log"
+Sun May 16 11:04:32 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_floorplan.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/floorplan/3-verilog2def.openroad.log"
 
-Tue May 11 18:30:45 UTC 2021 - Executing "python3 /amsat_txrx_ic/design/dac_digital_interface/layout/pin_create.py --die_area 0,0,280,210 --output_def /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/floorplan/pin_locations.def"
+Sun May 16 11:04:34 UTC 2021 - Executing "python3 /amsat_txrx_ic/design/dac_digital_interface/layout/pin_create.py --die_area 0,0,400,210 --output_def /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/floorplan/pin_locations.def"
 
-Tue May 11 18:30:45 UTC 2021 - Executing "python3 /openLANE_flow/scripts/apply_def_template.py -t /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/floorplan/pin_locations.def -u /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/floorplan/3-verilog2def_openroad.def -s /openLANE_flow/scripts"
+Sun May 16 11:04:34 UTC 2021 - Executing "python3 /openLANE_flow/scripts/apply_def_template.py -t /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/floorplan/pin_locations.def -u /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/floorplan/3-verilog2def_openroad.def -s /openLANE_flow/scripts"
 
-Tue May 11 18:30:45 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_tapcell.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/floorplan/4-tapcell.log"
+Sun May 16 11:04:34 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_tapcell.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/floorplan/4-tapcell.log"
 
-Tue May 11 18:30:47 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/floorplan/dac_digital_interface.floorplan.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/5-klayout.scrot.log"
+Sun May 16 11:04:36 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/floorplan/dac_digital_interface.floorplan.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/5-klayout.scrot.log"
 
-Tue May 11 18:30:52 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_pdn.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/floorplan/6-pdn.log"
+Sun May 16 11:04:41 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_pdn.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/floorplan/6-pdn.log"
 
-Tue May 11 18:30:54 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_replace.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/placement/7-replace.log"
+Sun May 16 11:04:44 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_replace.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/placement/7-replace.log"
 
-Tue May 11 18:31:03 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_resizer.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/placement/7-resizer.log"
+Sun May 16 11:04:53 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_resizer.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/placement/7-resizer.log"
 
-Tue May 11 18:31:12 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/8-write_verilog.log"
+Sun May 16 11:05:02 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/8-write_verilog.log"
 
-Tue May 11 18:31:14 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:05:04 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:31:14 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:05:04 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:31:14 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/synthesis/9-opensta_post_resizer"
+Sun May 16 11:05:04 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/synthesis/9-opensta_post_resizer"
 
-Tue May 11 18:31:16 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_opendp.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/placement/10-opendp.log"
+Sun May 16 11:05:05 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_opendp.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/placement/10-opendp.log"
 
-Tue May 11 18:31:18 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/placement/dac_digital_interface.placement.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/11-klayout.scrot.log"
+Sun May 16 11:05:07 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/placement/dac_digital_interface.placement.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/11-klayout.scrot.log"
 
-Tue May 11 18:31:23 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_cts.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/cts/12-cts.log"
+Sun May 16 11:05:12 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_cts.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/cts/12-cts.log"
 
-Tue May 11 18:33:04 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/13-write_verilog.log"
+Sun May 16 11:06:50 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/13-write_verilog.log"
 
-Tue May 11 18:33:06 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_cts.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:06:51 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_cts.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:06 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:06:51 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:06 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/cts/dac_digital_interface.cts.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/14-klayout.scrot.log"
+Sun May 16 11:06:51 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/cts/dac_digital_interface.cts.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/14-klayout.scrot.log"
 
-Tue May 11 18:33:11 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_resizer_timing.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/placement/14-resizer_timing.log"
+Sun May 16 11:06:57 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_resizer_timing.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/placement/14-resizer_timing.log"
 
-Tue May 11 18:33:18 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/15-write_verilog.log"
+Sun May 16 11:07:04 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/15-write_verilog.log"
 
-Tue May 11 18:33:20 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:07:06 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:20 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_cts.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:07:06 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_cts.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:20 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/synthesis/16-opensta_post_resizer_timing"
+Sun May 16 11:07:06 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/synthesis/16-opensta_post_resizer_timing"
 
-Tue May 11 18:33:22 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_groute.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/routing/17-fastroute.log"
+Sun May 16 11:07:08 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_groute.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/routing/17-fastroute.log"
 
-Tue May 11 18:33:32 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_fill.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/routing/18-addspacers.log"
+Sun May 16 11:07:17 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_fill.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/routing/18-addspacers.log"
 
-Tue May 11 18:33:34 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/19-write_verilog.log"
+Sun May 16 11:07:19 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/19-write_verilog.log"
 
-Tue May 11 18:33:36 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_preroute.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:07:21 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_preroute.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:36 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:07:21 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_optimized.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:33:36 UTC 2021 - Executing "envsubst < /openLANE_flow/scripts/tritonRoute.param > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/routing/20-tritonRoute.param"
+Sun May 16 11:07:21 UTC 2021 - Executing "envsubst < /openLANE_flow/scripts/tritonRoute.param > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/routing/20-tritonRoute.param"
 
-Tue May 11 18:33:36 UTC 2021 - Executing "TritonRoute /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/routing/20-tritonRoute.param |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/routing/20-tritonRoute.log"
+Sun May 16 11:07:21 UTC 2021 - Executing "TritonRoute /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/routing/20-tritonRoute.param |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/routing/20-tritonRoute.log"
 
-Tue May 11 18:40:26 UTC 2021 - Executing "python3 /openLANE_flow/scripts/tr2klayout.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/routing/20-tritonRoute.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/routing/20-tritonRoute.klayout.xml --design-name dac_digital_interface"
+Sun May 16 11:10:22 UTC 2021 - Executing "python3 /openLANE_flow/scripts/tr2klayout.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/routing/20-tritonRoute.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/routing/20-tritonRoute.klayout.xml --design-name dac_digital_interface"
 
-Tue May 11 18:40:26 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/routing/dac_digital_interface.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/21-klayout.scrot.log"
+Sun May 16 11:10:22 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/routing/dac_digital_interface.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/21-klayout.scrot.log"
 
-Tue May 11 18:40:32 UTC 2021 - Executing "python3 /openLANE_flow/scripts/spef_extractor/main.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/merged_unpadded.lef -d /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/routing/dac_digital_interface.def -mw L -ec 1 |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/routing/22-spef_extraction.log"
+Sun May 16 11:10:28 UTC 2021 - Executing "python3 /openLANE_flow/scripts/spef_extractor/main.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/merged_unpadded.lef -d /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/routing/dac_digital_interface.def -mw L -ec 1 |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/routing/22-spef_extraction.log"
 
-Tue May 11 18:40:37 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/synthesis/23-opensta_spef"
+Sun May 16 11:10:31 UTC 2021 - Executing "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/synthesis/23-opensta_spef"
 
-Tue May 11 18:40:39 UTC 2021 - Executing "python3 /openLANE_flow/scripts/write_powered_def.py -d /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/routing/dac_digital_interface.def -l /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/merged.lef --power-port VPWR --ground-port VGND --powered-netlist {} -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/routing/24-dac_digital_interface.powered.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/lvs/24-write_powered_verilog.log"
+Sun May 16 11:10:34 UTC 2021 - Executing "python3 /openLANE_flow/scripts/write_powered_def.py -d /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/routing/dac_digital_interface.def -l /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/merged.lef --power-port VPWR --ground-port VGND --powered-netlist {} -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/routing/24-dac_digital_interface.powered.def |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/lvs/24-write_powered_verilog.log"
 
-Tue May 11 18:40:40 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/25-write_verilog.log"
+Sun May 16 11:10:35 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_write_verilog.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/25-write_verilog.log"
 
-Tue May 11 18:40:42 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/lvs\/dac_digital_interface.lvs.powered.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:10:37 UTC 2021 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/lvs\/dac_digital_interface.lvs.powered.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:40:42 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/11-05_18-30\/results\/synthesis\/dac_digital_interface.synthesis_preroute.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/config.tcl"
+Sun May 16 11:10:37 UTC 2021 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 \/amsat_txrx_ic\/design\/dac_digital_interface\/runs\/16-05_11-04\/results\/synthesis\/dac_digital_interface.synthesis_preroute.v/} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/config.tcl"
 
-Tue May 11 18:40:42 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/mag_gds.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/26-magic.log"
+Sun May 16 11:10:37 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/mag_gds.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/26-magic.log"
 
-Tue May 11 18:40:45 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/magic/dac_digital_interface.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/27-klayout.scrot.log"
+Sun May 16 11:10:41 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/magic/dac_digital_interface.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/27-klayout.scrot.log"
 
-Tue May 11 18:40:50 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/gds_pointers.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/28-magic.mag.gds_ptrs.log"
+Sun May 16 11:10:46 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/gds_pointers.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/28-magic.mag.gds_ptrs.log"
 
-Tue May 11 18:40:53 UTC 2021 - Executing "sed -i -n {/^<< properties >>/,/^<< end >>/p} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/magic/magic_gds_ptrs.mag"
+Sun May 16 11:10:48 UTC 2021 - Executing "sed -i -n {/^<< properties >>/,/^<< end >>/p} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/magic/magic_gds_ptrs.mag"
 
-Tue May 11 18:40:53 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/lef.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/29-magic.lef.log"
+Sun May 16 11:10:48 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/lef.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/29-magic.lef.log"
 
-Tue May 11 18:40:55 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/maglef.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/30-magic.maglef.log"
+Sun May 16 11:10:51 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/maglef.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/30-magic.maglef.log"
 
-Tue May 11 18:40:56 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/def2gds.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/routing/dac_digital_interface.def dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.gds {/home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__fill_12.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__decap_12.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__fakediode_2.gds } |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/31-klayout.log"
+Sun May 16 11:10:52 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/def2gds.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/routing/dac_digital_interface.def dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.gds {/home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__fill_12.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__decap_12.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_fd_sc_hd.gds /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/gds/sky130_ef_sc_hd__fakediode_2.gds } |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/31-klayout.log"
 
-Tue May 11 18:41:01 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/32-klayout.scrot.log"
+Sun May 16 11:10:57 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/32-klayout.scrot.log"
 
-Tue May 11 18:41:07 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/xor.sh /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/magic/dac_digital_interface.gds /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.gds dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.xor.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/33-klayout.xor.log"
+Sun May 16 11:11:02 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/xor.sh /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/magic/dac_digital_interface.gds /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.gds dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.xor.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/33-klayout.xor.log"
 
-Tue May 11 18:41:25 UTC 2021 - Executing "python3 /openLANE_flow/scripts/parse_klayout_xor_log.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/33-klayout.xor.log -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/klayout/33-klayout.xor.rpt"
+Sun May 16 11:11:23 UTC 2021 - Executing "python3 /openLANE_flow/scripts/parse_klayout_xor_log.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/33-klayout.xor.log -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/klayout/33-klayout.xor.rpt"
 
-Tue May 11 18:41:25 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.xor.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/34-klayout.scrot.log"
+Sun May 16 11:11:23 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/scrotLayout.sh /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/klayout/sky130A.lyt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.xor.gds |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/34-klayout.scrot.log"
 
-Tue May 11 18:41:31 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/xor.sh /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/magic/dac_digital_interface.gds /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.gds dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/klayout/dac_digital_interface.xor.xml |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/35-klayout.xor.log"
+Sun May 16 11:11:28 UTC 2021 - Executing "bash /openLANE_flow/scripts/klayout/xor.sh /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/magic/dac_digital_interface.gds /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.gds dac_digital_interface /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/klayout/dac_digital_interface.xor.xml |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/35-klayout.xor.log"
 
-Tue May 11 18:42:01 UTC 2021 - Executing "python3 /openLANE_flow/scripts/parse_klayout_xor_log.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/klayout/35-klayout.xor.log -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/klayout/35-klayout.xor.rpt"
+Sun May 16 11:12:01 UTC 2021 - Executing "python3 /openLANE_flow/scripts/parse_klayout_xor_log.py -l /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/klayout/35-klayout.xor.log -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/klayout/35-klayout.xor.rpt"
 
-Tue May 11 18:42:01 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/magic_spice.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/36-magic_spice.log"
+Sun May 16 11:12:01 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/magic_spice.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/36-magic_spice.log"
 
-Tue May 11 18:42:10 UTC 2021 - Executing "netgen -batch source /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/tmp/lvs/setup_file.lef.lvs |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/lvs/37-lvs.lef.log"
+Sun May 16 11:12:11 UTC 2021 - Executing "netgen -batch source /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/tmp/lvs/setup_file.lef.lvs |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/lvs/37-lvs.lef.log"
 
-Tue May 11 18:42:10 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/drc.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/magic/38-magic.drc.log"
+Sun May 16 11:12:12 UTC 2021 - Executing "magic -noconsole -dnull -rcfile /home/server/repositories/ic/openlane/pdks/sky130A/libs.tech/magic/sky130A.magicrc /openLANE_flow/scripts/magic/drc.tcl </dev/null |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/magic/38-magic.drc.log"
 
-Tue May 11 18:42:33 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_tcl.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc.tcl"
+Sun May 16 11:12:38 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_tcl.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc.tcl"
 
-Tue May 11 18:42:33 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_tr_drc.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.tr.drc"
+Sun May 16 11:12:38 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_tr_drc.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.tr.drc"
 
-Tue May 11 18:42:33 UTC 2021 - Executing "python3 /openLANE_flow/scripts/tr2klayout.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.tr.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc.klayout.xml --design-name dac_digital_interface"
+Sun May 16 11:12:38 UTC 2021 - Executing "python3 /openLANE_flow/scripts/tr2klayout.py -i /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.tr.drc -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc.klayout.xml --design-name dac_digital_interface"
 
-Tue May 11 18:42:33 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_rdb.py --magic_drc_in /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc --rdb_out /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/magic/38-magic.drc.rdb"
+Sun May 16 11:12:38 UTC 2021 - Executing "python3 /openLANE_flow/scripts/magic_drc_to_rdb.py --magic_drc_in /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc --rdb_out /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/magic/38-magic.drc.rdb"
 
-Tue May 11 18:42:33 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_antenna_check.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/routing/39-or_antenna.log"
+Sun May 16 11:12:38 UTC 2021 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_antenna_check.tcl |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/routing/39-or_antenna.log"
 
-Tue May 11 18:42:36 UTC 2021 - Executing "mv -f /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/routing/antenna.rpt /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/routing/40-antenna.rpt"
+Sun May 16 11:12:40 UTC 2021 - Executing "mv -f /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/routing/antenna.rpt /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/routing/40-antenna.rpt"
 
-Tue May 11 18:42:36 UTC 2021 - Executing "awk { BEGIN {  # Print power and standard_input definitions
+Sun May 16 11:12:40 UTC 2021 - Executing "awk { BEGIN {  # Print power and standard_input definitions
     print "VPWR power 1.8";
     print "VGND power 0.0";
     print "#define std_input min@VGND max@VPWR";
@@ -154,9 +154,9 @@ $1 == "input" {  # Print input nets
         $2 = $3 $2;
     }
     print $2, "input std_input";
-}} /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/lvs/dac_digital_interface.lvs.powered.v > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/cvc/dac_digital_interface.power"
+}} /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/lvs/dac_digital_interface.lvs.powered.v > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/cvc/dac_digital_interface.power"
 
-Tue May 11 18:42:36 UTC 2021 - Executing "awk { /Black-box entry subcircuit/ {  # remove black-box defintions
+Sun May 16 11:12:40 UTC 2021 - Executing "awk { /Black-box entry subcircuit/ {  # remove black-box defintions
     while ( $1 != ".ends" ) {
         getline;
     }
@@ -171,9 +171,9 @@ Tue May 11 18:42:36 UTC 2021 - Executing "awk { /Black-box entry subcircuit/ {  
 }
  {
     print $0;
-}} /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/cdl/sky130_fd_sc_hd.cdl /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/magic/dac_digital_interface.lef.spice > /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/results/cvc/dac_digital_interface.cdl"
+}} /home/server/repositories/ic/openlane/pdks/sky130A/libs.ref/sky130_fd_sc_hd/cdl/sky130_fd_sc_hd.cdl /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/magic/dac_digital_interface.lef.spice > /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/results/cvc/dac_digital_interface.cdl"
 
-Tue May 11 18:42:36 UTC 2021 - Executing "cvc /openLANE_flow/scripts/cvc/sky130A/cvcrc.sky130A |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/logs/cvc/41-cvc_screen.log"
+Sun May 16 11:12:40 UTC 2021 - Executing "cvc /openLANE_flow/scripts/cvc/sky130A/cvcrc.sky130A |& tee >&@stdout /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/logs/cvc/41-cvc_screen.log"
 
-Tue May 11 18:42:37 UTC 2021 - Executing "python3 /openLANE_flow/report_generation_wrapper.py -d /amsat_txrx_ic/design/dac_digital_interface -dn dac_digital_interface -t 11-05_18-30 -o /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/final_summary_report.csv -m /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/manufacturability_report.rpt -rs /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30/reports/runtime_summary_report.rpt -r /amsat_txrx_ic/design/dac_digital_interface/runs/11-05_18-30"
+Sun May 16 11:12:41 UTC 2021 - Executing "python3 /openLANE_flow/report_generation_wrapper.py -d /amsat_txrx_ic/design/dac_digital_interface -dn dac_digital_interface -t 16-05_11-04 -o /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/final_summary_report.csv -m /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/manufacturability_report.rpt -rs /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04/reports/runtime_summary_report.rpt -r /amsat_txrx_ic/design/dac_digital_interface/runs/16-05_11-04"
 

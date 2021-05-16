@@ -66,6 +66,7 @@ endif
 	make; \
 	sudo make install
 	cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
+	echo "export SKY130A=/pdk/sky130/libraries/sky130_fd_pr/latest" >> ~/.bashrc
 
 ngspice:
 ifeq ($(REPLACE),1)

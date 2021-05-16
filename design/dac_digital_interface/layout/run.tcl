@@ -10,8 +10,8 @@ run_synthesis
 
 # define area
 set ::env(FP_SIZING)        "absolute"
-set ::env(DIE_AREA)         "0 0 280 210"
-# set ::env(PL_TARGET_DENSITY) 0.4
+set ::env(DIE_AREA)         "0 0 400 210"
+set ::env(PL_TARGET_DENSITY) 0.4
 
 # create initial floorplan
 init_floorplan
