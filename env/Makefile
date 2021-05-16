@@ -31,37 +31,41 @@ endif
 	git clone git@github.com:StefanSchippers/xschem_sky130.git; \
 	cd xschem_sky130; \
 
-skywater:
+magic:
 ifeq ($(REPLACE),1)
-	rm -rf /pdk/sky130
+	rm -rf /tools/magic
 endif
-	cd /pdk; \
-	git clone https://github.com/google/skywater-pdk sky130; \
-	cd sky130; \
-	git submodule init libraries/sky130_fd_io/latest; \
-	git submodule init libraries/sky130_fd_pr/latest; \
-	git submodule init libraries/sky130_fd_sc_hd/latest; \
-	git submodule init libraries/sky130_fd_sc_hdll/latest; \
-	git submodule init libraries/sky130_fd_sc_hs/latest; \
-	git submodule init libraries/sky130_fd_sc_ms/latest; \
-	git submodule init libraries/sky130_fd_sc_ls/latest; \
-	git submodule init libraries/sky130_fd_sc_lp/latest; \
-	git submodule init libraries/sky130_fd_sc_hvl/latest; \
-	git submodule update; \
-	cd libraries; \
-	cp -a sky130_fd_pr sky130_fd_pr_ngspice; \
-	cd sky130_fd_pr_ngspice/latest
+	cd /tools; \
+	git clone git://opencircuitdesign.com/magic; \
+	cd magic; \
+	./configure; \
+	make; \
+	sudo make install
+
+netgen:
+ifeq ($(REPLACE),1)
+	rm -rf /tools/netgen
+endif
+	cd /tools; \
+	git clone git://opencircuitdesign.com/netgen; \
+	cd netgen; \
+	./configure; \
+	make; \
+	sudo make install
 
 
 open_pdks:
 ifeq ($(REPLACE),1)
 	rm -rf /pdk/open_pdks
 endif
+	sudo mkdir -p /pdk; \
 	cd /pdk; \
 	git clone git://opencircuitdesign.com/open_pdks; \
 	cd open_pdks; \
 	./configure --enable-sky130-pdk; \
+	make; \
 	sudo make install
+	cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
 
 ngspice:
 ifeq ($(REPLACE),1)
@@ -87,28 +91,6 @@ endif
 	git clone git@github.com:KLayout/klayout.git; \
 	cd klayout; \
 	./build.sh
-
-magic:
-ifeq ($(REPLACE),1)
-	rm -rf /tools/magic
-endif
-	cd /tools; \
-	git clone git://opencircuitdesign.com/magic; \
-	cd magic; \
-	./configure; \
-	make; \
-	sudo make install
-
-netgen:
-ifeq ($(REPLACE),1)
-	rm -rf /tools/netgen
-endif
-	cd /tools; \
-	git clone git://opencircuitdesign.com/netgen; \
-	cd netgen; \
-	./configure; \
-	make; \
-	sudo make install
 
 venv:
 ifeq ($(REPLACE),1)
@@ -270,5 +252,5 @@ ifeq ($(XYCE_PARALLEL),1)
 	make install
 endif
 
-all: xschem xschem_sky130 skywater open_pdks ngspice klayout magic netgen venv xyce
+all: xschem xschem_sky130 magic netgen open_pdks ngspice klayout venv xyce
 	@echo "Done"
