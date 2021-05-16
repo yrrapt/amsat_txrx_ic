@@ -52,6 +52,7 @@ endif
 	cp -a sky130_fd_pr sky130_fd_pr_ngspice; \
 	cd sky130_fd_pr_ngspice/latest
 
+
 open_pdks:
 ifeq ($(REPLACE),1)
 	rm -rf /pdk/open_pdks
@@ -271,6 +272,3 @@ endif
 
 all: xschem xschem_sky130 skywater open_pdks ngspice klayout magic netgen venv xyce
 	@echo "Done"
-
-# clean:
-# 	rm -rf ~/skywater
