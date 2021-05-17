@@ -1,17 +1,12 @@
 # source /amsat_txrx_ic/design/dac_digital_interface/layout/run.tcl
+package require openlane
 
 # set some global settings
 set CONFIG_DIR /amsat_txrx_ic/design/dac_digital_interface/layout 
 
-
 # synth
 prep -design /amsat_txrx_ic/design/dac_digital_interface
 run_synthesis
-
-# define area
-set ::env(FP_SIZING)        "absolute"
-set ::env(DIE_AREA)         "0 0 400 210"
-set ::env(PL_TARGET_DENSITY) 0.4
 
 # create initial floorplan
 init_floorplan
@@ -20,7 +15,6 @@ init_floorplan
 try_catch python3 $CONFIG_DIR/pin_create.py             \
                 --die_area [join $::env(DIE_AREA) ,]    \
                 --output_def $::env(TMP_DIR)/floorplan/pin_locations.def
-
 set ::env(FP_DEF_TEMPLATE) $::env(TMP_DIR)/floorplan/pin_locations.def
 apply_def_template
 
