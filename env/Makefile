@@ -65,8 +65,8 @@ endif
 	./configure --enable-sky130-pdk; \
 	make; \
 	sudo make install
-	cp /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
-	echo "export SKY130A=/pdk/sky130/libraries/sky130_fd_pr/latest" >> ~/.bashrc
+	cp -f /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
+	echo "export SKY130A=/usr/share/pdk/sky130A" >> ~/.bashrc
 
 ngspice:
 ifeq ($(REPLACE),1)
@@ -178,7 +178,7 @@ ifeq ($(XYCE_SERIAL),1)
 	echo '--enable-shared \' >> reconfigure; \
 	echo '--enable-xyce-shareable \' >> reconfigure; \
 	echo 'CPPFLAGS="-I/usr/include/suitesparse" \' >> reconfigure; \
-	--prefix=/tools/xyce/install/serial" >> reconfigure; \
+	echo '--prefix=/tools/xyce/install/serial' >> reconfigure; \
 	chmod u+x reconfigure; \
 	./reconfigure; \
 	make; \
