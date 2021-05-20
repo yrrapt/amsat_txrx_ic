@@ -5,7 +5,7 @@ V {}
 S {}
 E {}
 C {devices/ipin.sym} 0 -180 0 0 {name=p1 lab=clk_i}
-C {devices/opin.sym} 720 -170 0 0 {name=p2 lab=output_thermeter_o[255:0]}
+C {devices/opin.sym} 720 -170 0 0 {name=p2 lab=output_thermometer_o[255:0]}
 C {devices/opin.sym} 720 -130 0 0 {name=p3 lab=output_binary_o[1:0]}
 C {devices/opin.sym} 720 -100 0 0 {name=p4 lab=en_o}
 C {devices/ipin.sym} 0 -150 0 0 {name=p5 lab=rst_ni}

@@ -23,7 +23,7 @@ L 7 0 -90 0 -70 {}
 L 7 0 70 0 90 {}
 B 5 -2.5 -92.5 2.5 -87.5 {name=VPWR dir=inout }
 B 5 -152.5 -42.5 -147.5 -37.5 {name=clk_i dir=in }
-B 5 147.5 7.5 152.5 12.5 {name=output_thermeter_o[255:0] dir=out }
+B 5 147.5 7.5 152.5 12.5 {name=output_thermometer_o[255:0] dir=out }
 B 5 -152.5 -22.5 -147.5 -17.5 {name=rst_ni dir=in }
 B 5 147.5 27.5 152.5 32.5 {name=output_binary_o[1:0] dir=out }
 B 5 -152.5 -2.5 -147.5 2.5 {name=randomise_en_i dir=in }
@@ -35,7 +35,7 @@ T {@symname} 37.5 94 0 0 0.3 0.3 {}
 T {@name} 45 78 0 0 0.2 0.2 {}
 T {VPWR} 16 -65 0 1 0.2 0.2 {}
 T {clk_i} -125 -44 0 0 0.2 0.2 {}
-T {output_thermeter_o[255:0]} 125 6 0 1 0.2 0.2 {}
+T {output_thermometer_o[255:0]} 125 6 0 1 0.2 0.2 {}
 T {rst_ni} -125 -24 0 0 0.2 0.2 {}
 T {output_binary_o[1:0]} 125 26 0 1 0.2 0.2 {}
 T {randomise_en_i} -125 -4 0 0 0.2 0.2 {}
