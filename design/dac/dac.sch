@@ -4,7 +4,7 @@ K {}
 V {}
 S {}
 E {}
-N 1040 -210 1120 -210 { lab=#net1}
+N 1040 -210 1120 -210 { lab=out_p}
 N 1040 -190 1110 -190 { lab=out_n}
 N 1110 -190 1120 -190 { lab=out_n}
 N 0 0 890 0 { lab=vss}
@@ -23,8 +23,8 @@ N 0 -150 160 -150 { lab=data[9:0]}
 N 0 -170 160 -170 { lab=en}
 N -0 -210 160 -210 { lab=rst_n}
 N -0 -230 160 -230 { lab=clk}
-N 460 -220 740 -220 { lab=#net2}
-N 460 -180 740 -180 { lab=#net3}
+N 460 -220 740 -220 { lab=#net1}
+N 460 -180 740 -180 { lab=#net2}
 C {dac_analogue/dac_analogue.sym} 890 -200 0 0 {name=xanalogue}
 C {devices/iopin.sym} 0 0 0 1 {name=p1 lab=vss}
 C {devices/iopin.sym} 0 -400 0 1 {name=p2 lab=vdda}
@@ -42,3 +42,4 @@ C {devices/lab_pin.sym} 740 -240 0 0 {name=l1 sig_type=std_logic lab=clk}
 C {devices/lab_pin.sym} 460 -160 0 1 {name=l2 sig_type=std_logic lab=binary[1:0]}
 C {devices/lab_pin.sym} 740 -160 0 0 {name=l3 sig_type=std_logic lab=binary[1]}
 C {devices/lab_pin.sym} 740 -140 0 0 {name=l4 sig_type=std_logic lab=binary[0]}
+C {sky130_stdcells/decap_12.sym} 120 -470 0 0 {name=xdecap[125:0] VGND=vss VNB=vss VPB=vdda VPWR=vdda prefix=sky130_fd_sc_hd__ }
