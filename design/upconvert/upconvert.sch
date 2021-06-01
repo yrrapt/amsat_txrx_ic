@@ -97,8 +97,8 @@ N 340 -120 340 0 { lab=vss}
 N 100 -90 100 0 { lab=vss}
 N 140 -120 280 -120 { lab=#net7}
 N 100 -220 100 -150 { lab=#net7}
-N 0 -460 560 -460 { lab=in_n}
-N 0 -500 720 -500 { lab=in_p}
+N 0 -580 560 -580 { lab=in_n}
+N 0 -620 720 -620 { lab=in_p}
 N 320 -760 380 -760 { lab=#net6}
 N 380 -820 380 -760 { lab=#net6}
 N 380 -830 380 -820 { lab=#net6}
@@ -150,8 +150,8 @@ N 1000 -950 1000 -890 { lab=vdd}
 N 980 -860 980 -760 { lab=#net6}
 N -0 0 80 -0 { lab=vss}
 N 0 -950 260 -950 { lab=vdd}
-N 100 -620 160 -620 { lab=en_n}
-N -0 -620 20 -620 { lab=en}
+N 110 -760 170 -760 { lab=en_n}
+N 10 -760 30 -760 { lab=en}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 1120 -140 0 0 {name=Mcurr_p
 L=1.00
 W=10
@@ -267,10 +267,10 @@ spiceprefix=X
 C {lab_wire.sym} 1100 -140 0 0 {name=l11 sig_type=std_logic lab=g_p}
 C {lab_wire.sym} 1620 -160 0 0 {name=l10 sig_type=std_logic lab=g_n}
 C {upconvert_inductor/upconvert_inductor.sym} 1400 -640 0 1 {name=x1}
-C {lab_wire.sym} 1300 -340 0 1 {name=l1 sig_type=std_logic lab=loo_n}
-C {lab_wire.sym} 1500 -340 0 0 {name=l3 sig_type=std_logic lab=loo_n}
-C {lab_wire.sym} 1820 -340 0 1 {name=l4 sig_type=std_logic lab=loo_p}
-C {lab_wire.sym} 980 -340 0 0 {name=l2 sig_type=std_logic lab=loo_p}
+C {lab_wire.sym} 1300 -340 0 1 {name=l1 sig_type=std_logic lab=lo_n}
+C {lab_wire.sym} 1500 -340 0 0 {name=l3 sig_type=std_logic lab=lo_n}
+C {lab_wire.sym} 1820 -340 0 1 {name=l4 sig_type=std_logic lab=lo_p}
+C {lab_wire.sym} 980 -340 0 0 {name=l2 sig_type=std_logic lab=lo_p}
 C {lc_oscillator_buffer/lc_oscillator_buffer.sym} 2080 -500 0 0 {name=x4}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 120 -120 0 1 {name=Mcurrn_r
 L=8.00
@@ -300,8 +300,8 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {ipin.sym} 0 -460 0 0 {name=p1 lab=in_n}
-C {ipin.sym} 0 -500 0 0 {name=p2 lab=in_p}
+C {ipin.sym} 0 -580 0 0 {name=p1 lab=in_n}
+C {ipin.sym} 0 -620 0 0 {name=p2 lab=in_p}
 C {sky130_fd_pr/pfet_01v8_lvt.sym} 340 -890 0 1 {name=Mcurrp_r
 L=2.00
 W=2.00
@@ -439,9 +439,11 @@ C {iopin.sym} 0 0 0 1 {name=p4 lab=vss}
 C {iopin.sym} 0 -950 0 1 {name=p5 lab=vdd}
 C {opin.sym} 2250 -510 0 0 {name=p6 lab=out_p}
 C {opin.sym} 2250 -490 0 0 {name=p7 lab=out_n}
-C {sky130_stdcells/inv_1.sym} 60 -620 0 0 {name=x2 VGND=vss VNB=vss VPB=vdd VPWR=vdd prefix=sky130_fd_sc_hd__ }
-C {lab_wire.sym} 100 -620 0 1 {name=l13 sig_type=std_logic lab=en_n}
-C {lab_wire.sym} 240 -620 0 1 {name=l14 sig_type=std_logic lab=en_buf}
-C {ipin.sym} 0 -620 0 0 {name=p8 lab=en}
-C {sky130_stdcells/inv_1.sym} 200 -620 0 0 {name=x3 VGND=vss VNB=vss VPB=vdd VPWR=vdd prefix=sky130_fd_sc_hd__ }
+C {sky130_stdcells/inv_1.sym} 70 -760 0 0 {name=x2 VGND=vss VNB=vss VPB=vdd VPWR=vdd prefix=sky130_fd_sc_hd__ }
+C {lab_wire.sym} 110 -760 0 1 {name=l13 sig_type=std_logic lab=en_n}
+C {lab_wire.sym} 250 -760 0 1 {name=l14 sig_type=std_logic lab=en_buf}
+C {ipin.sym} 10 -760 0 0 {name=p8 lab=en}
+C {sky130_stdcells/inv_1.sym} 210 -760 0 0 {name=x3 VGND=vss VNB=vss VPB=vdd VPWR=vdd prefix=sky130_fd_sc_hd__ }
 C {lab_wire.sym} 1960 -440 0 0 {name=l15 sig_type=std_logic lab=en_buf}
+C {ipin.sym} 0 -440 0 0 {name=p9 lab=lo_n}
+C {ipin.sym} 0 -480 0 0 {name=p10 lab=lo_p}
