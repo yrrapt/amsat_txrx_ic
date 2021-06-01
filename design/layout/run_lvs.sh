@@ -50,6 +50,9 @@ cd $run_dir
 sed -i '$s,.end,.include '"$SKY130A"'\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
 sed -i '$s,.end,.include '"$SKY130A"'\/libs.ref\/sky130_fd_sc_hs\/spice\/sky130_fd_sc_hs.spice\n.end,g' "$1.spice"
 
+# include the library passive definitions
+#sed -i '$s,.end,.include '"$SKY130A"'\/libs.ref\/sky130_fd_pr\/spice\/sky130_fd_pr__res_xhigh_po_0p35.model.spice\n.end,g' "$1.spice"
+
 # now compare the xschem schematic netlist and the magic extracted netlist
 netgen -batch lvs "$1_lvs.spice "$1"" ""$1".spice "$1"" "$SKY130A/libs.tech/netgen/sky130A_setup.tcl"
 # netgen -batch lvs "$1_lvs.spice "$1"" ""$1".spice "$1"" "$SKY130A/libs.tech/netgen/sky130A_setup.tcl" lvs_report.out -json

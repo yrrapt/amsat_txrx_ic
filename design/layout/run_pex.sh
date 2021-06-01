@@ -16,52 +16,40 @@ fi
 cd "$1"
 
 # create a magic tcl command file
+#echo "gds flatten true
+#gds read ../../amsat_txrx_ic.gds
+#load $1
+#select top cell
+#extract all
+#ext2sim labels on
+#ext2sim
+#extresist tolerance 10
+#extresist
+#ext2spice lvs
+#ext2spice cthresh 0.01
+#ext2spice extresist on
+#ext2spice
+#ext2spice -o $1_pex.spice
+#exit" > magic_commands.tcl
+
 echo "gds flatten true
 gds read ../../amsat_txrx_ic.gds
 load $1
-extract all
-ext2sim labels on
-ext2sim
-extresist tolerance 10
-extresist
+select top cell
+port makeall
 ext2spice lvs
 ext2spice cthresh 0.01
-ext2spice extresist on
-ext2spice" > magic_commands.tcl
+ext2spice rthresh 0.01
+ext2spice subcircuit on
+ext2spice ngspice
+ext2spice -o $1_pex.spice
+exit" > magic_commands.tcl
+
+
 
 # remove the old LVS export
 rm -f drc_cell_lvs.spice
 
 # run magic
 magic -noconsole -dnull magic_commands.tcl
-
-# wait for new file to be generated
-printf "Waiting for LVS extracted netlist to be generated.."
-while [ ! -s drc_cell_lvs.spice ]
-    do
-    printf "."
-    sleep 0.25
-done
-echo " "
-
-# move to the root directory and use xschem to generate a new netlist in LVS mode
-run_dir=$PWD
-cd ../../../..
-#xschem -n -q -o "$run_dir" --tcl "set top_subckt 1" "design/$1/$1.sch"
-xschem -n -q -o "$run_dir" "design/$1/$1.sch"
-cd $run_dir
-
-# include the digital cell definitions
-sed -i '$s,.end,.include '"$HOME"'\/skywater\/open_pdks\/sky130\/sky130A\/libs.ref\/sky130_fd_sc_hd\/spice\/sky130_fd_sc_hd.spice\n.end,g' "$1.spice"
-sed -i '$s,.end,.include '"$HOME"'\/skywater\/open_pdks\/sky130\/sky130A\/libs.ref\/sky130_fd_sc_hs\/spice\/sky130_fd_sc_hs.spice\n.end,g' "$1.spice"
-
-
-# now compare the xschem schematic netlist and the magic extracted netlist
-#netgen -batch lvs "drc_cell_lvs.spice" ""$1".spice" ~/skywater/open_pdks/sky130/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
-netgen -batch lvs "drc_cell_lvs.spice" ""$1".spice" /usr/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl lvs_report.out -json
-
-
-## organise the parasitic extraction netlist
-#sed -i -e 's/.subckt drc_cell/.subckt "$1"/g' drc_cell_pex.spice
-#mv drc_cell_pex.spice "$1"_pex.spice
 
