@@ -1,0 +1,3 @@
+symsq name=diff:len=150:w=4:s=6:ilen=13:n=6:metal=met5:metal2=met4:xorg=200:yorg=200 
+pix diff 8
+cifsave diff upconverter_inductor.cif
