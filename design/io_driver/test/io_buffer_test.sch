@@ -77,25 +77,26 @@ N 840 -160 1080 -160 { lab=buf_p}
 N 310 -420 310 -250 { lab=#net1}
 N 720 -420 720 -250 { lab=#net1}
 N 1160 -420 1360 -420 { lab=#net1}
-N 1160 -420 1160 -220 { lab=#net1}
 N 970 -110 970 -80 { lab=en}
 N 970 -110 1030 -110 { lab=en}
 N 970 -20 970 0 { lab=GND}
 N 720 0 970 0 { lab=GND}
 N 1160 -20 1160 0 { lab=GND}
+N 1160 -280 1160 -220 { lab=#net5}
+N 1160 -420 1160 -340 { lab=#net1}
 C {ind.sym} 1360 -350 0 0 {name=L1
 m=1
-value=20n
+value=10n
 footprint=1206
 device=inductor}
 C {ind.sym} 1650 -350 0 0 {name=L2
 m=1
-value=20n
+value=10n
 footprint=1206
 device=inductor}
 C {ind.sym} 1770 -130 0 0 {name=L3
 m=1
-value=20n
+value=10n
 footprint=1206
 device=inductor}
 C {res.sym} 1880 -130 0 0 {name=R1
@@ -110,7 +111,7 @@ C {code.sym} 270 -670 0 0 {name=SIM only_toplevel=false value="
 .param temp=27
 
 *.op
-.tran 1p 20n
+.tran 1p 100n
 *.ac dec 100 100 100G 
 
 *.options rshunt=1e11
@@ -187,20 +188,20 @@ C {io_driver/io_driver.sym} 1160 -150 0 0 {name=x1}
 C {vsource.sym} 1030 -50 0 0 {name=Vdd4 value=1.8}
 C {capa.sym} 1360 -70 2 0 {name=C4
 m=1
-value=4p
+value=10p
 footprint=1206
 device="ceramic capacitor"}
 C {capa.sym} 1650 -70 2 0 {name=C5
 m=1
-value=4p
+value=10p
 footprint=1206
 device="ceramic capacitor"}
 C {lab_wire.sym} 1360 -180 0 1 {name=l6 sig_type=std_logic lab=out_p}
 C {lab_wire.sym} 1650 -180 0 1 {name=l7 sig_type=std_logic lab=out_n}
 C {lab_wire.sym} 1080 -190 0 0 {name=l9 sig_type=std_logic lab=bias}
 C {lc_oscillator/lc_oscillator.sym} 310 -150 0 0 {name=x2}
-C {lc_oscillator_buffer/lc_oscillator_buffer.sym} 720 -150 0 0 {name=x3}
-C {isource.sym} 520 -310 0 0 {name=Ibias1 value=20u}
+C {lc_oscillator_buffer/lc_oscillator_buffer.sym} 720 -150 0 0 {name=x3[3:0]}
+C {isource.sym} 520 -310 0 0 {name=Ibias1[3:0] value=20u}
 C {isource.sym} 120 -310 0 0 {name=Ibias2 value=40u}
 C {vsource.sym} 80 -50 0 0 {name=Vdd1 value=0.9}
 C {lab_wire.sym} 600 -160 0 0 {name=l4 sig_type=std_logic lab=osc_p}
@@ -215,3 +216,4 @@ device="ceramic capacitor"}
 C {vsource.sym} 1160 -50 0 0 {name=Vio value=0.0}
 C {lab_wire.sym} 1080 -110 0 0 {name=l1 sig_type=std_logic lab=en}
 C {lab_wire.sym} 600 -90 0 0 {name=l2 sig_type=std_logic lab=en}
+C {ammeter.sym} 1160 -310 0 0 {name=Vmeas}

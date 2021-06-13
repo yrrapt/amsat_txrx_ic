@@ -97,7 +97,6 @@ C {devices/lab_pin.sym} 1480 -710 0 0 {name=l10 sig_type=std_logic lab=vss}
 C {devices/lab_pin.sym} 1480 -370 0 0 {name=l11 sig_type=std_logic lab=vss}
 C {devices/lab_pin.sym} 1480 -610 2 0 {name=l12 sig_type=std_logic lab=vdda}
 C {devices/lab_pin.sym} 1480 -950 2 0 {name=l13 sig_type=std_logic lab=vdda}
-C {devices/lab_pin.sym} 1480 -1290 2 0 {name=l9 sig_type=std_logic lab=vdda}
 C {devices/lab_pin.sym} 1550 -610 2 0 {name=l14 sig_type=std_logic lab=vddd}
 C {devices/lab_pin.sym} 1550 -950 2 0 {name=l15 sig_type=std_logic lab=vddd}
 C {devices/lab_pin.sym} 1480 -1050 0 0 {name=l17 sig_type=std_logic lab=vss}
@@ -121,3 +120,4 @@ C {devices/lab_pin.sym} 640 -1060 0 0 {name=l16 sig_type=std_logic lab=en_buf}
 C {devices/lab_pin.sym} 330 -880 0 0 {name=l28 sig_type=std_logic lab=en_buf}
 C {devices/lab_pin.sym} 330 -860 0 0 {name=l29 sig_type=std_logic lab=en_buf_n}
 C {devices/lab_pin.sym} 640 -1040 0 0 {name=l30 sig_type=std_logic lab=en_buf_n}
+C {devices/lab_pin.sym} 1330 -410 0 0 {name=l6 sig_type=std_logic lab=data_quarter}

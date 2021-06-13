@@ -72,54 +72,54 @@ N 1280 -420 1520 -420 { lab=out_n}
 N 460 -460 460 -400 { lab=g_p}
 N -0 -0 60 -0 { lab=GND}
 N 60 -0 160 0 { lab=GND}
-N 460 -700 460 -520 { lab=#net3}
-N 300 -700 300 -520 { lab=#net3}
+N 460 -700 460 -520 { lab=vdd}
+N 300 -700 300 -520 { lab=vdd}
 N 760 -420 1000 -420 { lab=out_p}
-N 1140 -700 1140 -680 { lab=#net3}
+N 1140 -700 1140 -680 { lab=vdd}
 N 1220 -480 1220 -440 { lab=out_n}
 N 1220 -440 1280 -440 { lab=out_n}
 N 1280 -440 1280 -420 { lab=out_n}
 N 1060 -480 1060 -440 { lab=out_p}
 N 1000 -440 1060 -440 { lab=out_p}
 N 1000 -440 1000 -420 { lab=out_p}
-N -0 -700 -0 -360 { lab=#net3}
-N 300 -700 460 -700 { lab=#net3}
-N -0 -700 300 -700 { lab=#net3}
-N 460 -700 1140 -700 { lab=#net3}
-N 1960 -700 1960 -320 { lab=#net3}
-N 1720 -700 1960 -700 { lab=#net3}
-N 2110 -210 2240 -210 { lab=in_n}
-N 2110 -230 2240 -230 { lab=in_p}
+N -0 -700 -0 -360 { lab=vdd}
+N 300 -700 460 -700 { lab=vdd}
+N -0 -700 300 -700 { lab=vdd}
+N 460 -700 1140 -700 { lab=vdd}
+N 1960 -700 1960 -320 { lab=vdd}
+N 1720 -700 1960 -700 { lab=vdd}
+N 2110 -210 2270 -210 { lab=in_n}
+N 2110 -230 2270 -230 { lab=in_p}
 N 1960 -120 1960 0 { lab=GND}
 N 1720 -60 1720 0 { lab=GND}
-N 1720 -180 1720 -120 { lab=#net4}
-N 1720 -180 1810 -180 { lab=#net4}
-N 1720 -700 1720 -380 { lab=#net3}
-N 1720 -320 1720 -260 { lab=#net5}
-N 1720 -260 1810 -260 { lab=#net5}
+N 1720 -180 1720 -120 { lab=#net3}
+N 1720 -180 1810 -180 { lab=#net3}
+N 1720 -700 1720 -380 { lab=vdd}
+N 1720 -320 1720 -260 { lab=#net4}
+N 1720 -260 1810 -260 { lab=#net4}
 N 2390 -120 2390 0 { lab=GND}
-N 2200 -280 2240 -280 { lab=#net6}
-N 2200 -320 2200 -280 { lab=#net6}
-N 2200 -700 2200 -380 { lab=#net3}
-N 2390 -700 2390 -320 { lab=#net3}
+N 2200 -280 2270 -280 { lab=#net5}
+N 2200 -320 2200 -280 { lab=#net5}
+N 2200 -700 2200 -380 { lab=vdd}
+N 2390 -700 2390 -320 { lab=vdd}
 N 1720 0 1960 0 { lab=GND}
 N 1960 0 2390 0 { lab=GND}
-N 1960 -700 2200 -700 { lab=#net3}
+N 1960 -700 2200 -700 { lab=vdd}
 N 1420 0 1720 0 { lab=GND}
-N 1140 -700 1720 -700 { lab=#net3}
-N 2540 -230 2590 -230 { lab=loo_p}
-N 2540 -210 2590 -210 { lab=loo_n}
-N 2200 -700 2390 -700 { lab=#net3}
+N 1140 -700 1720 -700 { lab=vdd}
+N 2510 -230 2560 -230 { lab=loo_p}
+N 2510 -210 2560 -210 { lab=loo_n}
+N 2200 -700 2390 -700 { lab=vdd}
 N 2940 -120 2940 0 { lab=GND}
-N 2750 -280 2790 -280 { lab=#net7}
-N 2750 -320 2750 -280 { lab=#net7}
-N 2750 -700 2750 -380 { lab=#net3}
-N 2940 -700 2940 -320 { lab=#net3}
-N 3090 -230 3140 -230 { lab=buffer_p}
-N 3090 -210 3140 -210 { lab=buffer_n}
-N 2750 -700 2940 -700 { lab=#net3}
+N 2750 -280 2820 -280 { lab=#net6}
+N 2750 -320 2750 -280 { lab=#net6}
+N 2750 -700 2750 -380 { lab=vdd}
+N 2940 -700 2940 -320 { lab=vdd}
+N 3060 -230 3110 -230 { lab=buffer_p}
+N 3060 -210 3110 -210 { lab=buffer_n}
+N 2750 -700 2940 -700 { lab=vdd}
 N 2390 0 2940 0 { lab=GND}
-N 2390 -700 2750 -700 { lab=#net3}
+N 2390 -700 2750 -700 { lab=vdd}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 860 -100 0 0 {name=Mcurr_p
 L=1.00
 W=10
@@ -306,16 +306,19 @@ C {vsource.sym} 1720 -90 0 0 {name=Vctl value=0.9}
 C {lab_wire.sym} 2110 -230 0 1 {name=l13 sig_type=std_logic lab=in_p}
 C {lab_wire.sym} 2110 -210 0 1 {name=l14 sig_type=std_logic lab=in_n}
 C {lc_oscillator_buffer/lc_oscillator_buffer.sym} 2390 -220 0 0 {name=x3}
-C {lab_wire.sym} 2590 -230 0 1 {name=l15 sig_type=std_logic lab=loo_p}
-C {lab_wire.sym} 2590 -210 0 1 {name=l16 sig_type=std_logic lab=loo_n}
-C {isource.sym} 2200 -350 0 0 {name=Ibias1 value=100u}
+C {lab_wire.sym} 2560 -230 0 1 {name=l15 sig_type=std_logic lab=loo_p}
+C {lab_wire.sym} 2560 -210 0 1 {name=l16 sig_type=std_logic lab=loo_n}
+C {isource.sym} 2200 -350 0 0 {name=Ibias1 value=20u}
 C {lab_wire.sym} 1040 -280 0 1 {name=l1 sig_type=std_logic lab=loo_n}
 C {lab_wire.sym} 1240 -280 0 0 {name=l3 sig_type=std_logic lab=loo_n}
 C {lab_wire.sym} 1560 -280 0 1 {name=l4 sig_type=std_logic lab=loo_p}
 C {lab_wire.sym} 720 -280 0 0 {name=l2 sig_type=std_logic lab=loo_p}
 C {lc_oscillator_buffer/lc_oscillator_buffer.sym} 2940 -220 0 0 {name=x4}
-C {lab_wire.sym} 3140 -230 0 1 {name=l17 sig_type=std_logic lab=buffer_p}
-C {lab_wire.sym} 3140 -210 0 1 {name=l18 sig_type=std_logic lab=buffer_n}
-C {isource.sym} 2750 -350 0 0 {name=Ibias2 value=100u}
-C {lab_pin.sym} 2790 -230 0 0 {name=l19 sig_type=std_logic lab=out_p}
-C {lab_pin.sym} 2790 -210 0 0 {name=l20 sig_type=std_logic lab=out_n}
+C {lab_wire.sym} 3110 -230 0 1 {name=l17 sig_type=std_logic lab=buffer_p}
+C {lab_wire.sym} 3110 -210 0 1 {name=l18 sig_type=std_logic lab=buffer_n}
+C {isource.sym} 2750 -350 0 0 {name=Ibias2 value=20u}
+C {lab_pin.sym} 2820 -230 0 0 {name=l19 sig_type=std_logic lab=out_p}
+C {lab_pin.sym} 2820 -210 0 0 {name=l20 sig_type=std_logic lab=out_n}
+C {lab_pin.sym} 0 -700 0 0 {name=l21 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 2270 -160 0 0 {name=l22 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 2820 -160 0 0 {name=l23 sig_type=std_logic lab=vdd}
