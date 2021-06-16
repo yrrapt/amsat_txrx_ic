@@ -155,7 +155,5 @@ L=3.5
 model=res_xhigh_po
 spiceprefix=X
 mult=1}
-C {vsource.sym} 30 -30 0 0 {name=V1 value=1.2}
-C {lab_pin.sym} 30 -60 0 0 {name=l9 sig_type=std_logic lab=bias}
 C {lab_pin.sym} 630 -120 3 0 {name=l10 sig_type=std_logic lab=g_p}
 C {lab_pin.sym} 1020 -120 3 0 {name=l11 sig_type=std_logic lab=g_n}
