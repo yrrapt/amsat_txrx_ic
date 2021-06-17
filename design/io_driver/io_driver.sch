@@ -59,9 +59,9 @@ N 730 -540 730 -150 { lab=out_p}
 N 920 -520 920 -150 { lab=out_n}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 710 -120 0 0 {name=Mdrive_p
 L=0.15
-W=50
-nf=10
-mult=10
+W=100
+nf=20
+mult=2
 ad="'int((nf+1)/2) * W/nf * 0.29'" 
 pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
 as="'int((nf+2)/2) * W/nf * 0.29'" 
@@ -73,9 +73,9 @@ spiceprefix=X
 }
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 940 -120 0 1 {name=Mdrive_n
 L=0.15
-W=50
-nf=10
-mult=10
+W=100
+nf=20
+mult=2
 ad="'int((nf+1)/2) * W/nf * 0.29'" 
 pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
 as="'int((nf+2)/2) * W/nf * 0.29'" 
@@ -141,8 +141,8 @@ C {opin.sym} 1180 -540 0 0 {name=p6 lab=out_p}
 C {opin.sym} 1180 -520 0 0 {name=p7 lab=out_n}
 C {ipin.sym} 1190 -120 0 1 {name=p1 lab=in_n}
 C {ipin.sym} 460 -120 0 0 {name=p2 lab=in_p}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 490 -120 3 1 {name=C1 model=cap_mim_m3_1 W=20 L=20 MF=4 spiceprefix=X}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 1160 -120 1 0 {name=C2 model=cap_mim_m3_1 W=20 L=20 MF=4 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 490 -120 3 1 {name=C1 model=cap_mim_m3_1 W=20 L=20 MF=1 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 1160 -120 1 0 {name=C2 model=cap_mim_m3_1 W=20 L=20 MF=1 spiceprefix=X}
 C {sky130_fd_pr/res_xhigh_po.sym} 600 -210 0 0 {name=Rbias_p
 W=0.35
 L=3.5

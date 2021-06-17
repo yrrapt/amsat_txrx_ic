@@ -16,12 +16,12 @@ N 0 -220 100 -220 { lab=lo_p}
 N 0 -200 100 -200 { lab=lo_n}
 N 0 -160 100 -160 { lab=in_p}
 N 0 -140 100 -140 { lab=in_n}
-N 380 -640 380 -600 {}
-N 0 -640 380 -640 {}
+N 380 -640 380 -600 { lab=vdd}
+N 0 -640 380 -640 { lab=vdd}
 N 460 -400 460 -360 { lab=out_p}
 N 300 -400 300 -320 { lab=out_n}
-N 220 -640 220 -300 {}
-C {upconvert_inductor/upconvert_inductor.sym} 380 -500 0 0 {name=x1}
+N 220 -640 220 -300 { lab=vdd}
+C {upconvert_inductor/upconvert_inductor_lvs.sym} 380 -500 0 0 {name=x1}
 C {ipin.sym} 0 -140 0 0 {name=p1 lab=in_n}
 C {ipin.sym} 0 -160 0 0 {name=p2 lab=in_p}
 C {ipin.sym} 0 -260 0 0 {name=p3 lab=bias_10u}

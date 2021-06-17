@@ -26,12 +26,12 @@ N 550 -310 790 -230 { lab=#net2}
 N 430 -310 550 -310 { lab=#net2}
 N 430 -170 430 -110 { lab=#net3}
 N 910 -170 910 -110 { lab=#net3}
-N 670 -80 870 -80 { lab=bias}
-N 670 -140 670 -80 { lab=bias}
-N 180 -140 670 -140 { lab=bias}
-N 100 -140 100 -110 { lab=bias}
-N 140 -80 180 -80 { lab=bias}
-N 180 -140 180 -80 { lab=bias}
+N 670 -80 870 -80 { lab=bias_20u_p}
+N 670 -140 670 -80 { lab=bias_20u_p}
+N 180 -140 670 -140 { lab=bias_20u_p}
+N 100 -140 100 -110 { lab=bias_20u_p}
+N 140 -80 180 -80 { lab=bias_20u_p}
+N 180 -140 180 -80 { lab=bias_20u_p}
 N 80 -80 100 -80 { lab=vss}
 N 80 -80 80 0 { lab=vss}
 N 100 0 410 0 { lab=vss}
@@ -53,8 +53,8 @@ N 550 -560 590 -560 { lab=ind_p}
 N 670 -560 690 -560 { lab=vctl}
 N 750 -560 790 -560 { lab=ind_n}
 N 0 0 80 0 { lab=vss}
-N 100 -200 100 -140 { lab=bias}
-N 0 -200 100 -200 { lab=bias}
+N 100 -200 100 -140 { lab=bias_20u_p}
+N 0 -200 100 -200 { lab=bias_20u_p}
 N 0 -620 670 -620 { lab=vctl}
 N 670 -620 670 -560 { lab=vctl}
 N 410 -230 430 -230 { lab=vss}
@@ -64,8 +64,8 @@ N 410 -230 410 -80 { lab=vss}
 N 410 0 430 0 { lab=vss}
 N 910 -390 910 -310 { lab=#net1}
 N 430 -390 430 -310 { lab=#net2}
-N 470 -80 670 -80 { lab=bias}
-N 100 -140 180 -140 { lab=bias}
+N 470 -80 670 -80 { lab=bias_20u_p}
+N 100 -140 180 -140 { lab=bias_20u_p}
 N 80 0 100 0 { lab=vss}
 N 910 -430 910 -390 { lab=#net1}
 N 430 -430 430 -390 { lab=#net2}
@@ -125,10 +125,11 @@ sa=0 sb=0 sd=0
 model=nfet_01v8_lvt
 spiceprefix=X
 }
-C {sky130_fd_pr/cap_mim_m3_1.sym} 550 -460 0 0 {name=C1 model=cap_mim_m3_1 W=5 L=5 MF=4 spiceprefix=X}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 790 -460 0 1 {name=C2 model=cap_mim_m3_1 W=5 L=5 MF=4 spiceprefix=X}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 620 -390 3 1 {name=C3 model=cap_mim_m3_1 W=5 L=5 MF=1 spiceprefix=X}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 720 -390 1 0 {name=C4 model=cap_mim_m3_1 W=5 L=5 MF=1 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 550 -460 0 0 {name=C1 model=cap_mim_m3_1 W=6 L=6 MF=4 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 790 -460 0 1 {name=C2 model=cap_mim_m3_1 W=6 L=6 MF=4 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 620 -390 3 1 {name=C3 model=cap_mim_m3_1 W=6
+ L=6 MF=1 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 720 -390 1 0 {name=C4 model=cap_mim_m3_1 W=6 L=6 MF=1 spiceprefix=X}
 C {sky130_fd_pr/nfet_01v8_lvt.sym} 450 -460 0 1 {name=M4
 L=0.15
 W=40
