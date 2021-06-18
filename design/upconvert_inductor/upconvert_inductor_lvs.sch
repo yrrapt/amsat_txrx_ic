@@ -16,8 +16,6 @@ Pi Model at f=8 GHz:  Q = 2.874 , 2.891 , 7.294
 L = 3.54 nH R = 12.45 
 Cs1 = 76.04 fF Rs1 = 15.75 
 Cs2 = 75.83 fF Rs2 = 15.83      Est. Resonance = 9.71 GHz} 550 -540 0 0 0.2 0.2 {}
-N 420 -220 840 -220 { lab=com}
-N 0 -220 420 -220 { lab=p1}
 N 0 -360 420 -360 { lab=com}
 N 420 -360 420 -220 { lab=com}
 C {iopin.sym} 840 -220 0 0 {name=p1 lab=p2}
