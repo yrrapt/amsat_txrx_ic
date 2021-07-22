@@ -79,7 +79,7 @@ endif
 	./autogen.sh --adms; \
 	mkdir release; \
 	cd release; \
-	../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp; \
+	../configure --with-x --with-ngshared --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp; \
 	make; \
 	sudo make install
 	echo "set ngbehavior=hsa" > ~/.spiceinit
