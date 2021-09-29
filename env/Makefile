@@ -6,6 +6,10 @@ REPLACE 		= 0
 XYCE_SERIAL 	= 1
 XYCE_PARALLEL 	= 0
 
+setup:
+	sudo mkdir -p /tools
+	sudo chown -r $(USER):$(USER) /tools
+
 xschem:
 ifeq ($(REPLACE),1)
 	rm -rf /tools/xschem
@@ -13,7 +17,7 @@ endif
 	sudo apt install -y libx11-dev libxrender1 libxrender-dev libxcb1 libxaw7-dev \
 						libx11-xcb-dev libcairo2 libcairo2-dev tcl8.6 tcl8.6-dev \
 						tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk adms \
-						libreadline6-dev
+						libreadline6-dev csh
 	cd /tools; \
 	git clone git@github.com:StefanSchippers/xschem.git; \
 	cd xschem; \
@@ -68,7 +72,25 @@ endif
 	cp -f /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
 	echo "export SKY130A=/usr/share/pdk/sky130A" >> ~/.bashrc
 
+
 ngspice:
+ifeq ($(REPLACE),1)
+	rm -rf /tools/ngspice
+endif
+	cd /tools; \
+	git clone git://git.code.sf.net/p/ngspice/ngspice; \
+	cd ngspice; \
+	git checkout pre-master; \
+	./autogen.sh --adms; \
+	mkdir release; \
+	cd release; \
+	../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-openmp; \
+	make; \
+	sudo make install
+	echo "set ngbehavior=hsa" > ~/.spiceinit
+
+
+ngspice_shared:
 ifeq ($(REPLACE),1)
 	rm -rf /tools/ngspice
 endif
@@ -84,17 +106,20 @@ endif
 	sudo make install
 	echo "set ngbehavior=hsa" > ~/.spiceinit
 
+
 klayout:
 ifeq ($(REPLACE),1)
 	rm -rf /tools/klayout
 endif
 	cd /tools; \
+	sudo apt install -y qt5-qmake ruby-dev; \
 	git clone git@github.com:KLayout/klayout.git; \
 	cd klayout; \
 	git fetch --tags; \
 	latestTag=$(git describe --tags `git rev-list --tags --max-count=1`); \
 	git checkout $latestTag; \
 	./build.sh
+
 
 venv:
 ifeq ($(REPLACE),1)
@@ -109,6 +134,7 @@ endif
 	python -m pip install wheel; \
 	python -m pip install -r $(PWD)/requirements.txt; \
 	)
+
 
 xyce:
 ifeq ($(REPLACE),1)
@@ -125,6 +151,7 @@ endif
 	tar -xvf trilinos-release-12-12-1.tar.gz; \
 	mv Trilinos-trilinos-release-12-12-1 trilinos_source; \
 	rm trilinos-release-12-12-1.tar.gz
+
 
 ifeq ($(XYCE_SERIAL),1)
 	cd /tools/xyce/trilinos; \
@@ -256,5 +283,5 @@ ifeq ($(XYCE_PARALLEL),1)
 	make install
 endif
 
-all: xschem xschem_sky130 magic netgen open_pdks ngspice klayout venv xyce
+all: setup xschem xschem_sky130 magic netgen open_pdks ngspice ngspice_shared klayout venv xyce
 	@echo "Done"
