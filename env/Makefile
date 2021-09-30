@@ -115,6 +115,7 @@ ifeq ($(REPLACE),1)
 endif
 	cd /tools; \
 	sudo apt install -y qt5-qmake ruby-dev; \
+	sudo apt install -y libqt5svg5* libqt5xmlpatterns* libqt5multimediawidgets5* libqt5multimedia5*
 	git clone https://github.com/KLayout/klayout.git; \
 	cd klayout; \
 	git fetch --tags; \
