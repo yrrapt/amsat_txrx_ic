@@ -92,6 +92,20 @@ endif
 	echo "set ngbehavior=hsa" > ~/.spiceinit
 
 
+gaw:
+ifeq ($(REPLACE),1)
+	rm -rf /tools/xschem-gaw
+endif
+	cd /tools; \
+	git clone https://github.com/yrrapt/xschem-gaw.git; \
+	cd xschem-gaw; \
+	sudo apt install libgtk-3-dev gettext; \
+	aclocal && automake --add-missing && autoconf; \
+	./configure; \
+	make; \
+	sudo make install
+
+
 ngspice_shared:
 ifeq ($(REPLACE),1)
 	rm -rf /tools/ngspice
