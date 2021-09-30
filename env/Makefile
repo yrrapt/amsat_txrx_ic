@@ -8,7 +8,7 @@ XYCE_PARALLEL 	= 0
 
 setup:
 	sudo mkdir -p /tools
-	sudo chown -r $(USER):$(USER) /tools
+	sudo chown -R $(USER):$(USER) /tools
 
 xschem:
 ifeq ($(REPLACE),1)
@@ -19,7 +19,7 @@ endif
 						tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk adms \
 						libreadline6-dev csh
 	cd /tools; \
-	git clone git@github.com:StefanSchippers/xschem.git; \
+	git clone https://github.com/StefanSchippers/xschem.git; \
 	cd xschem; \
 	./configure; \
 	make; \
@@ -32,7 +32,7 @@ endif
 	cd /tools; \
 	mkdir -p xschem_library; \
 	cd xschem_library; \
-	git clone git@github.com:StefanSchippers/xschem_sky130.git; \
+	git clone https://github.com/StefanSchippers/xschem_sky130.git; \
 	cd xschem_sky130; \
 
 magic:
@@ -40,7 +40,7 @@ ifeq ($(REPLACE),1)
 	rm -rf /tools/magic
 endif
 	cd /tools; \
-	git clone git://opencircuitdesign.com/magic; \
+	git clone https://github.com/RTimothyEdwards/magic; \
 	cd magic; \
 	./configure; \
 	make; \
@@ -51,25 +51,27 @@ ifeq ($(REPLACE),1)
 	rm -rf /tools/netgen
 endif
 	cd /tools; \
-	git clone git://opencircuitdesign.com/netgen; \
+	git clone https://github.com/RTimothyEdwards/netgen; \
 	cd netgen; \
 	./configure; \
 	make; \
 	sudo make install
 
 
+# needs 32GB space to build and another 8GB to install
 open_pdks:
 ifeq ($(REPLACE),1)
 	rm -rf /pdk/open_pdks
 endif
 	sudo mkdir -p /pdk; \
+	sudo chown -R $(USER):$(USER) /pdk; \
 	cd /pdk; \
-	git clone git://opencircuitdesign.com/open_pdks; \
+	git clone https://github.com/RTimothyEdwards/open_pdks; \
 	cd open_pdks; \
 	./configure --enable-sky130-pdk; \
 	make; \
 	sudo make install
-	cp -f /usr/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
+	cp -f /usr/local/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc ~/.magicrc
 	echo "export SKY130A=/usr/share/pdk/sky130A" >> ~/.bashrc
 
 
@@ -113,12 +115,15 @@ ifeq ($(REPLACE),1)
 endif
 	cd /tools; \
 	sudo apt install -y qt5-qmake ruby-dev; \
-	git clone git@github.com:KLayout/klayout.git; \
+	sudo apt install -y libqt5svg5* libqt5xmlpatterns* libqt5multimediawidgets5* libqt5multimedia5*
+	git clone https://github.com/KLayout/klayout.git; \
 	cd klayout; \
 	git fetch --tags; \
 	latestTag=$(git describe --tags `git rev-list --tags --max-count=1`); \
 	git checkout $latestTag; \
-	./build.sh
+	./build.sh \
+	echo "export LD_LIBRARY_PATH=/tools/klayout/bin-release" >> ~/.bashrc \
+	echo "export PATH=$PATH:/tools/klayout/bin-release" >> ~/.bashrc 
 
 
 venv:
