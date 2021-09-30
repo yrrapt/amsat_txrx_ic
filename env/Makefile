@@ -121,7 +121,9 @@ endif
 	git fetch --tags; \
 	latestTag=$(git describe --tags `git rev-list --tags --max-count=1`); \
 	git checkout $latestTag; \
-	./build.sh
+	./build.sh \
+	echo "export LD_LIBRARY_PATH=/tools/klayout/bin-release" >> ~/.bashrc \
+	echo "export PATH=$PATH:/tools/klayout/bin-release" >> ~/.bashrc 
 
 
 venv:
