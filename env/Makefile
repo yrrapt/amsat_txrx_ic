@@ -9,6 +9,7 @@ XYCE_PARALLEL 	= 0
 setup:
 	sudo mkdir -p /tools
 	sudo chown -R $(USER):$(USER) /tools
+	sudo apt install -y build-essential autoconf libtool automake
 
 xschem:
 ifeq ($(REPLACE),1)
@@ -128,7 +129,7 @@ ifeq ($(REPLACE),1)
 	rm -rf /tools/klayout
 endif
 	cd /tools; \
-	sudo apt install -y qt5-qmake ruby-dev; \
+	sudo apt install -y qt5-qmake ruby-dev qtmultimedia5-dev qttools5-dev; \
 	sudo apt install -y libqt5svg5* libqt5xmlpatterns* libqt5multimediawidgets5* libqt5multimedia5*
 	git clone https://github.com/KLayout/klayout.git; \
 	cd klayout; \
