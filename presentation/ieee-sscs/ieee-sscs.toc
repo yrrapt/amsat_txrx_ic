@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Objectives}{2}{0}{1}
+\beamer@subsectionintoc {2}{1}{Bandgap Reference}{5}{0}{1}
+\beamer@subsectionintoc {2}{2}{Phase Locked Loop}{7}{0}{1}
